@@ -9,24 +9,30 @@
  */
 namespace app\login\service;
 use app\login\dao\LoginDao;
+use app\login\library\LoginLibrary;
 
 class LoginService
 {
     /**
-     * 名  称 : userInfo()
-     * 功  能 : 获取dao层返回的用户信息
+     * 名  称 : userInit()
+     * 功  能 : 处理用户登录认证，返回用户token身份标识
      * 变  量 : --------------------------------------
-     * 输  入 : (string) $openid => '小程序用户openid';
+     * 输  入 : (string) $code      => '用户临时登录code凭证';
+     * 输  入 : (string) $appId     => '小程序AppId';
+     * 输  入 : (string) $appSecret => '小程序AppSecret秘钥';
      * 输  出 : [ 'msg' => 'success', 'data' => true ]
      * 输  出 : [ 'msg' => 'error',  'data' => false ]
      * 创  建 : 2018/06/12 21:50
      */
-    public function userInfo($openid)
+    public function userInit($code,$appId,$appSecret)
     {
-        $arr = (new LoginDao)->loginSelect($openid);
+        // 引入LoginLibrary类库文件
+        $data = (new LoginLibrary)->userOpenid($code,$appId,$appSecret);
 
-        if($arr['msg']=='error') return returnData($arr);
+        if($data['msg']=='error'){
+            return returnData('error','登录失败');
+        }
 
-        return returnData('success',$arr['data']);
+        return returnData('success',$data['data']);
     }
 }
