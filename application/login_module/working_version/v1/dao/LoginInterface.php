@@ -7,7 +7,7 @@
  *  文件描述 :  数据持久层接口,声明：获取用户数据、添加用户数据
  *  历史记录 :  -----------------------
  */
-namespace app\login\dao;
+namespace app\login_module\working_version\v1\dao;
 
 interface LoginInterface{
 

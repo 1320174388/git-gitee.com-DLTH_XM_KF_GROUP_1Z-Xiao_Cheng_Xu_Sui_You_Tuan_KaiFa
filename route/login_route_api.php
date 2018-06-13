@@ -7,4 +7,7 @@
  *  文件描述 :  模块路由地址
  *  历史记录 :  -----------------------
  */
-Route::post('/login_init/:code','login/LoginController/loginInit');
+Route::post(
+    ':v/login_init/:code',
+    'login_module/:v.controller.LoginController/loginInit'
+);

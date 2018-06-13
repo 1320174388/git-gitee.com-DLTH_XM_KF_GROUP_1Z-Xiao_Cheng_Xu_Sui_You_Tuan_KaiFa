@@ -9,12 +9,6 @@
 // | Author: liu21st <liu21st@gmail.com>
 // +----------------------------------------------------------------------
 
-Route::get('think', function () {
-    return 'hello,ThinkPHP5!';
+Route::rule('/', function () {
+    return returnResponse(404,'没有数据');
 });
-
-Route::get('hello/:name', 'index/hello');
-
-return [
-
-];

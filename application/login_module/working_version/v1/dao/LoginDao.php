@@ -7,8 +7,8 @@
  *  文件描述 :  数据持久层,操作User：Model模型处理数据
  *  历史记录 :  -----------------------
  */
-namespace app\login\dao;
-use  app\login\model\UserModel;
+namespace app\login_module\working_version\v1\dao;
+use  app\login_module\working_version\v1\model\UserModel;
 
 class LoginDao implements LoginInterface
 {
@@ -17,15 +17,20 @@ class LoginDao implements LoginInterface
      * 功  能 : 声明：获取用户数据
      * 变  量 : --------------------------------------
      * 输  入 : (string) $openid => '小程序用户openid';
-     * 输  出 : [ 'msg' => 'success', 'data' => true ]
-     * 输  出 : [ 'msg' => 'error',  'data' => false ]
+     * 输  出 : [ 'msg' => 'success', 'data' => $userInfo ]
+     * 输  出 : [ 'msg' => 'empty',   'data' => false ]
      * 创  建 : 2018/06/12 21:48
      */
     public function loginSelect($openid)
     {
-        $userList = UserModel::all();
-
-        return returnData('success',$userList);
+        // 获取数据库用户信息
+        $userInfo = UserModel::where('user_openid', $openid)->find();
+        // 验证数据
+        if(!$userInfo){
+            return returnData('empty');
+        }
+        // 返回数据格式
+        return returnData('success',$userInfo);
     }
 
     /**
@@ -39,6 +44,21 @@ class LoginDao implements LoginInterface
      */
     public function loginCreate($openid)
     {
-
+        // 实例化用户数据模型
+        $userModel = new UserModel();
+        // 保存用户openid
+        $userModel->user_openid = $openid;
+        // 生成用户token身份标识
+        $userModel->user_token = userToken();
+        // 创建时间
+        $userModel->user_time = time();
+        // 保存数据库
+        $res = $userModel->save();
+        // 验证是否保存成功
+        if(!$res){
+            return returnData('error');
+        }
+        // 返回数据格式
+        return returnData('success',true);
     }
 }

@@ -7,7 +7,7 @@
  *  文件描述 :  用户身份标识列表模型
  *  历史记录 :  -----------------------
  */
-namespace app\login\model;
+namespace app\login_module\working_version\v1\model;
 use think\Model;
 
 class UserModel extends Model

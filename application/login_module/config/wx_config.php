@@ -10,4 +10,5 @@
 return [
     'wx_AppID'     => 'wxccc5a444059f1b68',
     'wx_AppSecret' => '10ea8042bb37f632aee713775f77587f',
+    'wx_LoginUrl'  => 'https://api.weixin.qq.com/sns/jscode2session'
 ];
