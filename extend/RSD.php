@@ -48,63 +48,71 @@ class RSD
     /**
      * 名  称 : returnData()
      * 功  能 : 返回函数数据
-     * 输  入 : (Array)  $Array  => '需要验证数据';
-     * 输  入 : (String) $type   => '验证数据类型';
-     * 输  入 : (String) $String => '返回提示信息';
+     * 输  入 : (Array)  $Array   => '需要验证数据';
+     * 输  入 : (String) $type    => '验证数据类型';
+     * 输  入 : (String) $success => '正确提示信息';
+     * 输  入 : (String) $error   => '正确提示信息';
      * 创  建 : 2018/08/15 17:10
      */
-    public static function wxReponse($Array,$type,$String='')
+    public static function wxReponse($Array,$type,$success='',$error='')
     {
         // 验证Service层数据
         if($type==self::$rsdConfig['Service'])
         {
-            return self::serviceValidate($Array,$String);
+            return self::serviceValidate($Array,$success,$error);
         }
         // 验证Library层数据
         if($type==self::$rsdConfig['Lirbrary'])
         {
-            return self::libraryValidate($Array,$String);
+            return self::libraryValidate($Array,$success,$error);
         }
         // 验证Dao层数据
         if($type==self::$rsdConfig['Dao'])
         {
-            return self::daoValidate($Array,$String);
+            return self::daoValidate($Array,$success,$error);
         }
         // 验证Model层数据
         if($type==self::$rsdConfig['Model'])
         {
-            return self::modelValidate($Array,$String);
+            return self::modelValidate($Array,$success,$error);
         }
     }
 
     /**
      * 名  称 : serviceValidate()
      * 功  能 : 验证Service层数据
-     * 输  入 : (Array) $Array   => '需要验证数据';
-     * 输  入 : (String) $String => '返回提示信息';
+     * 输  入 : (Array)  $Array   => '需要验证数据';
+     * 输  入 : (String) $success => '正确提示信息';
+     * 输  入 : (String) $error   => '正确提示信息';
      * 创  建 : 2018/08/15 17:10
      */
-    private static function serviceValidate($Array,$String='')
+    private static function serviceValidate($Array,$success='',$error='')
     {
-        // 返回正确数据
+        // 返回错误数据
         if($Array['msg']=='error')
         {
-            if(!empty($String)){
+            if(!empty($error)){
                 return self::returnJson(
-                    1, $String
+                    1, $error
                 );
             }
             return self::returnJson(
                 1, $Array['data']
             );
         }
-        // 返回错误数据
+        // 返回正确数据
         if($Array['msg']=='success')
         {
-            if( $String === '请求成功' )
+            if( $success === '请求成功' )
             {
                 return self::returnJson(
-                    0, $String, $Array['data']
+                    0, $success, $Array['data']
+                );
+            }
+            if( !empty($success) )
+            {
+                return self::returnJson(
+                    0, $success,  true
                 );
             }
             return self::returnJson(
@@ -122,22 +130,33 @@ class RSD
      * 名  称 : libraryValidate()
      * 功  能 : 验证Library层数据
      * 功  能 : 验证Library层数据
-     * 输  入 : (Array) $Array   => '需要验证数据';
-     * 输  入 : (String) $String => '返回提示信息';
+     * 输  入 : (Array)  $Array   => '需要验证数据';
+     * 输  入 : (String) $success => '正确提示信息';
+     * 输  入 : (String) $error   => '正确提示信息';
      * 创  建 : 2018/08/15 17:10
      */
-    private static function libraryValidate($Array,$String='')
+    private static function libraryValidate($Array,$success='',$error='')
     {
         // 返回错误格式信息
         if($Array['msg']=='error')
         {
+            if(!empty($error)){
+                return self::returnData(
+                    $Array['msg'], $error
+                );
+            }
             return self::returnData(
-                $Array['msg'], $String
+                $Array['msg'], $Array['data']
             );
         }
         // 返回正确格式信息
         if($Array['msg']=='success')
         {
+            if(!empty($success)){
+                return self::returnData(
+                    $Array['msg'], $success
+                );
+            }
             return self::returnData(
                 $Array['msg'], $Array['data']
             );
@@ -151,22 +170,33 @@ class RSD
     /**
      * 名  称 : daoValidate()
      * 功  能 : 验证Dao层数据
-     * 输  入 : (Array) $Array   => '需要验证数据';
-     * 输  入 : (String) $String => '返回提示信息';
+     * 输  入 : (Array)  $Array   => '需要验证数据';
+     * 输  入 : (String) $success => '正确提示信息';
+     * 输  入 : (String) $error   => '正确提示信息';
      * 创  建 : 2018/08/15 17:10
      */
-    private static function daoValidate($Array,$String='')
+    private static function daoValidate($Array,$success='',$error='')
     {
         // 返回错误格式信息
         if($Array['msg']=='error')
         {
+            if(!empty($error)){
+                return self::returnData(
+                    $Array['msg'], $error
+                );
+            }
             return self::returnData(
-                $Array['msg'], $String
+                $Array['msg'], $Array['data']
             );
         }
         // 返回正确格式信息
         if($Array['msg']=='success')
         {
+            if(!empty($success)){
+                return self::returnData(
+                    $Array['msg'], $success
+                );
+            }
             return self::returnData(
                 $Array['msg'], $Array['data']
             );
@@ -180,20 +210,21 @@ class RSD
     /**
      * 名  称 : modelValidate()
      * 功  能 : 验证Model层数据
-     * 输  入 : (Array) $Array   => '需要验证数据';
-     * 输  入 : (String) $String => '返回提示信息';
+     * 输  入 : (Array)  $Array   => '需要验证数据';
+     * 输  入 : (String) $success => '正确提示信息';
+     * 输  入 : (String) $error   => '正确提示信息';
      * 创  建 : 2018/08/15 17:10
      */
-    private static function modelValidate($Array,$String)
+    private static function modelValidate($Array,$success='',$error='')
     {
         // 返回错误格式信息
         if(!$Array) return self::returnData(
-            'error', $String
+            'error', $error
         );
 
         // 返回错误格式信息
         if($Array) return self::returnData(
-            'success', $Array
+            'success', $success
         );
     }
 
