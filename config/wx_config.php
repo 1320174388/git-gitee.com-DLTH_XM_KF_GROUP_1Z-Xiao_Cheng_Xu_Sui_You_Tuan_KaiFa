@@ -8,7 +8,7 @@
  *  历史记录 :  -----------------------
  */
 return [
-    'wx_AppID'     => 'wxccc5a444059f1b68',
-    'wx_AppSecret' => '7aa53c9ab6fdb80536b2909c44e280e3',
+    'wx_AppID'     => 'wx6516385261fa963a',
+    'wx_AppSecret' => 'dc9823245780a506e679a121bb535e0b',
     'wx_LoginUrl'  => 'https://api.weixin.qq.com/sns/jscode2session'
 ];
