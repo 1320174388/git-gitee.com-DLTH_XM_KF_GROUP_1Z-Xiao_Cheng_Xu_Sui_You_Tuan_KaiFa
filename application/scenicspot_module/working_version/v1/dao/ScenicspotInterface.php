@@ -22,4 +22,14 @@ interface ScenicspotInterface
      * 创  建 : 2018/09/25 13:43
      */
     public function scenicspotCreate($post);
+
+    /**
+     * 名  称 : scenicspotSelect()
+     * 功  能 : 声明:获取轮播图接口数据处理
+     * 变  量 : --------------------------------------
+     * 输  入 : '$post['scenicId']   => '景区ID';'
+     * 输  出 : ['msg'=>'success','data'=>'返回数据']
+     * 创  建 : 2018/09/25 14:41
+     */
+    public function scenicspotSelect($get);
 }

@@ -44,7 +44,7 @@ class ScenicspotService
             '/uploads/scenicspot/'
         );
         if($imageUploads['msg']=='error'){
-            return returnData('error','请发送文件数据名称');
+            return returnData('error','请发送文件数据');
         }
         $post['imageFile'] = $imageUploads['data'];
         
@@ -53,6 +53,34 @@ class ScenicspotService
         
         // 执行Dao层逻辑
         $res = $scenicspotDao->scenicspotCreate($post);
+        
+        // 处理函数返回值
+        return \RSD::wxReponse($res,'D');
+    }
+
+    /**
+     * 名  称 : scenicspotShow()
+     * 功  能 : 获取轮播图接口逻辑
+     * 变  量 : --------------------------------------
+     * 输  入 : '$post['scenicId']   => '景区ID';'
+     * 输  出 : ['msg'=>'success','data'=>'返回数据']
+     * 创  建 : 2018/09/25 14:41
+     */
+    public function scenicspotShow($get)
+    {
+        // 实例化验证器代码
+        $validate  = new ScenicspotValidateGet();
+        
+        // 验证数据
+        if (!$validate->scene('edit')->check($get)) {
+            return ['msg'=>'error','data'=>$validate->getError()];
+        }
+        
+        // 实例化Dao层数据类
+        $scenicspotDao = new ScenicspotDao();
+        
+        // 执行Dao层逻辑
+        $res = $scenicspotDao->scenicspotSelect($get);
         
         // 处理函数返回值
         return \RSD::wxReponse($res,'D');

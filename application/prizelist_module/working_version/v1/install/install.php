@@ -11,17 +11,18 @@ include('./library/Function_Create_Library.php');
 
 Function_Create_Library::execCreateFunction([
     // 传值类型 : (GET/POST/PUT/DELETE)
-    'dataType' => 'POST',
+    'dataType' => 'GET',
     // 函数名称 : 默认 __function
-    'name'     => 'scenicspot',
+    'name'     => 'prizelist',
     // 函数说明 : 默认 新创建函数
-    'explain'  => '添加轮播图接口',
+    'explain'  => '获取奖品信息',
     // 函数输入 : 示例 [
-    //  '$get['goodLimit']  => '商品页码';',
+    //  '$post['rightName']  => '权限名称';',
     //]
     'input'    => [
-        '\'$post[\'imageFile\']  => \'图片资源\';\'',
-        '\'$post[\'scenicId\']   => \'景区ID\';\'',
-        '\'$post[\'imageSort\']  => \'景区排序\';\'',
+        '$get[\'scenicId\']  => \'景区主键\';',
+//        '$get[\'przeName\']  => \'奖品名称\';',
+//        '$get[\'przeFile\']  => \'奖品图片\';',
+//        '$get[\'przePrice\'] => \'奖品价值\';',
     ],
 ]);

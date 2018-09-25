@@ -166,14 +166,14 @@ class Function_Create_Library
  * 路由功能 : {$FunctionConfig['explain']}
  */
 Route::{$dataTypeL}(
-    ':v/scenicspot_module/{$name}_route',
-    'scenicspot_module/:v.controller.{$Name}Controller/{$name}{$DataTypeL}'
+    ':v/prizelist_module/{$name}_route',
+    'prizelist_module/:v.controller.{$Name}Controller/{$name}{$DataTypeL}'
 );
 ";
         // 判断文件是否存在
-        if(file_exists("../route/scenicspot_route_v1_api.php")){
+        if(file_exists("../route/prizelist_route_v1_api.php")){
             file_put_contents(
-                '../route/scenicspot_route_v1_api.php',
+                '../route/prizelist_route_v1_api.php',
                 $String, FILE_APPEND
             );
         }

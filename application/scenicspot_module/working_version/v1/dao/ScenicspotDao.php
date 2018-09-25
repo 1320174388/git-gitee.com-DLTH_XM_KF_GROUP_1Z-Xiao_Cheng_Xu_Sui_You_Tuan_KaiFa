@@ -33,11 +33,10 @@ class ScenicspotDao implements ScenicspotInterface
             $string = '';
             foreach ($sowingList as $k=>$v)
             {
-                if(file_exists('.'.$v['sowing_url']))
+                if(file_exists('.'.$v['images_url']))
                 {
-                    unlink('.'.$v['sowing_url']);
+                    unlink('.'.$v['images_url']);
                 }
-                $string .= $v['sowing_index'].',';
             }
             ScenicspotModel::where(
                 'scenic_id',$post['scenicId']
@@ -54,5 +53,25 @@ class ScenicspotDao implements ScenicspotInterface
         // TODO :  返回执行结果
         return \RSD::wxReponse($save,'M','上传成功','上传失败');
 
+    }
+
+    /**
+     * 名  称 : scenicspotSelect()
+     * 功  能 : 获取轮播图接口数据处理
+     * 变  量 : --------------------------------------
+     * 输  入 : '$post['scenicId']   => '景区ID';'
+     * 输  出 : ['msg'=>'success','data'=>'返回数据']
+     * 创  建 : 2018/09/25 14:41
+     */
+    public function scenicspotSelect($get)
+    {
+        // TODO :  ScenicspotModel 模型
+        $sowingList = ScenicspotModel::where(
+            'scenic_id',$get['scenicId']
+        )->order(
+            'images_sort','asc'
+        )->select()->toArray();
+        // TODO :  返回执行结果
+        return \RSD::wxReponse($sowingList,'M',$sowingList,'还没有数据');
     }
 }

@@ -15,4 +15,13 @@
 Route::post(
     ':v/scenicspot_module/scenicspot_route',
     'scenicspot_module/:v.controller.ScenicspotController/scenicspotPost'
-);
+)->middleware('Right_v1_IsAdmin');
+
+/**
+ * 传值方式 : GET
+ * 路由功能 : 获取轮播图接口
+ */
+Route::get(
+    ':v/scenicspot_module/scenicspot_route',
+    'scenicspot_module/:v.controller.ScenicspotController/scenicspotGet'
+)->middleware('Right_v1_IsAdmin');

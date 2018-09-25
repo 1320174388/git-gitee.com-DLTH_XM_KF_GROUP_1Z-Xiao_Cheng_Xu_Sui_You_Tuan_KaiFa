@@ -1,25 +1,25 @@
 <?php
 /**
  *  版权声明 :  地老天荒科技有限公司
- *  文件名称 :  ScenicspotLibrary.php
+ *  文件名称 :  PrizelistLibrary.php
  *  创 建 者 :  Shi Guang Yu
- *  创建日期 :  2018/09/25 12:16
- *  文件描述 :  景区轮播图管理自定义类
+ *  创建日期 :  2018/09/25 15:02
+ *  文件描述 :  景区奖品管理自定义类
  *  历史记录 :  -----------------------
  */
-namespace app\scenicspot_module\working_version\v1\library;
+namespace app\prizelist_module\working_version\v1\library;
 
-class ScenicspotLibrary
+class PrizelistLibrary
 {
     /**
-     * 名  称 : scenicspotLibGet()
-     * 功  能 : 获取轮播图接口函数类
+     * 名  称 : prizelistLibGet()
+     * 功  能 : 获取奖品信息函数类
      * 变  量 : --------------------------------------
-     * 输  入 : '$post['scenicId']   => '景区ID';'
+     * 输  入 : $get['scenicId']  => '景区主键';
      * 输  出 : ['msg'=>'success','data'=>'返回数据']
-     * 创  建 : 2018/09/25 14:41
+     * 创  建 : 2018/09/25 15:34
      */
-    public function scenicspotLibGet($get)
+    public function prizelistLibGet($get)
     {
         // TODO : 执行函数处理逻辑
         
