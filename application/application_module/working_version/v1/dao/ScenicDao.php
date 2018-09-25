@@ -17,14 +17,12 @@ class ScenicDao
      * 名  称 : scenicCreate()
      * 功  能 : 景区申请数据处理
      * 变  量 : --------------------------------------
-     * 输  入 : '$scenicid['scenic_id']  => '景区主键';'
      * 输  入 : '$usertoken['user_token']  => '用户token';'
      * 输  入 : '$scenicname['scenic_name']  => '景区名称';'
      * 输  入 : '$scenicimg['scenic_img']  => '景区图片';'
      * 输  入 : '$scenicaddress['scenic_address']  => '景区地址';'
      * 输  入 : '$scenicman['scenic_man']  => '景区负责人';'
      * 输  入 : '$scenicphone['scenic_phone']  => '联系电话';'
-     * 输  入 : '$sceniclicense['scenic_license']  => '执照照片路径';'
      * 输  入 : '$scenicx['scenic_x']  => '景区x坐标';'
      * 输  入 : '$scenicy['scenic_y']  => '景区y坐标';'
      * 输  入 : '$scenictype['scenic_type']  => '景区类型';'
@@ -33,41 +31,66 @@ class ScenicDao
      * 输  出 : ['msg'=>'success','data'=>'提示信息']
      * 创  建 : 2018/09/24 19:11
      */
-    public function scenicAdd($scenicid,$usertoken,$scenicname,$scenicimg,$scenicaddress,
-                              $scenicman,$scenicphone,$sceniclicense,$scenicx,$scenicy,
-                              $scenictype,$scenicticket,$scenicstatus)
+    public function scenicAdd($post)
     {
         // TODO :  ScenicModel 模型
         // 实例化model
         $ScenicModel = new ScenicModel();
-        // 景区主键
-        $ScenicModel->scenic_id	 = $scenicid;
         // 用户token
-        $ScenicModel->user_token	 = $usertoken;
+        $ScenicModel->user_token	 = $post['user_token'];
         // 景区名称
-        $ScenicModel->scenic_name	 = $scenicname;
+        $ScenicModel->scenic_name	 = $post['scenic_name'];
         // 景区图片
-        $ScenicModel->scenic_img	 = $scenicimg;
+        $ScenicModel->scenic_img	 = $post['scenic_img'];
         // 景区地址
-        $ScenicModel->scenic_address	 = $scenicaddress;
+        $ScenicModel->scenic_address	 = $post['scenic_address'];
         // 景区负责人
-        $ScenicModel->scenic_man	 = $scenicman;
+        $ScenicModel->scenic_man	 = $post['scenic_man'];
         // 联系电话
-        $ScenicModel->scenic_phone	 = $scenicphone;
+        $ScenicModel->scenic_phone	 = $post['scenic_phone'];
         // 执照照片路径
-        $ScenicModel->scenic_license	 = $sceniclicense;
+        $ScenicModel->scenic_license	 = $post['scenic_license'];
         // 景区x坐标
-        $ScenicModel->scenic_x	 = $scenicx;
+        $ScenicModel->scenic_x	 = $post['scenic_x'];
         // 景区y坐标
-        $ScenicModel->scenic_y	 = $scenicy;
+        $ScenicModel->scenic_y	 = $post['scenic_y'];
         // 景区类型
-        $ScenicModel->scenic_type	 = $scenictype;
+        $ScenicModel->scenic_type	 = $post['scenic_type'];
         // 景区门票
-        $ScenicModel->scenic_ticket	 = $scenicticket;
+        $ScenicModel->scenic_ticket	 = $post['scenic_ticket'];
         // 申请状态
-        $ScenicModel->scenic_status	 = $scenicstatus;
+        $ScenicModel->scenic_status	 = $post['scenic_status'];
         // 时间
         $ScenicModel->scenic_time	 = time();
+        // 保存数据库
+        $data = $ScenicModel->save();
+        // 验证
+        if(!$data){
+            return returnData('error',false);
+        }
+        // 返回数据
+        return returnData('success',$data);
+    }
+
+
+    /**
+     * 名  称 : scenicPost()
+     * 功  能 : 景区申请接口
+     * 变  量 : --------------------------------------
+     * 输  入 : '$post['scenic_id']  => '景区ID';
+     * 输  入 : '$post['scenic_license']  => '执照照片路径';
+     * 输  出 : {"errNum":0,"retMsg":"提示信息","retData":true}
+     * 创  建 : 2018/09/24 19:11
+     */
+    public function imgPost($post)
+    {
+        // TODO :  ScenicModel 模型
+        // 实例化model
+        $ScenicModel = new ScenicModel();
+        // 景区ID
+        $ScenicModel->scenic_id	 = $post['scenic_id'];
+        // 用户token
+        $ScenicModel->scenic_license	 = $post['scenic_license'];
         // 保存数据库
         $data = $ScenicModel->save();
         // 验证
@@ -102,7 +125,6 @@ class ScenicDao
         // 返回数据
         return returnData('success',$list);
     }
-
 
 
     /**

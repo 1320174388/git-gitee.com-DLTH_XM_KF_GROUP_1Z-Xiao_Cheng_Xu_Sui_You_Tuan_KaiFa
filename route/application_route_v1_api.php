@@ -7,6 +7,8 @@
  *  文件描述 :  景区申请路由文件
  *  历史记录 :  -----------------------
  */
+
+
 /**
  * 传值方式：POST
  * 传值参数：
@@ -15,6 +17,16 @@
 Route::post(
     'v1/application_module/scenicPost',
     'application_module/v1.controller.ScenicController/scenicPost'
+);
+
+/**
+ * 传值方式：POST
+ * 传值参数：
+ * 路由功能：执行申请景区上传营业执照路由地址
+ */
+Route::post(
+    'v1/application_module/imgPost',
+    'application_module/v1.controller.ScenicController/imgPost'
 );
 
 
@@ -26,7 +38,7 @@ Route::post(
 Route::post(
     'v1/application_module/obtainScenic',
     'application_module/v1.controller.ScenicController/obtainScenic'
-);
+)->middleware('Right_v1_IsAdmin');
 
 
 /**
@@ -37,4 +49,4 @@ Route::post(
 Route::post(
     'v1/application_module/modifyScenic',
     'application_module/v1.controller.ScenicController/modifyScenic'
-);
+)->middleware('Right_v1_IsAdmin');
