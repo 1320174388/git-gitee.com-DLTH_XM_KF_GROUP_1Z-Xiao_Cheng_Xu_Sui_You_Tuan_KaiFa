@@ -12,14 +12,14 @@ namespace app\prizelist_module\working_version\v1\library;
 class PrizelistLibrary
 {
     /**
-     * 名  称 : prizelistLibGet()
-     * 功  能 : 获取奖品信息函数类
+     * 名  称 : prizelistLibDelete()
+     * 功  能 : 删除奖品信息函数类
      * 变  量 : --------------------------------------
-     * 输  入 : $get['scenicId']  => '景区主键';
-     * 输  出 : ['msg'=>'success','data'=>'返回数据']
-     * 创  建 : 2018/09/25 15:34
+     * 输  入 : $delete['prizeId']   => '奖品主键';
+     * 输  出 : ['msg'=>'success','data'=>'提示信息']
+     * 创  建 : 2018/09/25 20:46
      */
-    public function prizelistLibGet($get)
+    public function prizelistLibDelete($delete)
     {
         // TODO : 执行函数处理逻辑
         

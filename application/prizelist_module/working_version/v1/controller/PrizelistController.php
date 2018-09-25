@@ -61,4 +61,54 @@ class PrizelistController extends Controller
         // 处理函数返回值
         return \RSD::wxReponse($res,'S','请求成功');
     }
+
+    /**
+     * 名  称 : prizelistPut()
+     * 功  能 : 修改奖品信息接口
+     * 变  量 : --------------------------------------
+     * 输  入 : $put['prizeId']   => '奖品主键';
+     * 输  入 : $put['scenicId']  => '景区主键';
+     * 输  入 : $put['przeName']  => '奖品名称';
+     * 输  入 : $put['przeFile']  => '奖品图片';
+     * 输  入 : $put['przePrice'] => '奖品价值';
+     * 输  出 : {"errNum":0,"retMsg":"提示信息","retData":true}
+     * 创  建 : 2018/09/25 16:15
+     */
+    public function prizelistPut(\think\Request $request)
+    {
+        // 实例化Service层逻辑类
+        $prizelistService = new PrizelistService();
+        
+        // 获取传入参数
+        $put = $request->post();
+        
+        // 执行Service逻辑
+        $res = $prizelistService->prizelistEdit($put);
+        
+        // 处理函数返回值
+        return \RSD::wxReponse($res,'S','');
+    }
+
+    /**
+     * 名  称 : prizelistDelete()
+     * 功  能 : 删除奖品信息接口
+     * 变  量 : --------------------------------------
+     * 输  入 : $delete['prizeId']   => '奖品主键';
+     * 输  出 : {"errNum":0,"retMsg":"提示信息","retData":true}
+     * 创  建 : 2018/09/25 20:46
+     */
+    public function prizelistDelete(\think\Request $request)
+    {
+        // 实例化Service层逻辑类
+        $prizelistService = new PrizelistService();
+        
+        // 获取传入参数
+        $delete = $request->delete();
+        
+        // 执行Service逻辑
+        $res = $prizelistService->prizelistDel($delete);
+        
+        // 处理函数返回值
+        return \RSD::wxReponse($res,'S','');
+    }
 }

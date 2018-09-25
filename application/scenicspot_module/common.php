@@ -61,6 +61,9 @@ function imageUploads($fileName,$fileDir,$fileUrl)
     // 获取 20160820/42a79759f284b767dfcb2a0197904287.jpg
     return returnData(
         'success',
-        $fileUrl.$info->getSaveName()
+        $fileUrl.preg_replace(
+            '/\\/',
+            '/',
+            $info->getSaveName())
     );
 }

@@ -33,4 +33,28 @@ interface PrizelistInterface
      * 创  建 : 2018/09/25 15:34
      */
     public function prizelistSelect($get);
+
+    /**
+     * 名  称 : prizelistUpdate()
+     * 功  能 : 声明:修改奖品信息数据处理
+     * 变  量 : --------------------------------------
+     * 输  入 : $put['prizeId']   => '奖品主键';
+     * 输  入 : $put['scenicId']  => '景区主键';
+     * 输  入 : $put['przeName']  => '奖品名称';
+     * 输  入 : $put['przeFile']  => '奖品图片';
+     * 输  入 : $put['przePrice'] => '奖品价值';
+     * 输  出 : ['msg'=>'success','data'=>'提示信息']
+     * 创  建 : 2018/09/25 16:15
+     */
+    public function prizelistUpdate($put);
+
+    /**
+     * 名  称 : prizelistDelete()
+     * 功  能 : 声明:删除奖品信息数据处理
+     * 变  量 : --------------------------------------
+     * 输  入 : $delete['prizeId']   => '奖品主键';
+     * 输  出 : ['msg'=>'success','data'=>'提示信息']
+     * 创  建 : 2018/09/25 20:46
+     */
+    public function prizelistDelete($delete);
 }

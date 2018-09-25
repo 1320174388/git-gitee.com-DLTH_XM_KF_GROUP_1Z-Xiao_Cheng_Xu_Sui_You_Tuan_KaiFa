@@ -15,7 +15,7 @@
 Route::post(
     ':v/prizelist_module/prizelist_route',
     'prizelist_module/:v.controller.PrizelistController/prizelistPost'
-);
+)->middleware('Right_v1_IsAdmin');
 
 /**
  * 传值方式 : GET
@@ -25,3 +25,21 @@ Route::get(
     ':v/prizelist_module/prizelist_route',
     'prizelist_module/:v.controller.PrizelistController/prizelistGet'
 );
+
+/**
+ * 传值方式 : POST
+ * 路由功能 : 修改奖品信息
+ */
+Route::post(
+    ':v/prizelist_module/prizelist_put',
+    'prizelist_module/:v.controller.PrizelistController/prizelistPut'
+)->middleware('Right_v1_IsAdmin');
+
+/**
+ * 传值方式 : DELETE
+ * 路由功能 : 删除奖品信息
+ */
+Route::delete(
+    ':v/prizelist_module/prizelist_route',
+    'prizelist_module/:v.controller.PrizelistController/prizelistDelete'
+)->middleware('Right_v1_IsAdmin');

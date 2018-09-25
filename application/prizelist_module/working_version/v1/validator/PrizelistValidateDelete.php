@@ -11,4 +11,24 @@ namespace app\prizelist_module\working_version\v1\validator;
 use think\Validate;
 
 class PrizelistValidateDelete extends Validate
-{}
+{
+    /**
+     * 名  称 : $rule
+     * 功  能 : 验证规则
+     * 输  入 : $delete['prizeId']   => '奖品主键';
+     * 创  建 : 2018/09/25 20:46
+     */
+    protected $rule =   [
+        'prizeId'   => 'require|number',
+    ];
+
+    /**
+     * 名  称 : $message()
+     * 功  能 : 设置验证信息
+     * 创  建 : 2018/09/25 20:46
+     */
+    protected $message  =   [
+        'prizeId.require'   => '请正确发送奖品ID',
+        'prizeId.number'    => '请正确发送奖品ID',
+    ];
+}
