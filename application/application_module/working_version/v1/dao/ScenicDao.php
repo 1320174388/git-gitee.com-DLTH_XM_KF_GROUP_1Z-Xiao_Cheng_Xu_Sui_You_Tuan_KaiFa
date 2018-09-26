@@ -9,6 +9,7 @@
  */
 namespace app\application_module\working_version\v1\dao;
 use app\application_module\working_version\v1\model\ScenicModel;
+use app\application_module\working_version\v1\model\UserModel;
 
 class ScenicDao
 {
@@ -149,5 +150,105 @@ class ScenicDao
         }
         // 返回数据
         return returnData('success',$res);
+    }
+
+
+
+    /**
+     * 名  称 : obtainApplication()
+     * 功  能 : 获取景区申请列表
+     * 变  量 : --------------------------------------
+     * 输  入 : '$post['scenic_id']  => '景区ID';'
+     * 输  入 : '$post['scenic_type']  => '景区类型';'
+     * 输  入 : '$post['scenic_status']  => '景区审核状态';'
+     * 输  出 : {"errNum":0,"retMsg":"提示信息","retData":true}
+     * 创  建 : 2018/09/24 19:11
+     */
+    public function obtainApplication($post)
+    {
+        // TODO :  ScenicModel 模型
+        // 实例化model
+        $ScenicModel = new ScenicModel();
+
+        $list = $ScenicModel->where('scenic_type',$post['scenic_type'])
+            ->where('scenic_status',$post['scenic_status'])
+            ->select()->toArray();
+
+        if(!$list){
+            return returnData('error',false);
+        }
+        // 返回数据
+        return returnData('success',$list);
+    }
+
+
+    /**
+     * 名  称 : modifyScenic()
+     * 功  能 : 修改景区类型接口
+     * 变  量 : --------------------------------------
+     * 输  入 : '$schoolid['scenic_id']  => '景区主键';
+     * 输  入 : '$scenictype['scenic_type']  => '景区类型';'
+     * 输  出 : {"errNum":0,"retMsg":"提示信息","retData":true}
+     * 创  建 : 2018/09/24 19:11
+     */
+    public function scenicVip($schoolid,$scenictype)
+    {
+        $ScenicModel= new ScenicModel();
+        // 进行修改
+        $res = $ScenicModel->save([
+            $ScenicModel->scenic_type    = $scenictype
+        ],['scenic_id'=>$schoolid]);
+        // 验证
+        if(!$res){
+            return returnData('error',false);
+        }
+        // 返回数据
+        return returnData('success',$res);
+    }
+
+
+    /**
+     * 名  称 : singleScenic()
+     * 功  能 : 搜索单个景区接口
+     * 变  量 : --------------------------------------
+     * 输  入 : '$post['user_identity']  => '用户身份证';'
+     * 输  出 : {"errNum":0,"retMsg":"提示信息","retData":true}
+     * 创  建 : 2018/09/24 19:11
+     */
+    public function singleScenic($useridentity)
+    {
+        $UserModel = new UserModel();
+
+        $list = $UserModel->field('user_token')->where('user_identity',$useridentity)
+            ->find()->toArray();
+
+        $res = ScenicModel::where('user_token',$list)->find()->toArray();
+
+        if(!$res){
+            return returnData('error',false);
+        }
+        // 返回数据
+        return returnData('success',$res);
+    }
+
+    /**
+     * 名  称 : singleUser()
+     * 功  能 : 搜索用户接口
+     * 变  量 : --------------------------------------
+     * 输  入 : '$post['user_identity']  => '用户身份证';'
+     * 输  出 : {"errNum":0,"retMsg":"提示信息","retData":true}
+     * 创  建 : 2018/09/24 19:11
+     */
+    public function singleUser($useridentity)
+    {
+        $UserModel = new UserModel();
+
+        $list = $UserModel->where('user_identity',$useridentity)->find()->toArray();
+
+        if(!$list){
+            return returnData('error',false);
+        }
+        // 返回数据
+        return returnData('success',$list);
     }
 }

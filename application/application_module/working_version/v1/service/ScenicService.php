@@ -126,4 +126,80 @@ class ScenicService
         // 返回数据
         return returnData('success',$res['data']);
     }
+
+
+    /**
+     * 名  称 : obtainApplication()
+     * 功  能 : 获取景区申请列表
+     * 变  量 : --------------------------------------
+     * 输  入 : '$post['scenic_id']  => '景区ID';'
+     * 输  入 : '$post['scenic_type']  => '景区类型';'
+     * 输  入 : '$post['scenic_status']  => '景区审核状态';'
+     * 输  出 : {"errNum":0,"retMsg":"提示信息","retData":true}
+     * 创  建 : 2018/09/24 19:11
+     */
+    public function obtainApplication($post)
+    {
+        // 实例化Dao层数据类
+        $scenicDao = new ScenicDao();
+
+        // 执行Dao层逻辑
+        $res = $scenicDao->obtainApplication($post);
+
+        // 处理函数返回值
+        return returnData('success',$res['data']);
+    }
+
+    /**
+     * 名  称 : modifyScenic()
+     * 功  能 : 修改景区类型接口
+     * 变  量 : --------------------------------------
+     * 输  入 : '$schoolid['scenic_id']  => '景区主键';
+     * 输  入 : '$scenictype['scenic_type']  => '景区类型';'
+     * 输  出 : {"errNum":0,"retMsg":"提示信息","retData":true}
+     * 创  建 : 2018/09/24 19:11
+     */
+    public function scenicVip($schoolid,$scenictype)
+    {
+        // ScenicDao
+        $res=(new ScenicDao())->scenicVip($schoolid,$scenictype);
+        if($res['msg']=='error') return returnData('error','修改失败');
+        // 返回数据
+        return returnData('success',$res['data']);
+    }
+
+
+    /**
+     * 名  称 : singleScenic()
+     * 功  能 : 搜索单个景区接口
+     * 变  量 : --------------------------------------
+     * 输  入 : '$post['user_identity']  => '用户身份证';'
+     * 输  出 : {"errNum":0,"retMsg":"提示信息","retData":true}
+     * 创  建 : 2018/09/24 19:11
+     */
+    public function singleScenic($useridentity)
+    {
+        // ScenicDao
+        $res=(new ScenicDao())->singleScenic($useridentity);
+        if($res['msg']=='error') return returnData('error','查询失败');
+        // 返回数据
+        return returnData('success',$res['data']);
+    }
+
+    /**
+     * 名  称 : singleUser()
+     * 功  能 : 搜索用户接口
+     * 变  量 : --------------------------------------
+     * 输  入 : '$post['user_identity']  => '用户身份证';'
+     * 输  出 : {"errNum":0,"retMsg":"提示信息","retData":true}
+     * 创  建 : 2018/09/24 19:11
+     */
+    public function singleUser($useridentity)
+    {
+        // ScenicDao
+        $res=(new ScenicDao())->singleUser($useridentity);
+        if($res['msg']=='error') return returnData('error','查询失败');
+        // 返回数据
+        return returnData('success',$res['data']);
+    }
 }

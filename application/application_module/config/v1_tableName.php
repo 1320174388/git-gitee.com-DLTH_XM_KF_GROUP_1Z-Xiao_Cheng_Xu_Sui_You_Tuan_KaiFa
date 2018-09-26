@@ -11,4 +11,6 @@
 return [
     // 景区表
     'Scenic' => 'data_scenic_list',
+    // 用户表
+    'Users' => 'data_users_list',
 ];
