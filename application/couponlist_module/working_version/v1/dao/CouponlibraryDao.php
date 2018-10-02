@@ -17,11 +17,10 @@ class CouponlibraryDao implements CouponlibraryInterface
      * 功  能 : 审核优惠券数据处理
      * 变  量 : --------------------------------------
      * 输  入 : $put['coupon_id']     => '优惠券ID标识';
-     * 输  入 : $put['coupon_status'] => '审核状态';
      * 输  出 : ['msg'=>'success','data'=>'提示信息']
      * 创  建 : 2018/09/26 19:17
      */
-    public function couponlibraryUpdate($put)
+    public function couponlibraryUpdate($put,$status=1)
     {
         // TODO :  CouponlistModel 模型
         $coupon = CouponlistModel::get($put['coupon_id']);
@@ -30,8 +29,8 @@ class CouponlibraryDao implements CouponlibraryInterface
             return returnData('error','优惠券不存在');
         }
         // TODO :  修改数据
-        $coupon->apply_status  = $put['coupon_status'];
-        $coupon->coupon_status = $put['coupon_status'];
+        $coupon->apply_status  = $status;
+        $coupon->coupon_status = $status;
         // TODO :  保存数据
         $res = $coupon->save();
         // TODO :  返回数据

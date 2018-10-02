@@ -15,7 +15,7 @@
 Route::post(
     ':v/couponlist_module/couponlist_route',
     'couponlist_module/:v.controller.CouponlistController/couponlistPost'
-);
+)->middleware('Right_v1_IsAdmin');
 
 /**
  * 传值方式 : GET
@@ -24,4 +24,13 @@ Route::post(
 Route::get(
     ':v/couponlist_module/couponlist_route',
     'couponlist_module/:v.controller.CouponlistController/couponlistGet'
-);
+)->middleware('Right_v1_IsAdmin');
+
+/**
+ * 传值方式 : DELETE
+ * 路由功能 : 删除优惠券
+ */
+Route::delete(
+    ':v/couponlist_module/couponlist_route',
+    'couponlist_module/:v.controller.CouponlistController/couponlistDelete'
+)->middleware('Right_v1_IsAdmin');

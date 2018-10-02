@@ -25,3 +25,12 @@ Route::get(
     ':v/couponlist_module/couponlist_route',
     'couponlist_module/:v.controller.CouponlistController/couponlistGet'
 );
+
+/**
+ * 传值方式 : DELETE
+ * 路由功能 : 删除优惠券
+ */
+Route::delete(
+    ':v/couponlist_module/couponlist_route',
+    'couponlist_module/:v.controller.CouponlistController/couponlistDelete'
+);

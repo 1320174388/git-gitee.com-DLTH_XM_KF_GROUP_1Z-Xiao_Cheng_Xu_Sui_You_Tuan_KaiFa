@@ -60,4 +60,29 @@ class CouponlistController extends Controller
         // 处理函数返回值
         return \RSD::wxReponse($res,'S','请求成功');
     }
+
+    /**
+     * 名  称 : couponlistDelete()
+     * 功  能 : 删除优惠券接口
+     * 变  量 : --------------------------------------
+     * 输  入 : $delete['user_token'] => '用户Token标识';
+     * 输  入 : $delete['scenic_id']  => '景区主键';
+     * 输  入 : $delete['coupon_id']  => '优惠券ID';
+     * 输  出 : {"errNum":0,"retMsg":"提示信息","retData":true}
+     * 创  建 : 2018/09/27 09:31
+     */
+    public function couponlistDelete(\think\Request $request)
+    {
+        // 实例化Service层逻辑类
+        $couponlistService = new CouponlistService();
+        
+        // 获取传入参数
+        $delete = $request->delete();
+        
+        // 执行Service逻辑
+        $res = $couponlistService->couponlistDel($delete);
+        
+        // 处理函数返回值
+        return \RSD::wxReponse($res,'S','');
+    }
 }

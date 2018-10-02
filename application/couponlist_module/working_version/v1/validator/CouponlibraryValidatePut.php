@@ -16,12 +16,10 @@ class CouponlibraryValidatePut extends Validate
      * 名  称 : $rule
      * 功  能 : 验证规则
      * 输  入 : $put['coupon_id']     => '优惠券ID标识';
-     * 输  入 : $put['coupon_status'] => '审核状态';
      * 创  建 : 2018/09/26 19:17
      */
     protected $rule =   [
         'coupon_id'     => 'require|number',
-        'coupon_status' => 'require|number',
     ];
 
     /**
@@ -32,7 +30,5 @@ class CouponlibraryValidatePut extends Validate
     protected $message  =   [
         'coupon_id.require'     => '请正确发送优惠券ID标识',
         'coupon_id.number'      => '请正确发送优惠券ID标识',
-        'coupon_status.require' => '请正确发送审核状态',
-        'coupon_status.number'  => '请正确发送审核状态',
     ];
 }

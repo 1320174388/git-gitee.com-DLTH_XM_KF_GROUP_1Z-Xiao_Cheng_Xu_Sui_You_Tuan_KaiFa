@@ -11,15 +11,16 @@ include('./library/Function_Create_Library.php');
 
 Function_Create_Library::execCreateFunction([
     // 传值类型 : (GET/POST/PUT/DELETE)
-    'dataType' => 'GET',
+    'dataType' => 'PUT',
     // 函数名称 : 默认 __function
     'name'     => 'couponlist',
     // 函数说明 : 默认 新创建函数
-    'explain'  => '获取景区所有优惠券信息',
+    'explain'  => '修改优惠券发布状态',
     // 函数输入 : 示例 [
     //  '$get['goodLimit']  => '商品页码';',
     //]
     'input'    => [
-        '$get[\'scenic_id\'] => \'景区ID\';',
+        '$put[\'coupon_id\']    => \'优惠券ID\';',
+        '$put[\'coupon_type\']  => \'发布状态数字0/1\';',
     ],
 ]);

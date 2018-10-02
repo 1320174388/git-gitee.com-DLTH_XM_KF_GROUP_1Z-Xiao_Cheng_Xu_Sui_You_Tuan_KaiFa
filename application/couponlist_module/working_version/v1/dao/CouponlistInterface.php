@@ -32,4 +32,16 @@ interface CouponlistInterface
      * 创  建 : 2018/09/26 20:41
      */
     public function couponlistSelect($get);
+
+    /**
+     * 名  称 : couponlistDelete()
+     * 功  能 : 声明:删除优惠券数据处理
+     * 变  量 : --------------------------------------
+     * 输  入 : $delete['user_token'] => '用户Token标识';
+     * 输  入 : $delete['scenic_id']  => '景区主键';
+     * 输  入 : $delete['coupon_id']  => '优惠券ID';
+     * 输  出 : ['msg'=>'success','data'=>'提示信息']
+     * 创  建 : 2018/09/27 09:31
+     */
+    public function couponlistDelete($delete);
 }

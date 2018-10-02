@@ -21,11 +21,10 @@ class CouponlibraryLibrary
      * 功  能 : 审核优惠券函数类
      * 变  量 : --------------------------------------
      * 输  入 : $put['coupon_id']     => '优惠券ID标识';
-     * 输  入 : $put['coupon_status'] => '审核状态';
      * 输  出 : ['msg'=>'success','data'=>'提示信息']
      * 创  建 : 2018/09/26 19:17
      */
-    public function couponlibraryLibPut($put)
+    public function couponlibraryLibPut($put,$status=1)
     {
         // 实例化验证器代码
         $validate  = new CouponlibraryValidatePut();
@@ -33,6 +32,11 @@ class CouponlibraryLibrary
         // 验证数据
         if (!$validate->scene('edit')->check($put)) {
             return ['msg'=>'error','data'=>$validate->getError()];
+        }
+
+        // 验证数据
+        if(($status!=1)&&($$status!=2)){
+            return ['msg'=>'error','data'=>'请正确输入审核状态'];
         }
 
         // 实例化Dao层数据类

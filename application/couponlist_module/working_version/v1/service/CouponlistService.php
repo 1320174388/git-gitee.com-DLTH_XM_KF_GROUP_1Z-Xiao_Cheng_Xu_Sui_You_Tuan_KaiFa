@@ -74,4 +74,34 @@ class CouponlistService
         // 处理函数返回值
         return \RSD::wxReponse($res,'D');
     }
+
+    /**
+     * 名  称 : couponlistDel()
+     * 功  能 : 删除优惠券逻辑
+     * 变  量 : --------------------------------------
+     * 输  入 : $delete['user_token'] => '用户Token标识';
+     * 输  入 : $delete['scenic_id']  => '景区主键';
+     * 输  入 : $delete['coupon_id']  => '优惠券ID';
+     * 输  出 : ['msg'=>'success','data'=>'提示信息']
+     * 创  建 : 2018/09/27 09:31
+     */
+    public function couponlistDel($delete)
+    {
+        // 实例化验证器代码
+        $validate  = new CouponlistValidateDelete();
+        
+        // 验证数据
+        if (!$validate->scene('edit')->check($delete)) {
+            return ['msg'=>'error','data'=>$validate->getError()];
+        }
+        
+        // 实例化Dao层数据类
+        $couponlistDao = new CouponlistDao();
+        
+        // 执行Dao层逻辑
+        $res = $couponlistDao->couponlistDelete($delete);
+        
+        // 处理函数返回值
+        return \RSD::wxReponse($res,'D');
+    }
 }

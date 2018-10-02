@@ -14,4 +14,8 @@ return [
     'SGY_DataCouponList' => 'data_coupon_list',
     // 景区申请操作表
     'SGY_DataOperation'  => 'data_operation_list',
+    // 景区门票操作申请表
+    'SGY_Ticket_list'    => 'data_ticket_list',
+    // 景区团购信息
+    'SGY_Group_list'     => 'data_group_list',
 ];

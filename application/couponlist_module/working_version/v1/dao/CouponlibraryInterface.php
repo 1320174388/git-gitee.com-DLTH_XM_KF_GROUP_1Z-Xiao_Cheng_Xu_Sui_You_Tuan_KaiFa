@@ -16,9 +16,8 @@ interface CouponlibraryInterface
      * 功  能 : 声明:审核优惠券数据处理
      * 变  量 : --------------------------------------
      * 输  入 : $put['coupon_id']     => '优惠券ID标识';
-     * 输  入 : $put['coupon_status'] => '审核状态';
      * 输  出 : ['msg'=>'success','data'=>'提示信息']
      * 创  建 : 2018/09/26 19:17
      */
-    public function couponlibraryUpdate($put);
+    public function couponlibraryUpdate($put,$status=1);
 }
