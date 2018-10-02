@@ -13,4 +13,14 @@ return [
     'Scenic' => 'data_scenic_list',
     // 用户表
     'Users' => 'data_users_list',
+    // 景区押金表
+    'Deposit' => 'data_deposit_list',
+    // 会员卡表
+    'Member' => 'data_member_list',
+    // 管理积分获得表
+    'Integral' => 'data_admin_integral',
+    // 用户会员表
+    'Insider' => 'data_user_member',
+    // 扣费比例表
+    'Bespeak' => 'data_admin_bespeak',
 ];
