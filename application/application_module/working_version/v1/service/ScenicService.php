@@ -130,21 +130,41 @@ class ScenicService
 
     /**
      * 名  称 : obtainApplication()
-     * 功  能 : 获取景区申请列表
+     * 功  能 : 默认获取景区申请列表
      * 变  量 : --------------------------------------
-     * 输  入 : '$post['scenic_id']  => '景区ID';'
-     * 输  入 : '$post['scenic_type']  => '景区类型';'
-     * 输  入 : '$post['scenic_status']  => '景区审核状态';'
+     * 输  入 : --------------------------------------
      * 输  出 : {"errNum":0,"retMsg":"提示信息","retData":true}
      * 创  建 : 2018/09/24 19:11
      */
-    public function obtainApplication($post)
+    public function obtainApplication()
     {
         // 实例化Dao层数据类
         $scenicDao = new ScenicDao();
 
         // 执行Dao层逻辑
-        $res = $scenicDao->obtainApplication($post);
+        $res = $scenicDao->obtainApplication();
+
+        // 处理函数返回值
+        return returnData('success',$res['data']);
+    }
+
+
+    /**
+     * 名  称 : scenicApplication()
+     * 功  能 : 获取景区申请列表
+     * 变  量 : '$post['scenic_type']  => '景区类型';
+     * 变  量 : '$post['scenic_status']  => '景区状态';
+     * 输  入 : --------------------------------------
+     * 输  出 : {"errNum":0,"retMsg":"提示信息","retData":true}
+     * 创  建 : 2018/09/24 19:11
+     */
+    public function scenicApplication($post)
+    {
+        // 实例化Dao层数据类
+        $scenicDao = new ScenicDao();
+
+        // 执行Dao层逻辑
+        $res = $scenicDao->scenicApplication($post);
 
         // 处理函数返回值
         return returnData('success',$res['data']);
@@ -200,6 +220,265 @@ class ScenicService
         $res=(new ScenicDao())->singleUser($useridentity);
         if($res['msg']=='error') return returnData('error','查询失败');
         // 返回数据
+        return returnData('success',$res['data']);
+    }
+
+
+    /**
+     * 名  称 : scenicModify()
+     * 功  能 : 修改景区信息接口
+     * 变  量 : --------------------------------------
+     * 输  入 : '$post['scenic_id']  => '景区主键';'
+     * 输  入 : '$post['scenic_man']  => '景区负责人';'
+     * 输  入 : '$post['scenic_phone']  => '联系电话';'
+     * 输  入 : '$post['scenic_x']  => '景区x坐标';'
+     * 输  入 : '$post['scenic_y']  => '景区y坐标';'
+     * 输  出 : {"errNum":0,"retMsg":"提示信息","retData":true}
+     * 创  建 : 2018/09/24 19:11
+     */
+    public function scenicModify($post)
+    {
+        // 实例化Dao层数据类
+        $scenicDao = new ScenicDao();
+        // 执行Dao层逻辑
+        $res = $scenicDao->scenicModify($post);
+
+        // 处理函数返回值
+        return returnData('success',$res['data']);
+    }
+
+
+    /**
+     * 名  称 : modifyAdmin()
+     * 功  能 : 修改景区管理员接口
+     * 变  量 : --------------------------------------
+     * 输  入 : '$post['scenic_id']  => '景区主键';
+     * 输  入 : '$post['user_token']  => '用户TOKEN';
+     * 输  出 : {"errNum":0,"retMsg":"提示信息","retData":true}
+     * 创  建 : 2018/09/24 19:11
+     */
+    public function modifyAdmin($post)
+    {
+        // 实例化Dao层数据类
+        $scenicDao = new ScenicDao();
+        // 执行Dao层逻辑
+        $res = $scenicDao->modifyAdmin($post);
+
+        // 处理函数返回值
+        return returnData('success',$res['data']);
+    }
+
+
+    /**
+     * 名  称 : membershipSel()
+     * 功  能 : 获取会员卡信息接口
+     * 变  量 : --------------------------------------
+     * 输  入 : --------------------------------------
+     * 输  出 : {"errNum":0,"retMsg":"提示信息","retData":true}
+     * 创  建 : 2018/09/24 19:11
+     */
+    public function membershipSel()
+    {
+        // ScenicDao
+        $res=(new ScenicDao())->membershipSel();
+        if($res['msg']=='error') return returnData('error','查询失败');
+        // 返回数据
+        return returnData('success',$res['data']);
+    }
+
+
+    /**
+     * 名  称 : integralSel()
+     * 功  能 : 获取管理积分接口
+     * 变  量 : --------------------------------------
+     * 输  入 : --------------------------------------
+     * 输  出 : {"errNum":0,"retMsg":"提示信息","retData":true}
+     * 创  建 : 2018/09/24 19:11
+     */
+    public function integralSel()
+    {
+        // ScenicDao
+        $res=(new ScenicDao())->integralSel();
+        if($res['msg']=='error') return returnData('error','查询失败');
+        // 返回数据
+        return returnData('success',$res['data']);
+    }
+
+
+    /**
+     * 名  称 : integralUpt()
+     * 功  能 : 修改管理积分接口
+     * 变  量 : --------------------------------------
+     * 输  入 : '$post['integral_id	']  => '积分获得主键';
+     * 输  入 : '$post['integral_transaction']  => '交易积分';
+     * 输  入 : '$post['integral_spread  ']  => '推广积分';
+     * 输  出 : {"errNum":0,"retMsg":"提示信息","retData":true}
+     * 创  建 : 2018/09/24 19:11
+     */
+    public function integralUpt($post)
+    {
+        // 实例化Dao层数据类
+        $scenicDao = new ScenicDao();
+        // 执行Dao层逻辑
+        $res = $scenicDao->integralUpt($post);
+        // 处理函数返回值
+        return returnData('success',$res['data']);
+    }
+
+
+    /**
+     * 名  称 : userIntegral()
+     * 功  能 : 获取用户积分接口
+     * 变  量 : $post['user_token']  => '用户TOKEN'
+     * 输  入 : --------------------------------------
+     * 输  出 : {"errNum":0,"retMsg":"提示信息","retData":true}
+     * 创  建 : 2018/09/24 19:11
+     */
+    public function userIntegral($usertoken='')
+    {
+
+        // ScenicDao
+        $res=(new ScenicDao())->userIntegral($usertoken);
+        if($res['msg']=='error') return returnData('error','查询失败');
+        // 返回数据
+        return returnData('success',$res['data']);
+    }
+
+    /**
+     * 名  称 : userintegralUpt()
+     * 功  能 : 修改用户积分接口
+     * 变  量 : --------------------------------------
+     * 输  入 : '$post['user_token']  => '用户TOKEN';
+     * 输  入 : '$post['int_transaction']  => '用户积分';
+     * 输  出 : {"errNum":0,"retMsg":"提示信息","retData":true}
+     * 创  建 : 2018/09/24 19:11
+     */
+    public function userintegralUpt($post)
+    {
+        // 实例化Dao层数据类
+        $scenicDao = new ScenicDao();
+        // 执行Dao层逻辑
+        $res = $scenicDao->userintegralUpt($post);
+        // 处理函数返回值
+        return returnData('success',$res['data']);
+    }
+
+
+    /**
+     * 名  称 : depositScenic()
+     * 功  能 : 获取景区押金接口
+     * 变  量 : --------------------------------------
+     * 输  入 : --------------------------------------
+     * 输  出 : {"errNum":0,"retMsg":"提示信息","retData":true}
+     * 创  建 : 2018/09/24 19:11
+     */
+    public function depositScenic()
+    {
+        // ScenicDao
+        $res=(new ScenicDao())->depositScenic();
+        if($res['msg']=='error') return returnData('error','查询失败');
+        // 返回数据
+        return returnData('success',$res['data']);
+    }
+
+    /**
+     * 名  称 : depositscenicUpt()
+     * 功  能 : 修改景区押金接口
+     * 变  量 : --------------------------------------
+     * 输  入 : '$post['scenic_id']  => '景区主键';
+     * 输  入 : '$post['deposit_money']  => '景区押金';
+     * 输  出 : {"errNum":0,"retMsg":"提示信息","retData":true}
+     * 创  建 : 2018/09/24 19:11
+     */
+    public function depositscenicUpt($post)
+    {
+        // 实例化Dao层数据类
+        $scenicDao = new ScenicDao();
+        // 执行Dao层逻辑
+        $res = $scenicDao->depositscenicUpt($post);
+        // 处理函数返回值
+        return returnData('success',$res['data']);
+    }
+
+
+
+    /**
+     * 名  称 : membershipUpt()
+     * 功  能 : 修改会员卡接口
+     * 变  量 : --------------------------------------
+     * 输  入 : '$post['member_id']  => '会员卡主键';
+     * 输  入 : '$post['member_name']  => '会员卡名称';
+     * 输  入 : '$post['member_integral']  => '会员卡积分额度';
+     * 输  入 : '$post['member_text']  => '会员卡权益说明';
+     * 输  出 : {"errNum":0,"retMsg":"提示信息","retData":true}
+     * 创  建 : 2018/09/24 19:11
+     */
+    public function membershipUpt($post)
+    {
+        // 实例化Dao层数据类
+        $scenicDao = new ScenicDao();
+        // 执行Dao层逻辑
+        $res = $scenicDao->membershipUpt($post);
+        // 处理函数返回值
+        return returnData('success',$res['data']);
+    }
+
+
+
+    /**
+     * 名  称 : scenicList()
+     * 功  能 : 获取申请通过的景区列表接口
+     * 变  量 : --------------------------------------
+     * 输  入 : '$post['scenic_status']  => '景区状态';
+     * 输  出 : {"errNum":0,"retMsg":"提示信息","retData":true}
+     * 创  建 : 2018/09/24 19:11
+     */
+    public function scenicList($post)
+    {
+        // ScenicDao
+        $res=(new ScenicDao())->scenicList($post);
+        if($res['msg']=='error') return returnData('error','查询失败');
+        // 返回数据
+        return returnData('success',$res['data']);
+    }
+
+
+
+    /**
+     * 名  称 : groupProportion()
+     * 功  能 : 获取预约团购扣除比例接口
+     * 变  量 : --------------------------------------
+     * 输  入 : --------------------------------------
+     * 输  出 : {"errNum":0,"retMsg":"提示信息","retData":true}
+     * 创  建 : 2018/09/24 19:11
+     */
+    public function groupProportion()
+    {
+        // ScenicDao
+        $res=(new ScenicDao())->groupProportion();
+        if($res['msg']=='error') return returnData('error','查询失败');
+        // 返回数据
+        return returnData('success',$res['data']);
+    }
+
+
+
+    /**
+     * 名  称 : groupUpt()
+     * 功  能 : 修改预约团购扣除比例接口
+     * 变  量 : --------------------------------------
+     * 输  入 : '$post['bespeak_id']  => '主键';
+     * 输  入 : '$post['deductions']  => '扣费比例';
+     * 输  出 : {"errNum":0,"retMsg":"提示信息","retData":true}
+     * 创  建 : 2018/09/24 19:11
+     */
+    public function groupUpt($post)
+    {
+        // 实例化Dao层数据类
+        $scenicDao = new ScenicDao();
+        // 执行Dao层逻辑
+        $res = $scenicDao->groupUpt($post);
+        // 处理函数返回值
         return returnData('success',$res['data']);
     }
 }
