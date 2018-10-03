@@ -8,11 +8,16 @@
  *  历史记录 :  -----------------------
  */
 namespace app\application_module\working_version\v1\dao;
+use app\application_module\working_version\v1\model\ActivityModel;
 use app\application_module\working_version\v1\model\AdminbespeakModel;
+use app\application_module\working_version\v1\model\DepositdeductModel;
 use app\application_module\working_version\v1\model\DepositModel;
 use app\application_module\working_version\v1\model\IntegralModel;
 use app\application_module\working_version\v1\model\MemberModel;
+use app\application_module\working_version\v1\model\PrizeModel;
 use app\application_module\working_version\v1\model\ScenicModel;
+use app\application_module\working_version\v1\model\ScenicserviceModel;
+use app\application_module\working_version\v1\model\TicketModel;
 use app\application_module\working_version\v1\model\UsermemberModel;
 use app\application_module\working_version\v1\model\UserModel;
 use think\Db;
@@ -615,5 +620,214 @@ class ScenicDao
         }
         // 返回数据
         return returnData('success',$res);
+    }
+
+
+
+    /**
+     * 名  称 : exchangeTicket()
+     * 功  能 : 兑换门票接口(显示门票内容)
+     * 变  量 : --------------------------------------
+     * 输  入 : '$post['order_number']  => '订单号';
+     * 输  出 : {"errNum":0,"retMsg":"提示信息","retData":true}
+     * 创  建 : 2018/09/24 19:11
+     */
+    public function exchangeTicket($post)
+    {
+        $TickModel = new TicketModel();
+
+        $list = $TickModel->where('order_number',$post['order_number'])->field();
+
+        // 验证
+        if(!$list){
+            return returnData('error',false);
+        }
+        // 返回数据
+        return returnData('success',$list);
+
+    }
+
+
+    /**
+     * 名  称 : confirmexchangeTicket()
+     * 功  能 : 兑确认换门票接口
+     * 变  量 : --------------------------------------
+     * 输  入 : '$post['order_number']  => '订单号';
+     * 输  入 : '$post['ticket_sratus']  => '门票状态';
+     * 输  出 : {"errNum":0,"retMsg":"提示信息","retData":true}
+     * 创  建 : 2018/09/24 19:11
+     */
+    public function confirmexchangeTicket($post)
+    {
+        $TickModel = new TicketModel();
+
+        if($TickModel->field('ticket_sratus')
+                ->where('order_number',$post['order_number'])
+                ->field() == 1){
+            // 返回数据
+            return returnData('error','门票已被使用');
+        }else{
+            $res = $TickModel->save([
+                $TickModel->ticket_sratus    = $post['ticket_sratus']
+            ],['order_number'=>$post['order_number']]);
+            // 验证
+            if(!$res){
+                return returnData('error',false);
+            }
+        }
+        // 返回数据
+        return returnData('success',$res);
+
+    }
+
+
+    /**
+     * 名  称 : prizeTicket()
+     * 功  能 : 兑换奖品接口(显示奖品内容)
+     * 变  量 : --------------------------------------
+     * 输  入 : '$post['prize_id']  => '奖品主键';
+     * 输  出 : {"errNum":0,"retMsg":"提示信息","retData":true}
+     * 创  建 : 2018/09/24 19:11
+     */
+    public function prizeTicket($post)
+    {
+        $PrizeModel = new PrizeModel();
+        // 查询
+        $list = $PrizeModel->where('prize_id',$post['prize_id'])->field();
+        // 验证
+        if(!$list){
+            return returnData('error',false);
+        }
+        // 返回数据
+        return returnData('success',$list);
+
+    }
+
+
+    /**
+     * 名  称 : confirmprizeTicket()
+     * 功  能 : 确认兑换奖品接口
+     * 变  量 : --------------------------------------
+     * 输  入 : '$post['prize_id']  => '奖品主键';
+     * 输  入 : '$post['prize_status']  => '奖品状态';
+     * 输  出 : {"errNum":0,"retMsg":"提示信息","retData":true}
+     * 创  建 : 2018/09/24 19:11
+     */
+    public function confirmprizeTicket($post)
+    {
+        $PrizeModel = new PrizeModel();
+
+        if($PrizeModel->field('prize_status')
+                ->where('prize_id',$post['prize_id'])
+                ->field() == 1){
+            // 返回数据
+            return returnData('error','奖品已被领取');
+        }else{
+            $res = $PrizeModel->save([
+                $PrizeModel->prize_status    = $post['prize_status']
+            ],['prize_id'=>$post['prize_id']]);
+            // 验证
+            if(!$res){
+                return returnData('error',false);
+            }
+        }
+        // 返回数据
+        return returnData('success',$res);
+    }
+
+
+    /**
+     * 名  称 : activeStatus()
+     * 功  能 : 修改活动状态接口
+     * 变  量 : --------------------------------------
+     * 输  入 : '$post['activity_id']  => '活动主键';
+     * 输  入 : '$post['activity_status']  => '活动状态';
+     * 输  出 : {"errNum":0,"retMsg":"提示信息","retData":true}
+     * 创  建 : 2018/09/24 19:11
+     */
+    public function activeStatus($post)
+    {
+        $ActivityModel = new ActivityModel();
+        // 进行修改
+        $res = $ActivityModel->save([
+            $ActivityModel->activity_status    = $post['activity_status']
+        ],['activity_id'=>$post['activity_id']]);
+        // 验证
+        if(!$res){
+            return returnData('error',false);
+        }
+        // 返回数据
+        return returnData('success',$res);
+    }
+
+
+    /**
+     * 名  称 : depositDeduction()
+     * 功  能 : 获取押金扣除记录列表接口
+     * 变  量 : --------------------------------------
+     * 输  入 : '$post['scenic_id']  => '景区主键';
+     * 输  出 : {"errNum":0,"retMsg":"提示信息","retData":true}
+     * 创  建 : 2018/09/24 19:11
+     */
+    public function depositDeduction($post)
+    {
+        $DepositdeductModel = new DepositdeductModel();
+        // 查询
+        $list = $DepositdeductModel->where('scenic_id',$post['scenic_id'])
+            ->select()->toArray();
+        // 验证
+        if(!$list){
+            return returnData('error',false);
+        }
+        // 返回数据
+        return returnData('success',$list);
+    }
+
+
+    /**
+     * 名  称 : scenicDeposit()
+     * 功  能 : 获取景区押金接口
+     * 变  量 : --------------------------------------
+     * 输  入 : '$post['scenic_id']  => '景区主键';
+     * 输  出 : {"errNum":0,"retMsg":"提示信息","retData":true}
+     * 创  建 : 2018/09/24 19:11
+     */
+    public function scenicDeposit($post)
+    {
+        $DepositModel = new DepositModel();
+        // 查询
+        $list = $DepositModel->where('scenic_id',$post['scenic_id'])
+            ->field()->toArray();
+        // 验证
+        if(!$list){
+            return returnData('error',false);
+        }
+        // 返回数据
+        return returnData('success',$list);
+    }
+
+
+    /**
+     * 名  称 : sceniccustomerserviceDel()
+     * 功  能 : 删除景区客服接口
+     * 变  量 : --------------------------------------
+     * 输  入 : '$post['scenic_id']  => '景区主键';
+     * 输  入 : '$post['service_id']  => '客服主键';
+     * 输  出 : {"errNum":0,"retMsg":"提示信息","retData":true}
+     * 创  建 : 2018/09/24 19:11
+     */
+    public function sceniccustomerserviceDel($post)
+    {
+        $ScenicserviceModel = new ScenicserviceModel();
+        // 删除
+        $dd = $ScenicserviceModel->where('service_id',$post['service_id'])
+            ->where('scenic_id',$post['scenic_id'])
+            ->delete();
+        // 验证
+        if(!$dd){
+            return returnData('error',false);
+        }
+        // 返回数据
+        return returnData('success',$dd);
     }
 }

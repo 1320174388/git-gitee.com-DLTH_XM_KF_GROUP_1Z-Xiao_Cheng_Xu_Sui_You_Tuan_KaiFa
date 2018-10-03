@@ -244,3 +244,91 @@ Route::post(
     'v1/application_module/groupUpt',
     'application_module/v1.controller.ScenicController/groupUpt'
 );
+
+
+/**
+ * 传值方式：POST
+ * 传值参数：
+ * 路由功能：兑换门票接口(显示门票内容)
+ */
+Route::post(
+    'v1/application_module/exchangeTicket',
+    'application_module/v1.controller.ScenicController/exchangeTicket'
+);
+
+
+/**
+ * 传值方式：POST
+ * 传值参数：
+ * 路由功能：确认兑换门票接口
+ */
+Route::post(
+    'v1/application_module/confirmexchangeTicket',
+    'application_module/v1.controller.ScenicController/confirmexchangeTicket'
+);
+
+
+/**
+ * 传值方式：POST
+ * 传值参数：
+ * 路由功能：兑换奖品接口(显示奖品内容)
+ */
+Route::post(
+    'v1/application_module/prizeTicket',
+    'application_module/v1.controller.ScenicController/prizeTicket'
+);
+
+
+
+/**
+ * 传值方式：POST
+ * 传值参数：
+ * 路由功能：确认兑换奖品接口
+ */
+Route::post(
+    'v1/application_module/confirmprizeTicket',
+    'application_module/v1.controller.ScenicController/confirmprizeTicket'
+);
+
+
+/**
+ * 传值方式：POST
+ * 传值参数：
+ * 路由功能：修改活动状态接口
+ */
+Route::post(
+    'v1/application_module/activeStatus',
+    'application_module/v1.controller.ScenicController/activeStatus'
+);
+
+/**
+ * 传值方式：POST
+ * 传值参数：
+ * 路由功能：获取押金扣除记录列表接口
+ */
+Route::post(
+    'v1/application_module/depositDeduction',
+    'application_module/v1.controller.ScenicController/depositDeduction'
+);
+
+
+/**
+ * 传值方式：POST
+ * 传值参数：
+ * 路由功能：获取景区押金接口
+ */
+Route::post(
+    'v1/application_module/scenicDeposit',
+    'application_module/v1.controller.ScenicController/scenicDeposit'
+);
+
+
+/**
+ * 传值方式：POST
+ * 传值参数：
+ * 路由功能：删除景区客服接口
+ */
+Route::post(
+    'v1/application_module/sceniccustomerserviceDel',
+    'application_module/v1.controller.ScenicController/sceniccustomerserviceDel'
+);

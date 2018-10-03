@@ -366,7 +366,7 @@ class ScenicController extends Controller
         $res = $ScenicService->userintegralUpt($post);
 
         // 处理函数返回值
-        return returnResponse(0,'修改成功',$res);
+        return returnResponse(0,'修改成功',$res['data']);
     }
 
     /**
@@ -407,7 +407,7 @@ class ScenicController extends Controller
         $res = $ScenicService->depositscenicUpt($post);
 
         // 处理函数返回值
-        return returnResponse(0,'修改成功',true);
+        return returnResponse(0,'修改成功',$res['data']);
     }
 
     /**
@@ -433,7 +433,7 @@ class ScenicController extends Controller
         $res = $ScenicService->membershipUpt($post);
 
         // 处理函数返回值
-        return returnResponse(0,'修改成功',true);
+        return returnResponse(0,'修改成功',$res['data']);
     }
 
     /**
@@ -497,6 +497,204 @@ class ScenicController extends Controller
         $res = $ScenicService->groupUpt($post);
 
         // 处理函数返回值
-        return returnResponse(0,'修改成功',true);
+        return returnResponse(0,'修改成功',$res['data']);
+    }
+
+    /**
+     * 名  称 : exchangeTicket()
+     * 功  能 : 兑换门票接口(显示门票内容)
+     * 变  量 : --------------------------------------
+     * 输  入 : '$post['order_number']  => '订单号';
+     * 输  出 : {"errNum":0,"retMsg":"提示信息","retData":true}
+     * 创  建 : 2018/09/24 19:11
+     */
+    public function exchangeTicket(\think\Request $request)
+    {
+        // 实例化Service层逻辑类
+        $ScenicService = new ScenicService();
+
+        // 获取传入参数
+        $post = $request->post();
+
+        // 执行Service逻辑
+        $res = $ScenicService->exchangeTicket($post);
+
+        // 处理函数返回值
+        return returnResponse(0,'查找成功',$res['data']);
+    }
+
+
+    /**
+     * 名  称 : confirmexchangeTicket()
+     * 功  能 : 确认兑换门票接口
+     * 变  量 : --------------------------------------
+     * 输  入 : '$post['order_number']  => '订单号';
+     * 输  入 : '$post['ticket_sratus']  => '门票状态';
+     * 输  出 : {"errNum":0,"retMsg":"提示信息","retData":true}
+     * 创  建 : 2018/09/24 19:11
+     */
+    public function confirmexchangeTicket(\think\Request $request)
+    {
+        // 实例化Service层逻辑类
+        $ScenicService = new ScenicService();
+
+        // 获取传入参数
+        $post = $request->post();
+
+        // 执行Service逻辑
+        $res = $ScenicService->confirmexchangeTicket($post);
+
+        // 处理函数返回值
+        return returnResponse(0,'兑换成功',$res['data']);
+    }
+
+
+
+    /**
+     * 名  称 : prizeTicket()
+     * 功  能 : 兑换奖品接口(显示奖品内容)
+     * 变  量 : --------------------------------------
+     * 输  入 : '$post['prize_id']  => '奖品主键';
+     * 输  出 : {"errNum":0,"retMsg":"提示信息","retData":true}
+     * 创  建 : 2018/09/24 19:11
+     */
+    public function prizeTicket(\think\Request $request)
+    {
+        // 实例化Service层逻辑类
+        $ScenicService = new ScenicService();
+
+        // 获取传入参数
+        $post = $request->post();
+
+        // 执行Service逻辑
+        $res = $ScenicService->prizeTicket($post);
+
+        // 处理函数返回值
+        return returnResponse(0,'查找成功',$res['data']);
+    }
+
+
+
+    /**
+     * 名  称 : confirmprizeTicket()
+     * 功  能 : 确认兑换奖品接口
+     * 变  量 : --------------------------------------
+     * 输  入 : '$post['prize_id']  => '奖品主键';
+     * 输  入 : '$post['prize_status']  => '奖品状态';
+     * 输  出 : {"errNum":0,"retMsg":"提示信息","retData":true}
+     * 创  建 : 2018/09/24 19:11
+     */
+    public function confirmprizeTicket(\think\Request $request)
+    {
+        // 实例化Service层逻辑类
+        $ScenicService = new ScenicService();
+
+        // 获取传入参数
+        $post = $request->post();
+
+        // 执行Service逻辑
+        $res = $ScenicService->confirmprizeTicket($post);
+
+        // 处理函数返回值
+        return returnResponse(0,'兑换成功',$res['data']);
+    }
+
+
+
+    /**
+     * 名  称 : activeStatus()
+     * 功  能 : 修改活动状态接口
+     * 变  量 : --------------------------------------
+     * 输  入 : '$post['activity_id']  => '活动主键';
+     * 输  入 : '$post['activity_status']  => '活动状态';
+     * 输  出 : {"errNum":0,"retMsg":"提示信息","retData":true}
+     * 创  建 : 2018/09/24 19:11
+     */
+    public function activeStatus(\think\Request $request)
+    {
+        // 实例化Service层逻辑类
+        $ScenicService = new ScenicService();
+
+        // 获取传入参数
+        $post = $request->post();
+
+        // 执行Service逻辑
+        $res = $ScenicService->activeStatus($post);
+
+        // 处理函数返回值
+        return returnResponse(0,'修改成功',$res['data']);
+    }
+
+
+    /**
+     * 名  称 : depositDeduction()
+     * 功  能 : 获取押金扣除记录列表接口
+     * 变  量 : --------------------------------------
+     * 输  入 : '$post['scenic_id']  => '景区主键';
+     * 输  出 : {"errNum":0,"retMsg":"提示信息","retData":true}
+     * 创  建 : 2018/09/24 19:11
+     */
+    public function depositDeduction(\think\Request $request)
+    {
+        // 实例化Service层逻辑类
+        $ScenicService = new ScenicService();
+
+        // 获取传入参数
+        $post = $request->post();
+
+        // 执行Service逻辑
+        $res = $ScenicService->depositDeduction($post);
+
+        // 处理函数返回值
+        return returnResponse(0,'查找成功',$res['data']);
+    }
+
+
+    /**
+     * 名  称 : scenicDeposit()
+     * 功  能 : 获取景区押金接口
+     * 变  量 : --------------------------------------
+     * 输  入 : '$post['scenic_id']  => '景区主键';
+     * 输  出 : {"errNum":0,"retMsg":"提示信息","retData":true}
+     * 创  建 : 2018/09/24 19:11
+     */
+    public function scenicDeposit(\think\Request $request)
+    {
+        // 实例化Service层逻辑类
+        $ScenicService = new ScenicService();
+
+        // 获取传入参数
+        $post = $request->post();
+
+        // 执行Service逻辑
+        $res = $ScenicService->scenicDeposit($post);
+
+        // 处理函数返回值
+        return returnResponse(0,'查找成功',$res['data']);
+    }
+
+
+    /**
+     * 名  称 : sceniccustomerserviceDel()
+     * 功  能 : 删除景区客服接口
+     * 变  量 : --------------------------------------
+     * 输  入 : '$post['scenic_id']  => '景区主键';
+     * 输  入 : '$post['service_id']  => '客服主键';
+     * 输  出 : {"errNum":0,"retMsg":"提示信息","retData":true}
+     * 创  建 : 2018/09/24 19:11
+     */
+    public function sceniccustomerserviceDel(\think\Request $request)
+    {
+        // 实例化Service层逻辑类
+        $ScenicService = new ScenicService();
+
+        // 获取传入参数
+        $post = $request->post();
+
+        // 执行Service逻辑
+        $res = $ScenicService->sceniccustomerserviceDel($post);
+
+        // 处理函数返回值
+        return returnResponse(0,'删除成功',$res['data']);
     }
 }
