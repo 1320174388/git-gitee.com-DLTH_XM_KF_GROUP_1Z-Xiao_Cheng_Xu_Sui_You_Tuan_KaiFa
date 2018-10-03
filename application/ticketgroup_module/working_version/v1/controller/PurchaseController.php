@@ -63,4 +63,27 @@ class PurchaseController extends Controller
         // 处理函数返回值
         return \RSD::wxReponse($res,'S','');
     }
+
+    /**
+     * 名  称 : purchaseGet()
+     * 功  能 : 获取团购模式接口
+     * 变  量 : --------------------------------------
+     * 输  入 : $get['scenic_id']  => '景区主键';
+     * 输  出 : {"errNum":0,"retMsg":"请求成功","retData":"请求数据"}
+     * 创  建 : 2018/10/03 10:39
+     */
+    public function purchaseGet(\think\Request $request)
+    {
+        // 实例化Service层逻辑类
+        $purchaseService = new PurchaseService();
+        
+        // 获取传入参数
+        $get = $request->get();
+        
+        // 执行Service逻辑
+        $res = $purchaseService->purchaseShow($get);
+        
+        // 处理函数返回值
+        return \RSD::wxReponse($res,'S','请求成功');
+    }
 }

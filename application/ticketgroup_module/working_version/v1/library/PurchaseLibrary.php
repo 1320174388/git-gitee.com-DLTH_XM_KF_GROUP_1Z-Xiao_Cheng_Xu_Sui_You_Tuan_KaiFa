@@ -47,4 +47,20 @@ class PurchaseLibrary
         // TODO : 返回函数输出数据
         return ['msg'=>'success','data'=>'返回数据'];
     }
+
+    /**
+     * 名  称 : purchaseLibGet()
+     * 功  能 : 获取团购模式函数类
+     * 变  量 : --------------------------------------
+     * 输  入 : $get['scenic_id']  => '景区主键';
+     * 输  出 : ['msg'=>'success','data'=>'返回数据']
+     * 创  建 : 2018/10/03 10:39
+     */
+    public function purchaseLibGet($get)
+    {
+        // TODO : 执行函数处理逻辑
+        
+        // TODO : 返回函数输出数据
+        return ['msg'=>'success','data'=>'返回数据'];
+    }
 }

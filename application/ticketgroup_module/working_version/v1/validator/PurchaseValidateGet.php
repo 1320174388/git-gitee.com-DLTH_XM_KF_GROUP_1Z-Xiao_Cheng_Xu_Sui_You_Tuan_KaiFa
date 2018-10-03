@@ -11,4 +11,24 @@ namespace app\ticketgroup_module\working_version\v1\validator;
 use think\Validate;
 
 class PurchaseValidateGet extends Validate
-{}
+{
+    /**
+     * 名  称 : $rule
+     * 功  能 : 验证规则
+     * 输  入 : $get['scenic_id']  => '景区主键';
+     * 创  建 : 2018/10/03 10:39
+     */
+    protected $rule =   [
+        'scenic_id' => 'require|number',
+    ];
+
+    /**
+     * 名  称 : $message()
+     * 功  能 : 设置验证信息
+     * 创  建 : 2018/10/03 10:39
+     */
+    protected $message  =   [
+        'scenic_id.require' => '请正确输入景区ID',
+        'scenic_id.number'  => '请正确输入景区ID',
+    ];
+}

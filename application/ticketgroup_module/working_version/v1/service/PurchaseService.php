@@ -77,4 +77,32 @@ class PurchaseService
         // 处理函数返回值
         return \RSD::wxReponse($res,'D');
     }
+
+    /**
+     * 名  称 : purchaseShow()
+     * 功  能 : 获取团购模式逻辑
+     * 变  量 : --------------------------------------
+     * 输  入 : $get['scenic_id']  => '景区主键';
+     * 输  出 : ['msg'=>'success','data'=>'返回数据']
+     * 创  建 : 2018/10/03 10:39
+     */
+    public function purchaseShow($get)
+    {
+        // 实例化验证器代码
+        $validate  = new PurchaseValidateGet();
+        
+        // 验证数据
+        if (!$validate->scene('edit')->check($get)) {
+            return ['msg'=>'error','data'=>$validate->getError()];
+        }
+        
+        // 实例化Dao层数据类
+        $purchaseDao = new PurchaseDao();
+        
+        // 执行Dao层逻辑
+        $res = $purchaseDao->purchaseSelect($get);
+        
+        // 处理函数返回值
+        return \RSD::wxReponse($res,'D');
+    }
 }

@@ -35,4 +35,14 @@ interface PurchaseInterface
      * 创  建 : 2018/09/29 19:14
      */
     public function purchaseDelete($delete);
+
+    /**
+     * 名  称 : purchaseSelect()
+     * 功  能 : 声明:获取团购模式数据处理
+     * 变  量 : --------------------------------------
+     * 输  入 : $get['scenic_id']  => '景区主键';
+     * 输  出 : ['msg'=>'success','data'=>'返回数据']
+     * 创  建 : 2018/10/03 10:39
+     */
+    public function purchaseSelect($get);
 }

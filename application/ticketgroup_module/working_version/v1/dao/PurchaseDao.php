@@ -119,11 +119,13 @@ class PurchaseDao implements PurchaseInterface
         if(!$scenic){
             return returnData('error','景区不存在');
         }
-        // TODO :  判断团购模式是否出爱面子
+        // TODO :  判断团购模式是否存在
         $find = PurchaseModel::where(
             'scenic_id',$delete['scenic_id']
         )->where(
             'group_id',$delete['group_id']
+        )->where(
+            'group_status',1
         )->find();
         if(!$find){
             return returnData('error','团购模式不存在');
@@ -145,8 +147,15 @@ class PurchaseDao implements PurchaseInterface
             try {
                 // 实例化 PurchaseModel 团购模型
                 $purchase = PurchaseModel::get($delete['group_id']);
+                // 判断团购模式
+                if(
+                    ($purchase['apply_status']==0)&&
+                    ($purchase['group_status']==1)
+                ) {
+                    return \RSD::wxReponse(false,'M','','已在删除申请中');
+                }
                 // 处理数据
-                $purchase->apply_status = 1;
+                $purchase->apply_status = 0;
                 // 写入数据
                 $res = $purchase->save();
                 if($res){
@@ -175,6 +184,25 @@ class PurchaseDao implements PurchaseInterface
                 return \RSD::wxReponse(false,'M','','删除失败');
             }
         }
+    }
 
+    /**
+     * 名  称 : purchaseSelect()
+     * 功  能 : 获取团购模式数据处理
+     * 变  量 : --------------------------------------
+     * 输  入 : $get['scenic_id']  => '景区主键';
+     * 输  出 : ['msg'=>'success','data'=>'返回数据']
+     * 创  建 : 2018/10/03 10:39
+     */
+    public function purchaseSelect($get)
+    {
+        // TODO :  PurchaseModel 模型
+        $res = PurchaseModel::where(
+            'scenic_id',$get['scenic_id']
+        )->where(
+            'group_status','in','0,1'
+        )->select()->toArray();
+        // 返回数据
+        return \RSD::wxReponse($res,'M',$res,'当前没有添加团购');
     }
 }

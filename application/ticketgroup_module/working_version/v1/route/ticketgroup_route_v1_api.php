@@ -44,3 +44,21 @@ Route::delete(
     ':v/ticketgroup_module/purchase_route',
     'ticketgroup_module/:v.controller.PurchaseController/purchaseDelete'
 );
+
+/**
+ * 传值方式 : GET
+ * 路由功能 : 获取团购模式
+ */
+Route::get(
+    ':v/ticketgroup_module/purchase_route',
+    'ticketgroup_module/:v.controller.PurchaseController/purchaseGet'
+);
+
+/**
+ * 传值方式 : GET
+ * 路由功能 : 获取团购模式
+ */
+Route::get(
+    ':v/ticketgroup_module/purchase_route',
+    'ticketgroup_module/:v.controller.PurchaseController/purchaseGet'
+);

@@ -24,7 +24,7 @@ Route::get(
 Route::put(
     ':v/ticketgroup_module/ticketgroup_route',
     'ticketgroup_module/:v.controller.TicketgroupController/ticketgroupPut'
-);
+)->middleware('Right_v1_IsAdmin');
 
 /**
  * 传值方式 : POST
@@ -33,7 +33,7 @@ Route::put(
 Route::post(
     ':v/ticketgroup_module/purchase_route',
     'ticketgroup_module/:v.controller.PurchaseController/purchasePost'
-);
+)->middleware('Right_v1_IsAdmin');
 
 
 /**
@@ -43,4 +43,13 @@ Route::post(
 Route::delete(
     ':v/ticketgroup_module/purchase_route',
     'ticketgroup_module/:v.controller.PurchaseController/purchaseDelete'
+)->middleware('Right_v1_IsAdmin');
+
+/**
+ * 传值方式 : GET
+ * 路由功能 : 获取团购模式
+ */
+Route::get(
+    ':v/ticketgroup_module/purchase_route',
+    'ticketgroup_module/:v.controller.PurchaseController/purchaseGet'
 );

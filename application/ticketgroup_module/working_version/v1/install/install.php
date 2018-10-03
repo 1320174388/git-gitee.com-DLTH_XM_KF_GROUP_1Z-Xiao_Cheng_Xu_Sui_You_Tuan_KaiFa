@@ -11,18 +11,16 @@ include('./library/Function_Create_Library.php');
 
 Function_Create_Library::execCreateFunction([
     // 传值类型 : (GET/POST/PUT/DELETE)
-    'dataType' => 'DELETE',
+    'dataType' => 'GET',
     // 函数名称 : 默认 __function
-    'name'     => 'purchaselib',
+    'name'     => 'purchase',
     // 函数说明 : 默认 新创建函数
-    'explain'  => '删除团购模式',
+    'explain'  => '获取团购模式',
     // 函数输入 : 示例 [
     //  '$get['goodLimi
     //t']  => '商品页码';',
     //]
     'input'    => [
-//        '$delete[\'user_token\'] => \'用户标识\';',
-//        '$delete[\'scenic_id\']  => \'景区主键\';',
-        '$delete[\'group_id\']   => \'团购ID\';',
+        '$get[\'scenic_id\']  => \'景区主键\';',
     ],
 ]);
