@@ -38,4 +38,50 @@ class ActivitcontController extends Controller
         // 处理函数返回值
         return \RSD::wxReponse($res,'S','');
     }
+
+    /**
+     * 名  称 : activitcontDelete()
+     * 功  能 : 删除活动详情接口
+     * 变  量 : --------------------------------------
+     * 输  入 : ( Int )  $delete['ContentId']       => '内容ID';
+     * 输  出 : {"errNum":0,"retMsg":"提示信息","retData":true}
+     * 创  建 : 2018/10/05 10:49
+     */
+    public function activitcontDelete(\think\Request $request)
+    {
+        // 实例化Service层逻辑类
+        $activitcontService = new ActivitcontService();
+        
+        // 获取传入参数
+        $delete = $request->delete();
+        
+        // 执行Service逻辑
+        $res = $activitcontService->activitcontDel($delete);
+        
+        // 处理函数返回值
+        return \RSD::wxReponse($res,'S','');
+    }
+
+    /**
+     * 名  称 : activitcontGet()
+     * 功  能 : 获取活动详情列表接口
+     * 变  量 : --------------------------------------
+     * 输  入 : ( Int )  $get['ActivityId']       => '活动ID';
+     * 输  出 : {"errNum":0,"retMsg":"请求成功","retData":"请求数据"}
+     * 创  建 : 2018/10/05 10:54
+     */
+    public function activitcontGet(\think\Request $request)
+    {
+        // 实例化Service层逻辑类
+        $activitcontService = new ActivitcontService();
+        
+        // 获取传入参数
+        $get = $request->get();
+        
+        // 执行Service逻辑
+        $res = $activitcontService->activitcontShow($get);
+        
+        // 处理函数返回值
+        return \RSD::wxReponse($res,'S','请求成功');
+    }
 }

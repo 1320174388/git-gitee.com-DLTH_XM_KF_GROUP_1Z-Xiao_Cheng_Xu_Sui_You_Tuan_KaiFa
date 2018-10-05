@@ -34,4 +34,44 @@ class ActivityLibrary
         // TODO : 返回函数输出数据
         return ['msg'=>'success','data'=>'返回数据'];
     }
+
+    /**
+     * 名  称 : activityLibGet()
+     * 功  能 : 获取活动广告列表函数类
+     * 变  量 : --------------------------------------
+     * 输  入 : ( Int )  $get['ActivityClass']  => '活动分组';
+     * 输  出 : ['msg'=>'success','data'=>'返回数据']
+     * 创  建 : 2018/10/05 11:09
+     */
+    public function activityLibGet($get)
+    {
+        // TODO : 执行函数处理逻辑
+        
+        // TODO : 返回函数输出数据
+        return ['msg'=>'success','data'=>'返回数据'];
+    }
+
+    /**
+     * 名  称 : activityLibPut()
+     * 功  能 : 修改活动广告信息函数类
+     * 变  量 : --------------------------------------
+     * 输  入 : ( File ) $put['ActivityId']     => '活动主键';
+     * 输  入 : ( File ) $put['ActivityFile']   => '活动图片';
+     * 输  入 : (String) $put['ActivityTitle']  => '活动标题';
+     * 输  入 : (String) $put['ActivityDes']    => '活动介绍';
+     * 输  入 : (String) $put['ActivityType']   => '活动类型';
+     * 输  入 : ( Int )  $put['ActivityStatus'] => '活动状态';
+     * 输  入 : ( Int )  $put['ActivityClass']  => '活动分组';
+     * 输  入 : (String) $put['ActivityStart']  => '开始时间';
+     * 输  入 : (String) $put['ActivityEnd']    => '结束时间';
+     * 输  出 : ['msg'=>'success','data'=>'提示信息']
+     * 创  建 : 2018/10/05 12:16
+     */
+    public function activityLibPut($put)
+    {
+        // TODO : 执行函数处理逻辑
+        
+        // TODO : 返回函数输出数据
+        return ['msg'=>'success','data'=>'返回数据'];
+    }
 }

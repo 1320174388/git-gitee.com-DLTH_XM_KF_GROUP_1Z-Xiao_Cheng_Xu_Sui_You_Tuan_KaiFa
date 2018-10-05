@@ -11,26 +11,23 @@ include('./library/Function_Create_Library.php');
 
 Function_Create_Library::execCreateFunction([
     // 传值类型 : (GET/POST/PUT/DELETE)
-    'dataType' => 'POST',
+    'dataType' => 'PUT',
     // 函数名称 : 默认 __function
-    'name'     => 'activitcont',
+    'name'     => 'activity',
     // 函数说明 : 默认 新创建函数
-    'explain'  => '添加活动详情',
+    'explain'  => '修改活动广告信息',
     // 函数输入 : 示例 [
     //  '$get['goodLimit']  => '商品页码';',
     //]
     'input'    => [
-        '( Int )  $post[\'ActivityId\']       => \'活动ID\';',
-        '(String) $post[\'ActivityType\']     => \'内容类型\';',
-        '(String) $post[\'ActivityCont\']     => \'活动内容\';',
-        '(String) $post[\'ActivitySort\']     => \'活动排序\';',
-//        '( File ) $post[\'ActivityFile\']   => \'活动图片\';',
-//        '(String) $post[\'ActivityTitle\']  => \'活动标题\';',
-//        '(String) $post[\'ActivityDes\']    => \'活动介绍\';',
-//        '(String) $post[\'ActivityType\']   => \'活动类型\';',
-//        '( Int )  $post[\'ActivityStatus\'] => \'活动状态\';',
-//        '( Int )  $post[\'ActivityClass\']  => \'活动分组\';',
-//        '(String) $post[\'ActivityStart\']  => \'开始时间\';',
-//        '(String) $post[\'ActivityEnd\']    => \'结束时间\';',
+        '( File ) $put[\'ActivityId\']     => \'活动主键\';',
+        '( File ) $put[\'ActivityFile\']   => \'活动图片\';',
+        '(String) $put[\'ActivityTitle\']  => \'活动标题\';',
+        '(String) $put[\'ActivityDes\']    => \'活动介绍\';',
+        '(String) $put[\'ActivityType\']   => \'活动类型\';',
+        '( Int )  $put[\'ActivityStatus\'] => \'活动状态\';',
+        '( Int )  $put[\'ActivityClass\']  => \'活动分组\';',
+        '(String) $put[\'ActivityStart\']  => \'开始时间\';',
+        '(String) $put[\'ActivityEnd\']    => \'结束时间\';',
     ],
 ]);

@@ -37,12 +37,97 @@ class ActivitcontService
         if (!$validate->scene('edit')->check($post)) {
             return ['msg'=>'error','data'=>$validate->getError()];
         }
-        
+
+        // 验证数据
+        if(
+            ($post['ActivityType']!=='text')&&
+            ($post['ActivityType']!=='image')
+        ){
+            return returnData('error','请正确发送内容类型');
+        }
+
+        // 验证数据
+        if($post['ActivityType']=='text'){
+            if(empty($post['ActivityCont'])){
+                return returnData('error','请发送内容');
+            }
+        }
+
+        // 验证数据
+        if($post['ActivityType']=='image'){
+            // 判断文件资源是否上传
+            $imageUploads = imageUploads(
+                'ActivityCont',
+                './uploads/activitycont/',
+                '/uploads/activitycont/'
+            );
+            if($imageUploads['msg']=='error'){
+                return returnData('error','请发送文件数据');
+            }
+            $post['ActivityCont'] = $imageUploads['data'];
+        }
+
         // 实例化Dao层数据类
         $activitcontDao = new ActivitcontDao();
         
         // 执行Dao层逻辑
         $res = $activitcontDao->activitcontCreate($post);
+        
+        // 处理函数返回值
+        return \RSD::wxReponse($res,'D');
+    }
+
+    /**
+     * 名  称 : activitcontDel()
+     * 功  能 : 删除活动详情逻辑
+     * 变  量 : --------------------------------------
+     * 输  入 : ( Int )  $delete['ContentId']       => '内容ID';
+     * 输  出 : ['msg'=>'success','data'=>'提示信息']
+     * 创  建 : 2018/10/05 10:49
+     */
+    public function activitcontDel($delete)
+    {
+        // 实例化验证器代码
+        $validate  = new ActivitcontValidateDelete();
+        
+        // 验证数据
+        if (!$validate->scene('edit')->check($delete)) {
+            return ['msg'=>'error','data'=>$validate->getError()];
+        }
+        
+        // 实例化Dao层数据类
+        $activitcontDao = new ActivitcontDao();
+        
+        // 执行Dao层逻辑
+        $res = $activitcontDao->activitcontDelete($delete);
+        
+        // 处理函数返回值
+        return \RSD::wxReponse($res,'D');
+    }
+
+    /**
+     * 名  称 : activitcontShow()
+     * 功  能 : 获取活动详情列表逻辑
+     * 变  量 : --------------------------------------
+     * 输  入 : ( Int )  $get['ActivityId']       => '活动ID';
+     * 输  出 : ['msg'=>'success','data'=>'返回数据']
+     * 创  建 : 2018/10/05 10:54
+     */
+    public function activitcontShow($get)
+    {
+        // 实例化验证器代码
+        $validate  = new ActivitcontValidateGet();
+        
+        // 验证数据
+        if (!$validate->scene('edit')->check($get)) {
+            return ['msg'=>'error','data'=>$validate->getError()];
+        }
+        
+        // 实例化Dao层数据类
+        $activitcontDao = new ActivitcontDao();
+        
+        // 执行Dao层逻辑
+        $res = $activitcontDao->activitcontSelect($get);
         
         // 处理函数返回值
         return \RSD::wxReponse($res,'D');

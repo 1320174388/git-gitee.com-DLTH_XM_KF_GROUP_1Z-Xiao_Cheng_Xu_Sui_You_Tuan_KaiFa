@@ -9,6 +9,8 @@
  */
 
 return [
-    // 数据表注释
-    'ActicityList' => 'data_activity_list'
+    // 活动信息表
+    'ActicityList'     => 'data_activity_list',
+    // 活动详情表
+    'ActicityContList' => 'data_activity_content',
 ];

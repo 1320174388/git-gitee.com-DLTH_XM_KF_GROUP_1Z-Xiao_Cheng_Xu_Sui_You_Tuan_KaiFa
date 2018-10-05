@@ -57,4 +57,106 @@ class ActivityDao implements ActivityInterface
             ['activity_id'=>$activity['activity_id']], '添加失败'
         );
     }
+
+    /**
+     * 名  称 : activitySelect()
+     * 功  能 : 获取活动广告列表数据处理
+     * 变  量 : --------------------------------------
+     * 输  入 : ( Int )  $get['ActivityClass']  => '活动分组';
+     * 输  出 : ['msg'=>'success','data'=>'返回数据']
+     * 创  建 : 2018/10/05 11:09
+     */
+    public function activitySelect($get)
+    {
+        // TODO :  ActivityModel 模型
+        $notStarted = ActivityModel::where(
+        'activity_class',$get['ActivityClass']
+        )->where(
+            'activity_class',$get['ActivityClass']
+        )->where(
+            'start_time','>',time()
+        )->where(
+            'end_time','>',time()
+        )->order(
+            'start_time','asc'
+        )->select()->toArray();
+        // TODO :  ActivityModel 模型
+        $haveInHand = ActivityModel::where(
+            'activity_class',$get['ActivityClass']
+        )->where(
+            'activity_class',$get['ActivityClass']
+        )->where(
+            'start_time','<',time()
+        )->where(
+            'end_time','>',time()
+        )->order(
+            'start_time','asc'
+        )->select()->toArray();
+        // TODO :  ActivityModel 模型
+        $finished = ActivityModel::where(
+            'activity_class',$get['ActivityClass']
+        )->where(
+            'activity_class',$get['ActivityClass']
+        )->where(
+            'end_time','<',time()
+        )->order(
+            'start_time','asc'
+        )->limit(0,12)->select()->toArray();
+        // 返回数据
+        return \RSD::wxReponse(true,'M',[
+            'notStarted'=>['msg'=>'未开始','data'=>$notStarted],
+            'haveInHand'=>['msg'=>'进行中','data'=>$haveInHand],
+            'finished'  =>['msg'=>'已结束','data'=>$finished]
+        ]);
+    }
+
+    /**
+     * 名  称 : activityUpdate()
+     * 功  能 : 修改活动广告信息数据处理
+     * 变  量 : --------------------------------------
+     * 输  入 : ( File ) $put['ActivityId']     => '活动主键';
+     * 输  入 : ( File ) $put['ActivityFile']   => '活动图片';
+     * 输  入 : (String) $put['ActivityTitle']  => '活动标题';
+     * 输  入 : (String) $put['ActivityDes']    => '活动介绍';
+     * 输  入 : (String) $put['ActivityType']   => '活动类型';
+     * 输  入 : ( Int )  $put['ActivityStatus'] => '活动状态';
+     * 输  入 : ( Int )  $put['ActivityClass']  => '活动分组';
+     * 输  入 : (String) $put['ActivityStart']  => '开始时间';
+     * 输  入 : (String) $put['ActivityEnd']    => '结束时间';
+     * 输  出 : ['msg'=>'success','data'=>'提示信息']
+     * 创  建 : 2018/10/05 12:16
+     */
+    public function activityUpdate($put)
+    {
+        // TODO :  验证数据是否已经存在
+        $activity = ActivityModel::where(
+            'activity_title',$put['ActivityTitle']
+        )->where(
+            'activity_type',$put['ActivityType']
+        )->where(
+            'activity_class',$put['ActivityClass']
+        )->find();
+        // TODO :  验证数据
+        if(($activity)&&($activity['activity_id']!=$put['ActivityId'])) {
+            return returnData('error','标题已存在');
+        }
+        // TODO :  处理数据
+        if($put['ActivityFile'] != 'false'){
+            if(file_exists('.'.$activity['activity_img'])){
+                unlink('.'.$activity['activity_img']);
+            }
+            $activity->activity_img    = $put['ActivityFile'];
+        }
+        $activity->activity_title  = $put['ActivityTitle'];
+        $activity->activity_des    = $put['ActivityDes'];
+        $activity->activity_type   = $put['ActivityType'];
+        $activity->activity_status = $put['ActivityStatus'];
+        $activity->activity_class  = $put['ActivityClass'];
+        $activity->start_time      = $put['ActivityStart'];
+        $activity->end_time        = $put['ActivityEnd'];
+        // TODO :  将数据写入数据库
+        $res = $activity->save();
+        // TODO :  返回数据
+        return \RSD::wxReponse($res,'M','修改成功','修改失败');
+    }
 }

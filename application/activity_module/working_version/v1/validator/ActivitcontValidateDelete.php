@@ -11,4 +11,24 @@ namespace app\activity_module\working_version\v1\validator;
 use think\Validate;
 
 class ActivitcontValidateDelete extends Validate
-{}
+{
+    /**
+     * 名  称 : $rule
+     * 功  能 : 验证规则
+     * 输  入 : ( Int )  $delete['ContentId']       => '内容ID';
+     * 创  建 : 2018/10/05 10:49
+     */
+    protected $rule =   [
+        'ContentId'  => 'require|number',
+    ];
+
+    /**
+     * 名  称 : $message()
+     * 功  能 : 设置验证信息
+     * 创  建 : 2018/10/05 10:49
+     */
+    protected $message  =   [
+        'ContentId.require' => '请正确发送内容ID',
+        'ContentId.number'  => '请正确发送内容ID',
+    ];
+}
