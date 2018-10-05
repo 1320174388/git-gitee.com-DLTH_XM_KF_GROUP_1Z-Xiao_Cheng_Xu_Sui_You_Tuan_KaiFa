@@ -16,3 +16,12 @@ Route::post(
     ':v/activity_module/activity_route',
     'activity_module/:v.controller.ActivityController/activityPost'
 );
+
+/**
+ * 传值方式 : POST
+ * 路由功能 : 添加活动详情
+ */
+Route::post(
+    ':v/activity_module/activitcont_route',
+    'activity_module/:v.controller.ActivitcontController/activitcontPost'
+);

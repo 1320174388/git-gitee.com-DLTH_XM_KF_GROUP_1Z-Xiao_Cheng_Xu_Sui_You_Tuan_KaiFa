@@ -53,6 +53,8 @@ class ActivityDao implements ActivityInterface
         // TODO :  将数据写入数据库
         $res = $activity->save();
         // TODO :  返回数据
-        return \RSD::wxReponse($res,'M','添加成功','添加失败');
+        return \RSD::wxReponse($res,'M',
+            ['activity_id'=>$activity['activity_id']], '添加失败'
+        );
     }
 }
