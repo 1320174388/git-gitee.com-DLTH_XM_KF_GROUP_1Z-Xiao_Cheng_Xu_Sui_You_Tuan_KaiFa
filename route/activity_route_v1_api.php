@@ -15,7 +15,7 @@
 Route::post(
     ':v/activity_module/activity_route',
     'activity_module/:v.controller.ActivityController/activityPost'
-);
+)->middleware('Right_v1_IsAdmin');
 
 /**
  * 传值方式 : POST
@@ -24,7 +24,7 @@ Route::post(
 Route::post(
     ':v/activity_module/activitcont_route',
     'activity_module/:v.controller.ActivitcontController/activitcontPost'
-);
+)->middleware('Right_v1_IsAdmin');
 
 /**
  * 传值方式 : DELETE
@@ -33,7 +33,7 @@ Route::post(
 Route::delete(
     ':v/activity_module/activitcont_route',
     'activity_module/:v.controller.ActivitcontController/activitcontDelete'
-);
+)->middleware('Right_v1_IsAdmin');
 
 /**
  * 传值方式 : GET
@@ -70,4 +70,13 @@ Route::get(
 Route::post(
     ':v/activity_module/activity_routput',
     'activity_module/:v.controller.ActivityController/activityPut'
-);
+)->middleware('Right_v1_IsAdmin');
+
+/**
+ * 传值方式 : DELETE
+ * 路由功能 : 删除活动广告信息
+ */
+Route::delete(
+    ':v/activity_module/activity_route',
+    'activity_module/:v.controller.ActivityController/activityDelete'
+)->middleware('Right_v1_IsAdmin');

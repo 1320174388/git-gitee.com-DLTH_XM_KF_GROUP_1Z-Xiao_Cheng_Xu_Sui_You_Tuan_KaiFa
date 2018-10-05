@@ -196,4 +196,32 @@ class ActivityService
         // 处理函数返回值
         return \RSD::wxReponse($res,'D');
     }
+
+    /**
+     * 名  称 : activityDel()
+     * 功  能 : 删除活动广告信息逻辑
+     * 变  量 : --------------------------------------
+     * 输  入 : ( Int )  $delete['ActivityId']     => '活动主键';
+     * 输  出 : ['msg'=>'success','data'=>'提示信息']
+     * 创  建 : 2018/10/05 14:41
+     */
+    public function activityDel($delete)
+    {
+        // 实例化验证器代码
+        $validate  = new ActivityValidateDelete();
+        
+        // 验证数据
+        if (!$validate->scene('edit')->check($delete)) {
+            return ['msg'=>'error','data'=>$validate->getError()];
+        }
+        
+        // 实例化Dao层数据类
+        $activityDao = new ActivityDao();
+        
+        // 执行Dao层逻辑
+        $res = $activityDao->activityDelete($delete);
+        
+        // 处理函数返回值
+        return \RSD::wxReponse($res,'D');
+    }
 }

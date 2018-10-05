@@ -71,3 +71,12 @@ Route::post(
     ':v/activity_module/activity_routput',
     'activity_module/:v.controller.ActivityController/activityPut'
 );
+
+/**
+ * 传值方式 : DELETE
+ * 路由功能 : 删除活动广告信息
+ */
+Route::delete(
+    ':v/activity_module/activity_route',
+    'activity_module/:v.controller.ActivityController/activityDelete'
+);

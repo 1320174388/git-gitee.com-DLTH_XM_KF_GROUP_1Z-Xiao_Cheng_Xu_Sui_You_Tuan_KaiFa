@@ -55,4 +55,14 @@ interface ActivityInterface
      * 创  建 : 2018/10/05 12:16
      */
     public function activityUpdate($put);
+
+    /**
+     * 名  称 : activityDelete()
+     * 功  能 : 声明:删除活动广告信息数据处理
+     * 变  量 : --------------------------------------
+     * 输  入 : ( Int )  $delete['ActivityId']     => '活动主键';
+     * 输  出 : ['msg'=>'success','data'=>'提示信息']
+     * 创  建 : 2018/10/05 14:41
+     */
+    public function activityDelete($delete);
 }

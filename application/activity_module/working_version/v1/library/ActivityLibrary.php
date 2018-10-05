@@ -74,4 +74,20 @@ class ActivityLibrary
         // TODO : 返回函数输出数据
         return ['msg'=>'success','data'=>'返回数据'];
     }
+
+    /**
+     * 名  称 : activityLibDelete()
+     * 功  能 : 删除活动广告信息函数类
+     * 变  量 : --------------------------------------
+     * 输  入 : ( Int )  $delete['ActivityId']     => '活动主键';
+     * 输  出 : ['msg'=>'success','data'=>'提示信息']
+     * 创  建 : 2018/10/05 14:41
+     */
+    public function activityLibDelete($delete)
+    {
+        // TODO : 执行函数处理逻辑
+        
+        // TODO : 返回函数输出数据
+        return ['msg'=>'success','data'=>'返回数据'];
+    }
 }

@@ -11,4 +11,24 @@ namespace app\activity_module\working_version\v1\validator;
 use think\Validate;
 
 class ActivityValidateDelete extends Validate
-{}
+{
+    /**
+     * 名  称 : $rule
+     * 功  能 : 验证规则
+     * 输  入 : ( Int )  $delete['ActivityId']     => '活动主键';
+     * 创  建 : 2018/10/05 14:41
+     */
+    protected $rule =   [
+        'ActivityId'     => 'require|number',
+    ];
+
+    /**
+     * 名  称 : $message()
+     * 功  能 : 设置验证信息
+     * 创  建 : 2018/10/05 14:41
+     */
+    protected $message  =   [
+        'ActivityId.require'     => '请正确发送文章主键',
+        'ActivityId.number'      => '请正确发送文章主键',
+    ];
+}

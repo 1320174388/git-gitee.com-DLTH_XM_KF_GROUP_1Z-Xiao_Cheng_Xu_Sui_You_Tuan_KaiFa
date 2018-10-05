@@ -9,6 +9,7 @@
  */
 namespace app\activity_module\working_version\v1\dao;
 use app\activity_module\working_version\v1\model\ActivityModel;
+use app\activity_module\working_version\v1\model\ActivityContModel;
 
 class ActivityDao implements ActivityInterface
 {
@@ -158,5 +159,50 @@ class ActivityDao implements ActivityInterface
         $res = $activity->save();
         // TODO :  返回数据
         return \RSD::wxReponse($res,'M','修改成功','修改失败');
+    }
+
+    /**
+     * 名  称 : activityDelete()
+     * 功  能 : 删除活动广告信息数据处理
+     * 变  量 : --------------------------------------
+     * 输  入 : ( Int )  $delete['ActivityId']     => '活动主键';
+     * 输  出 : ['msg'=>'success','data'=>'提示信息']
+     * 创  建 : 2018/10/05 14:41
+     */
+    public function activityDelete($delete)
+    {
+        // TODO :  ActivityModel 模型
+        $activity =  ActivityModel::get($delete['ActivityId']);
+        // TODO :  判断数据是否存在
+        if(!$activity){
+            return returnData('error','要删除内容不存在');
+        }
+        // TODO :  ActivityContModel
+        $activityCont =  ActivityContModel::where(
+            'activity_id',$delete['ActivityId']
+        )->where(
+            'content_type','image'
+        )->select()->toArray();
+        // 删除图片
+        foreach($activityCont as $v)
+        {
+            if(file_exists('.'.$v['content_content'])){
+                unlink('.'.$v['content_content']);
+            }
+        }
+        try{
+            ActivityContModel::where(
+                'activity_id',$delete['ActivityId']
+            )->where(
+                'content_type','image'
+            )->delete();
+            if(file_exists('.'.$activity['activity_img'])){
+                unlink('.'.$activity['activity_img']);
+            }
+            $activity->delete();
+            return returnData('success','删除成功');
+        }catch  (\Exception $e){
+            return returnData('error','删除失败');
+        }
     }
 }

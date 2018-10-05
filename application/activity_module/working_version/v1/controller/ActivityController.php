@@ -96,4 +96,27 @@ class ActivityController extends Controller
         // 处理函数返回值
         return \RSD::wxReponse($res,'S','');
     }
+
+    /**
+     * 名  称 : activityDelete()
+     * 功  能 : 删除活动广告信息接口
+     * 变  量 : --------------------------------------
+     * 输  入 : ( Int )  $delete['ActivityId']     => '活动主键';
+     * 输  出 : {"errNum":0,"retMsg":"提示信息","retData":true}
+     * 创  建 : 2018/10/05 14:41
+     */
+    public function activityDelete(\think\Request $request)
+    {
+        // 实例化Service层逻辑类
+        $activityService = new ActivityService();
+        
+        // 获取传入参数
+        $delete = $request->delete();
+        
+        // 执行Service逻辑
+        $res = $activityService->activityDel($delete);
+        
+        // 处理函数返回值
+        return \RSD::wxReponse($res,'S','');
+    }
 }
