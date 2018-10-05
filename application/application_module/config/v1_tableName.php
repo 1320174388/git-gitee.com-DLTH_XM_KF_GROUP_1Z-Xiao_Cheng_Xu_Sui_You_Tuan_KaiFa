@@ -23,4 +23,14 @@ return [
     'Insider' => 'data_user_member',
     // 扣费比例表
     'Bespeak' => 'data_admin_bespeak',
+    // 个人门票表
+    'Ticket' => 'data_user_ticket',
+    // 奖品表
+    'Prize' => 'data_prize_list',
+    // 活动表
+    'Activity' => 'data_activity_list',
+    // 景区押金扣除信息表
+    'Scenicservice' => 'data_scenic_service',
+    // 景区客服表
+    'Depositdeduct' => 'data_deposit_deduct',
 ];

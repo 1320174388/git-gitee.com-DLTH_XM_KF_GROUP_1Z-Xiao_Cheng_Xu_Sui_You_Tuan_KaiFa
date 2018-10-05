@@ -481,4 +481,150 @@ class ScenicService
         // 处理函数返回值
         return returnData('success',$res['data']);
     }
+
+
+    /**
+     * 名  称 : exchangeTicket()
+     * 功  能 : 兑换门票接口(显示门票内容)
+     * 变  量 : --------------------------------------
+     * 输  入 : '$post['order_number']  => '订单号';
+     * 输  出 : {"errNum":0,"retMsg":"提示信息","retData":true}
+     * 创  建 : 2018/09/24 19:11
+     */
+    public function exchangeTicket($post)
+    {
+        // ScenicDao
+        $res=(new ScenicDao())->exchangeTicket($post);
+        if($res['msg']=='error') return returnData('error','查询失败');
+        // 返回数据
+        return returnData('success',$res['data']);
+    }
+
+
+    /**
+     * 名  称 : confirmexchangeTicket()
+     * 功  能 : 确认兑换门票接口
+     * 变  量 : --------------------------------------
+     * 输  入 : '$post['order_number']  => '订单号';
+     * 输  入 : '$post['ticket_sratus']  => '门票状态';
+     * 输  出 : {"errNum":0,"retMsg":"提示信息","retData":true}
+     * 创  建 : 2018/09/24 19:11
+     */
+    public function confirmexchangeTicket($post)
+    {
+        // ScenicDao
+        $res=(new ScenicDao())->confirmexchangeTicket($post);
+        if($res['msg']=='error') return returnData('error','兑换失败');
+        // 返回数据
+        return returnData('success',$res['data']);
+    }
+
+
+    /**
+     * 名  称 : prizeTicket()
+     * 功  能 : 兑换奖品接口(显示奖品内容)
+     * 变  量 : --------------------------------------
+     * 输  入 : '$post['prize_id']  => '奖品主键';
+     * 输  出 : {"errNum":0,"retMsg":"提示信息","retData":true}
+     * 创  建 : 2018/09/24 19:11
+     */
+    public function prizeTicket($post)
+    {
+        // ScenicDao
+        $res=(new ScenicDao())->prizeTicket($post);
+        if($res['msg']=='error') return returnData('error','查询失败');
+        // 返回数据
+        return returnData('success',$res['data']);
+    }
+
+
+    /**
+     * 名  称 : confirmprizeTicket()
+     * 功  能 : 确认兑换奖品接口
+     * 变  量 : --------------------------------------
+     * 输  入 : '$post['prize_id']  => '奖品主键';
+     * 输  入 : '$post['prize_status']  => '奖品状态';
+     * 输  出 : {"errNum":0,"retMsg":"提示信息","retData":true}
+     * 创  建 : 2018/09/24 19:11
+     */
+    public function confirmprizeTicket($post)
+    {
+        // ScenicDao
+        $res=(new ScenicDao())->confirmprizeTicket($post);
+        if($res['msg']=='error') return returnData('error','兑换失败');
+        // 返回数据
+        return returnData('success',$res['data']);
+    }
+
+
+    /**
+     * 名  称 : activeStatus()
+     * 功  能 : 修改活动状态接口
+     * 变  量 : --------------------------------------
+     * 输  入 : '$post['activity_id']  => '活动主键';
+     * 输  入 : '$post['activity_status']  => '活动状态';
+     * 输  出 : {"errNum":0,"retMsg":"提示信息","retData":true}
+     * 创  建 : 2018/09/24 19:11
+     */
+    public function activeStatus($post)
+    {
+        // ScenicDao
+        $res=(new ScenicDao())->activeStatus($post);
+        if($res['msg']=='error') return returnData('error','兑换失败');
+        // 返回数据
+        return returnData('success',$res['data']);
+    }
+
+    /**
+     * 名  称 : depositDeduction()
+     * 功  能 : 获取押金扣除记录列表接口
+     * 变  量 : --------------------------------------
+     * 输  入 : '$post['scenic_id']  => '景区主键';
+     * 输  出 : {"errNum":0,"retMsg":"提示信息","retData":true}
+     * 创  建 : 2018/09/24 19:11
+     */
+    public function depositDeduction($post)
+    {
+        // ScenicDao
+        $res=(new ScenicDao())->depositDeduction($post);
+        if($res['msg']=='error') return returnData('error','查询失败');
+        // 返回数据
+        return returnData('success',$res['data']);
+    }
+
+    /**
+     * 名  称 : scenicDeposit()
+     * 功  能 : 获取景区押金接口
+     * 变  量 : --------------------------------------
+     * 输  入 : '$post['scenic_id']  => '景区主键';
+     * 输  出 : {"errNum":0,"retMsg":"提示信息","retData":true}
+     * 创  建 : 2018/09/24 19:11
+     */
+    public function scenicDeposit($post)
+    {
+        // ScenicDao
+        $res=(new ScenicDao())->scenicDeposit($post);
+        if($res['msg']=='error') return returnData('error','查询失败');
+        // 返回数据
+        return returnData('success',$res['data']);
+    }
+
+
+    /**
+     * 名  称 : sceniccustomerserviceDel()
+     * 功  能 : 删除景区客服接口
+     * 变  量 : --------------------------------------
+     * 输  入 : '$post['scenic_id']  => '景区主键';
+     * 输  入 : '$post['service_id']  => '客服主键';
+     * 输  出 : {"errNum":0,"retMsg":"提示信息","retData":true}
+     * 创  建 : 2018/09/24 19:11
+     */
+    public function sceniccustomerserviceDel($post)
+    {
+        // ScenicDao
+        $res=(new ScenicDao())->sceniccustomerserviceDel($post);
+        if($res['msg']=='error') return returnData('error','删除失败');
+        // 返回数据
+        return returnData('success',$res['data']);
+    }
 }
