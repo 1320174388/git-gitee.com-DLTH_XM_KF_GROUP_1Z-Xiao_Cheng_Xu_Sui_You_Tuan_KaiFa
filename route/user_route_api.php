@@ -56,3 +56,36 @@ Route::get(
     ':v/user_module/scenicCommentGet',
     'user_module/:v.controller.SearchScenicController/scenicCommentGet'
 );
+
+/**
+ * 传值方式 : GET
+ * 路由功能 : 获取用户信息及会员信息
+ */
+Route::get(
+    ':v/user_module/userInfoGet',
+    'user_module/:v.controller.UserInfoController/userInfoGet'
+);
+/**
+ * 传值方式 : GET
+ * 路由功能 : 获取会员权益说明
+ */
+Route::get(
+    ':v/user_module/vipExplainGet',
+    'user_module/:v.controller.UserInfoController/vipExplainGet'
+);
+/**
+ * 传值方式 : POST
+ * 路由功能 : 用户实名认证接口
+ */
+Route::post(
+    ':v/realname_module/realnamePost',
+    'realname_module/:v.controller.RealnameController/realnamePost'
+);
+/**
+ * 传值方式 : GET
+ * 路由功能 : 查询实名制状态
+ */
+Route::get(
+    ':v/realname_module/realnameGet',
+    'realname_module/:v.controller.RealnameController/realnameGet'
+);
