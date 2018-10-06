@@ -9,12 +9,19 @@
  */
 
 return [
+    // 用户表模型
+    'usersList'         => 'data_users_list',
     // 景区表模型
     'scenicList'        => 'data_scenic_list',
-    // 景区评论表模型
-    'scenicComment'     => 'data_scenic_comment',
+    // 景区活动广告表模型
+    'scenicActivity'    => 'data_activity_list',
     // 景区优惠券表模型
     'scenicCoupon'      => 'data_coupon_list',
     // 景区轮播图表模型
-    'scenicImages'      => 'data_images_list'
+    'scenicImages'      => 'data_images_list',
+    // 景区客服人员表模型
+    'scenicService'     => 'data_scenic_service',
+    // 景区评论表模型
+    'scenicComment'     => 'data_scenic_comment',
+
 ];
