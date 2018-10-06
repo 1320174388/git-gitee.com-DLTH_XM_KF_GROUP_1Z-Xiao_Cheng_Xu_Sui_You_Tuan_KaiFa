@@ -16,3 +16,11 @@ Route::put(
     ':v/deductions_module/deductions_route',
     'deductions_module/:v.controller.DeductionsController/deductionsPut'
 );
+/**
+ * 传值方式 : get
+ * 路由功能 : 获取景区平均星级
+ */
+Route::get(
+    ':v/deductions_module/scenicLevelGet',
+    'deductions_module/:v.controller.DeductionsController/scenicLevelGet'
+);

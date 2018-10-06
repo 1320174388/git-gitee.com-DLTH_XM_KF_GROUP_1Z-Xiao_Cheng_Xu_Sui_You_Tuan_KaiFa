@@ -12,6 +12,7 @@ use app\deductions_module\working_version\v1\model\AdminprofitModel;
 use app\deductions_module\working_version\v1\model\AdminbalanceModel;
 use app\deductions_module\working_version\v1\model\DepositModel;
 use app\deductions_module\working_version\v1\model\DepositdeductModel;
+use app\deductions_module\working_version\v1\model\ScenicCommentModel;
 
 class DeductionsDao implements DeductionsInterface
 {
@@ -73,5 +74,30 @@ class DeductionsDao implements DeductionsInterface
         }
 
 
+    }
+    /**
+     * 作  者 : Feng Tianshui
+     * 名  称 : scenicLevelSelect()
+     * 功  能 : 获取景区平均星级
+     * 变  量 : --------------------------------------
+     * 输  入 : $get['scenic_id']   => '景区主键';
+     * 输  出 : {"errNum":0,"retMsg":"提示信息","retData":true}
+     * 创  建 : 2018/10/06 17:05
+     */
+    public function scenicLevelSelect($get)
+    {
+        //查询平均值
+        $comment = new ScenicCommentModel();
+        $res = $comment->where('scenic_id',$get['scenic_id'])
+            ->field("avg(`comment_service`) as `service`,
+                                   avg(`comment_health`) as `health`,
+                                   avg(`comment_view`) as `view`,
+                                   avg(`comment_cosy`) as `cosy`")
+            ->find()->toArray();
+        $data = [];
+        foreach ($res as $k => $v){
+            $data[$k] = round($v);
+        }
+        return \RSD::wxReponse($data,'M',$data,'没有搜索到结果');
     }
 }

@@ -8,5 +8,7 @@
  *  历史记录 :  -----------------------
  */
 return [
-    'UserTable' => 'data_home_users',
+    'UserTable'         => 'data_home_users',
+    // 景区评论表
+    'scenicComment'     => 'data_scenic_comment',
 ];
