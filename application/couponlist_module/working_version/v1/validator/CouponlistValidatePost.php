@@ -18,12 +18,14 @@ class CouponlistValidatePost extends Validate
      * 输  入 : $post['user_token']    => '用户标识';
      * 输  入 : $post['scenic_id']     => '景区主键';
      * 输  入 : $post['coupon_money']  => '优惠金额';
+     * 输  入 : $post['form_id']       => '表单ID';
      * 创  建 : 2018/09/26 14:46
      */
     protected $rule =   [
         'user_token'   => 'require|min:32|max:32',
         'scenic_id'    => 'require|number',
         'coupon_money' => 'require|float',
+        'form_id'      => 'require',
     ];
 
     /**
@@ -39,5 +41,6 @@ class CouponlistValidatePost extends Validate
         'scenic_id.number'      => '请正确输入景区ID',
         'coupon_money.require'  => '请正确输入优惠券金额',
         'coupon_money.float'    => '请正确输入优惠券金额',
+        'form_id.require'       => '请发送表单Form_id',
     ];
 }

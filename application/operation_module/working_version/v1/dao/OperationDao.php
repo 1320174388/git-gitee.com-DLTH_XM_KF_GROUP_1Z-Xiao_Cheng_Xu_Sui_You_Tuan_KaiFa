@@ -8,7 +8,10 @@
  *  历史记录 :  -----------------------
  */
 namespace app\operation_module\working_version\v1\dao;
+use app\operation_module\working_version\v1\model\UserModel;
 use app\operation_module\working_version\v1\model\OperationModel;
+use app\right_module\working_version\v1\library\AccessTokenRequest;
+use app\right_module\working_version\v1\library\TemplateMessagePushLibrary;
 
 class OperationDao implements OperationInterface
 {
@@ -70,6 +73,7 @@ class OperationDao implements OperationInterface
      * 变  量 : --------------------------------------
      * 输  入 : '$get['OperationId']     => '申请主键';'
      * 输  入 : '$get['OperationStatus'] => '审核状态';'
+     * 输  入 : '$get['OperationInfo']   => '失败原因';'
      * 输  出 : ['msg'=>'success','data'=>'提示信息']
      * 创  建 : 2018/10/06 10:37
      */
@@ -89,6 +93,46 @@ class OperationDao implements OperationInterface
             if($res['msg']=='error'){
                 return returnData('error',$res['data']);
             }
+
+            // TODO :  获取success_token
+            $accessTokenArr = AccessTokenRequest::wxRequest(
+                config('v1_config.wx_AppID'),
+                config('v1_config.wx_AppSecret'),
+                './project_access_token/'
+            );
+
+            // TODO :  获取openid
+            $user = UserModel::field('user_openid')->where(
+                'user_token',$operation['user_token']
+            )->find();
+
+            if($put['OperationStatus']==1){
+                $OperationStatus = '审核通过';
+                $OperationRed    = '无';
+            }else{
+                $OperationStatus = '审核未通过';
+                $OperationRed    = $put['OperationInfo'];
+            }
+
+            // 发送模板消息
+            TemplateMessagePushLibrary::sendTemplate(
+                $accessTokenArr['data']['access_token'],
+                [
+                    'touser'      => $user['user_openid'],
+                    'template_id' => config('v1_config.Wx_ShenHe_ID'),
+                    'page'        => config('v1_config.Wx_ShenHe_Url'),
+                    'form_id'     => $operation['form_id'],
+                    'data'        => [
+                        'keyword1' => ['value'=>$operation['operation_content']],
+                        'keyword2' => ['value'=>$OperationStatus],
+                        'keyword3' => ['value'=>$OperationRed],
+                        'keyword4' => ['value'=>date(
+                            'Y-m-d H:i',time()
+                        )],
+                    ],
+                ]
+            );
+
             // 提交事务
             \think\Db::commit();
             return returnData('success','审核成功');

@@ -18,4 +18,6 @@ return [
     'SGY_Ticket_list'    => 'data_ticket_list',
     // 景区团购信息
     'SGY_Group_list'     => 'data_group_list',
+    // 用户信息表
+    'SGY_Users_Lists'    => 'data_users_list',
 ];

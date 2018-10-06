@@ -21,6 +21,7 @@ class PurchaseController extends Controller
      * 输  入 : $post['scenic_id']   => '景区主键';
      * 输  入 : $post['group_money'] => '团购价格';
      * 输  入 : $post['group_num']   => '团购人数';
+     * 输  入 : $post['form_id']     => '表单ID';
      * 输  出 : {"errNum":0,"retMsg":"提示信息","retData":true}
      * 创  建 : 2018/09/28 20:31
      */
@@ -46,6 +47,7 @@ class PurchaseController extends Controller
      * 输  入 : $delete['user_token'] => '用户标识';
      * 输  入 : $delete['scenic_id']  => '景区主键';
      * 输  入 : $delete['group_id']   => '团购ID';
+     * 输  入 : $delete['form_id']    => '表单ID';
      * 输  出 : {"errNum":0,"retMsg":"提示信息","retData":true}
      * 创  建 : 2018/09/29 19:14
      */

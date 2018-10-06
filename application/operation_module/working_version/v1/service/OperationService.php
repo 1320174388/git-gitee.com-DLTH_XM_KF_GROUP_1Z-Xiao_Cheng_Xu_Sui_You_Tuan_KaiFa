@@ -56,6 +56,7 @@ class OperationService
      * 变  量 : --------------------------------------
      * 输  入 : '$get['OperationId']     => '申请主键';'
      * 输  入 : '$get['OperationStatus'] => '审核状态';'
+     * 输  入 : '$get['OperationInfo']   => '失败原因';'
      * 输  出 : ['msg'=>'success','data'=>'提示信息']
      * 创  建 : 2018/10/06 10:37
      */
@@ -71,6 +72,9 @@ class OperationService
         // 处理数据
         if(($put['OperationStatus']!='1')&&($put['OperationStatus']!='2')){
             return returnData('error','请正确输入审核状态');
+        }
+        if(($put['OperationStatus']==2)&&empty($put['OperationInfo'])){
+            return returnData('error','请填写审核失败原因');
         }
         
         // 实例化Dao层数据类

@@ -10,15 +10,23 @@
 
 return [
     // 用户信息表
-    'Data_Home_Users' => 'data_home_users',
+    'Data_Home_Users'   => 'data_home_users',
     // 管理员信息表
-    'Data_User_Admins' => 'data_user_admins',
+    'Data_User_Admins'  => 'data_user_admins',
     // 管理员角色表
-    'Data_Role_Lists' => 'data_role_lists',
+    'Data_Role_Lists'   => 'data_role_lists',
     // 管理员权限表
-    'Data_Right_Lists' => 'data_right_lists',
+    'Data_Right_Lists'  => 'data_right_lists',
     // 管理角色关联表
     'Index_Admin_Roles' => 'index_admin_roles',
     // 角色权限关联表
     'Index_Role_Rights' => 'index_role_rights',
+    // 管理端收益表
+    'SGY_Admin_Profit'  => 'data_admin_profit',
+    // 管理端余额表
+    'SGY_Admin_Balance' => 'data_admin_balance',
+    // 景区押金表
+    'SGY_Deposit_List'  => 'data_deposit_list',
+    // 景区押金扣除信息表
+    'SGY_Deposit_Deduct'=> 'data_deposit_deduct',
 ];
