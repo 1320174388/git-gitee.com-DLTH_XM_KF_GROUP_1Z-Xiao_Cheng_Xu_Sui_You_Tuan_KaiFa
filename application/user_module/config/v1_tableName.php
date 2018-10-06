@@ -14,5 +14,7 @@ return [
     // 景区评论表模型
     'scenicComment'     => 'data_scenic_comment',
     // 景区优惠券表模型
-    'scenicCoupon'        => 'data_coupon_list'
+    'scenicCoupon'      => 'data_coupon_list',
+    // 景区轮播图表模型
+    'scenicImages'      => 'data_images_list'
 ];

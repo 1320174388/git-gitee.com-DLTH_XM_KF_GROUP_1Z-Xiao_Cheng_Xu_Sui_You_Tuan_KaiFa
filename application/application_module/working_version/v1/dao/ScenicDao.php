@@ -830,4 +830,46 @@ class ScenicDao
         // 返回数据
         return returnData('success',$dd);
     }
+
+
+    /**
+     * 名  称 : deductingDeposit()
+     * 功  能 : 扣除景区押金接口
+     * 变  量 : --------------------------------------
+     * 输  入 : '$post['scenic_id']  => '景区主键主键';
+     * 输  入 : '$post['deduct_money']  => '扣除金额';
+     * 输  入 : '$post['deposit_deduction']  => '扣除原因说明';
+     * 输  入 : '$post['deposit_time']  => '	时间';
+     * 输  出 : {"errNum":0,"retMsg":"提示信息","retData":true}
+     * 创  建 : 2018/09/24 19:11
+     */
+    public function deductingDeposit($post)
+    {
+        // 启动事务
+        Db::startTrans();
+        try {
+            $Depositdeduct = new DepositdeductModel();
+            // 进行修改
+            $res = $Depositdeduct->save([
+                $Depositdeduct->user_token    = $post['user_token']
+            ],['scenic_id'=>$post['scenic_id']]);
+            // 进行修改
+            $DepositModel= new DepositModel();
+            $res = $DepositModel->save([
+                $DepositModel->user_token  = $post['user_token']
+            ],['scenic_id'=>$post['scenic_id']]);
+            // 验证数据
+            if(!$res) return returnData('error');
+            Db::commit();
+            // 返回数据格式
+            return returnData('success',true);
+        } catch (\Exception $e) {
+            // 回滚事务
+            Db::rollback();
+            // 验证数据
+            return returnData('error');
+        }
+
+
+    }
 }

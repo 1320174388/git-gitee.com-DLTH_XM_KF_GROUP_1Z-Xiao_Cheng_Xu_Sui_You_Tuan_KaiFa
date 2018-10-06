@@ -32,3 +32,11 @@ Route::get(
     ':v/user_module/scenicInfoGet',
     'user_module/:v.controller.SearchScenicController/scenicInfoGet'
 );
+/**
+ * 传值方式 : GET
+ * 路由功能 : 查询景区轮播图信息
+ */
+Route::get(
+    ':v/user_module/scenicCarouselGet',
+    'user_module/:v.controller.SearchScenicController/scenicCarouselGet'
+);

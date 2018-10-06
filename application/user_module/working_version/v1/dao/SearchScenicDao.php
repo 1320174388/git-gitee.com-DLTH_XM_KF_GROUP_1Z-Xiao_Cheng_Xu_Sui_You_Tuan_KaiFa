@@ -10,6 +10,7 @@
 namespace app\user_module\working_version\v1\dao;
 use app\user_module\working_version\v1\model\ScenicModel;
 use app\user_module\working_version\v1\model\ScenicCommentModel;
+use app\user_module\working_version\v1\model\ScenicImagesModel;
 
 class SearchScenicDao
 {
@@ -69,9 +70,9 @@ class SearchScenicDao
     /**
      * 作  者 : Feng Tianshui
      * 名  称 : scenicInfoSelect()
-     * 功  能 : 精准搜索景区数据处理
+     * 功  能 : 获取景区详细数据处理
      * 变  量 : --------------------------------------
-     * 输  入 : '$get['scenic_name']  => '景区名称';'
+     * 输  入 : '$get['scenic_id']  => '景区id';'
      * 输  出 : ['msg'=>'success','data'=>'返回数据']
      * 创  建 : 2018/10/05 10:23
      */
@@ -79,7 +80,31 @@ class SearchScenicDao
     {
         //创建景区模型
         $scenic = ScenicModel::get($get['scenic_id']);
-        $scenic->coupon;
+        //联查景区优惠券
+        $res =  $scenic->coupon()->where(['apply_status' => 1,
+                                           'coupon_status' => 1])
+                                ->select()->toArray();
+        $scenic['coupon'] = $res;
         return \RSD::wxReponse($scenic,'M',$scenic,'没有搜索到结果');
+    }
+    /**
+     * 作  者 : Feng Tianshui
+     * 名  称 : scenicCarouselSelect()
+     * 功  能 : 获取景区轮播信息
+     * 变  量 : --------------------------------------
+     * 输  入 : '$get['scenic_id']  => '景区id';'
+     * 输  出 : ['msg'=>'success','data'=>'返回数据']
+     * 创  建 : 2018/10/05 10:23
+     */
+    public function scenicCarouselSelect($get)
+    {
+        //创建模型
+        $images = new ScenicImagesModel();
+        //查询
+        $res = $images->where('scenic_id',$get['scenic_id'])
+                        ->order('images_sort','asc')
+                        ->select()
+                        ->toArray();
+        return \RSD::wxReponse($res,'M',$res,'没有搜索到结果');
     }
 }

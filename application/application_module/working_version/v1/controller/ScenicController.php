@@ -697,4 +697,31 @@ class ScenicController extends Controller
         // 处理函数返回值
         return returnResponse(0,'删除成功',$res['data']);
     }
+
+
+    /**
+     * 名  称 : deductingDeposit()
+     * 功  能 : 扣除景区押金接口
+     * 变  量 : --------------------------------------
+     * 输  入 : '$post['scenic_id']  => '景区主键主键';
+     * 输  入 : '$post['deduct_money']  => '扣除金额';
+     * 输  入 : '$post['deposit_deduction']  => '扣除原因说明';
+     * 输  入 : '$post['deposit_time']  => '	时间';
+     * 输  出 : {"errNum":0,"retMsg":"提示信息","retData":true}
+     * 创  建 : 2018/09/24 19:11
+     */
+    public function deductingDeposit(\think\Request $request)
+    {
+        // 实例化Service层逻辑类
+        $ScenicService = new ScenicService();
+
+        // 获取传入参数
+        $post = $request->post();
+
+        // 执行Service逻辑
+        $res = $ScenicService->deductingDeposit($post);
+
+        // 处理函数返回值
+        return returnResponse(0,'扣除成功',$res['data']);
+    }
 }
