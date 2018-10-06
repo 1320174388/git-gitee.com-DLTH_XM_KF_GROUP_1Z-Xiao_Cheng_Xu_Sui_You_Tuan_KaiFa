@@ -40,3 +40,19 @@ Route::get(
     ':v/user_module/scenicCarouselGet',
     'user_module/:v.controller.SearchScenicController/scenicCarouselGet'
 );
+/**
+ * 传值方式 : GET
+ * 路由功能 : 查询景区客服人员信息
+ */
+Route::get(
+    ':v/user_module/scenicLinkmanGet',
+    'user_module/:v.controller.SearchScenicController/scenicLinkmanGet'
+);
+/**
+ * 传值方式 : GET
+ * 路由功能 : 查询景区评论信息
+ */
+Route::get(
+    ':v/user_module/scenicCommentGet',
+    'user_module/:v.controller.SearchScenicController/scenicCommentGet'
+);

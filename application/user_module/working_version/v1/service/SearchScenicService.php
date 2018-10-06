@@ -131,4 +131,67 @@ class SearchScenicService
         // 处理函数返回值
         return \RSD::wxReponse($res,'D');
     }
+    /**
+ * 作  者 : Feng Tianshui
+ * 名  称 : scenicLinkmanShow()
+ * 功  能 : 获取景区客服人员信息
+ * 变  量 : --------------------------------------
+ * 输  入 : '$get['scenic_id']  => '景区id';'
+ * 输  出 : ['msg'=>'success','data'=>'返回数据']
+ * 创  建 : 2018/10/05 10:23
+ */
+    public function scenicLinkmanShow($get)
+    {
+        // 验证数据
+        $validate = new \think\Validate([
+            'scenic_id'         => 'require',
+        ],[
+            'scenic_id.require'         => '缺少scenic_id参数',
+        ]);
+        if (!$validate->check($get)) {
+            return returnData('error',$validate->getError());
+        }
+
+        // 实例化Dao层数据类
+        $searchScenicDao = new SearchScenicDao();
+
+        // 执行Dao层逻辑
+        $res = $searchScenicDao->scenicLinkmanSelect($get);
+
+        // 处理函数返回值
+        return \RSD::wxReponse($res,'D');
+    }
+    /**
+     * 作  者 : Feng Tianshui
+     * 名  称 : scenicCommentShow()
+     * 功  能 : 获取景区客服人员信息
+     * 变  量 : --------------------------------------
+     * 输  入 : '$get['scenic_id']  => '景区id';'
+     * 输  入 : '$get['page_num']  => '分页数量';'
+     * 输  出 : ['msg'=>'success','data'=>'返回数据']
+     * 创  建 : 2018/10/05 10:23
+     */
+    public function scenicCommentShow($get)
+    {
+        // 验证数据
+        $validate = new \think\Validate([
+            'scenic_id'         => 'require',
+            'page_num'          => 'require',
+        ],[
+            'scenic_id.require'         => '缺少scenic_id参数',
+            'page_num.require'          => '缺少page_num参数',
+        ]);
+        if (!$validate->check($get)) {
+            return returnData('error',$validate->getError());
+        }
+
+        // 实例化Dao层数据类
+        $searchScenicDao = new SearchScenicDao();
+
+        // 执行Dao层逻辑
+        $res = $searchScenicDao->scenicCommentSelect($get);
+
+        // 处理函数返回值
+        return \RSD::wxReponse($res,'D');
+    }
 }

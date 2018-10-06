@@ -105,4 +105,51 @@ class SearchScenicController extends Controller
         // 处理函数返回值
         return \RSD::wxReponse($res,'S','请求成功');
     }
+    /**
+     * 作  者 : Feng Tianshui
+     * 名  称 : scenicLinkmanGet()
+     * 功  能 : 获取景区客服人员信息
+     * 变  量 : --------------------------------------
+     * 输  入 : '$get['scenic_id']  => '景区id';'
+     * 输  出 : {"errNum":0,"retMsg":"请求成功","retData":"请求数据"}
+     * 创  建 : 2018/10/05 10:23
+     */
+    public function scenicLinkmanGet(\think\Request $request)
+    {
+        // 实例化Service层逻辑类
+        $searchScenicService = new SearchScenicService();
+
+        // 获取传入参数
+        $get = $request->get();
+
+        // 执行Service逻辑
+        $res = $searchScenicService->scenicLinkmanShow($get);
+
+        // 处理函数返回值
+        return \RSD::wxReponse($res,'S','请求成功');
+    }
+    /**
+     * 作  者 : Feng Tianshui
+     * 名  称 : scenicCommentGet()
+     * 功  能 : 获取景区评论列表信息
+     * 变  量 : --------------------------------------
+     * 输  入 : '$get['scenic_id']  => '景区id';'
+     * 输  入 : '$get['page_num']  => '分页数量';'
+     * 输  出 : {"errNum":0,"retMsg":"请求成功","retData":"请求数据"}
+     * 创  建 : 2018/10/05 10:23
+     */
+    public function scenicCommentGet(\think\Request $request)
+    {
+        // 实例化Service层逻辑类
+        $searchScenicService = new SearchScenicService();
+
+        // 获取传入参数
+        $get = $request->get();
+
+        // 执行Service逻辑
+        $res = $searchScenicService->scenicCommentShow($get);
+
+        // 处理函数返回值
+        return \RSD::wxReponse($res,'S','请求成功');
+    }
 }

@@ -11,6 +11,7 @@ namespace app\user_module\working_version\v1\dao;
 use app\user_module\working_version\v1\model\ScenicModel;
 use app\user_module\working_version\v1\model\ScenicCommentModel;
 use app\user_module\working_version\v1\model\ScenicImagesModel;
+use app\user_module\working_version\v1\model\ScenicServiceModel;
 
 class SearchScenicDao
 {
@@ -105,6 +106,62 @@ class SearchScenicDao
                         ->order('images_sort','asc')
                         ->select()
                         ->toArray();
+        return \RSD::wxReponse($res,'M',$res,'没有搜索到结果');
+    }
+    /**
+     * 作  者 : Feng Tianshui
+     * 名  称 : scenicLinkmanSelect()
+     * 功  能 : 获取景区客服人员信息
+     * 变  量 : --------------------------------------
+     * 输  入 : '$get['scenic_id']  => '景区id';'
+     * 输  出 : ['msg'=>'success','data'=>'返回数据']
+     * 创  建 : 2018/10/05 10:23
+     */
+    public function scenicLinkmanSelect($get)
+    {
+        //创建模型
+        $opject = new ScenicServiceModel();
+        //执行查询
+        $res = $opject->where('scenic_id',$get['scenic_id'])
+                ->select()
+                ->toArray();
+        return \RSD::wxReponse($res,'M',$res,'没有搜索到结果');
+    }
+    /**
+     * 作  者 : Feng Tianshui
+     * 名  称 : scenicCommentSelect()
+     * 功  能 : 获取景区评论列表
+     * 变  量 : --------------------------------------
+     * 输  入 : '$get['scenic_id']  => '景区id';'
+     * 输  入 : '$get['page_num']  => '分页数量';'
+     * 输  出 : ['msg'=>'success','data'=>'返回数据']
+     * 创  建 : 2018/10/05 10:23
+     */
+    public function scenicCommentSelect($get)
+    {
+        //联查用户表
+        $res = ScenicCommentModel::field(
+            config('v1_tableName.scenicComment').'.comment_service,
+                                comment_health,
+                                comment_view,
+                                comment_cosy,
+                                comment_content,
+                                comment_time,'.
+            config('v1_tableName.usersList').'.user_nickName,
+                                user_gender,
+                                user_avatarUrl,
+                                user_gender'
+            )
+            ->leftJoin(
+            config('v1_tableName.usersList'),
+            config('v1_tableName.scenicComment').'.user_token = '.
+            config('v1_tableName.usersList').'.user_token')
+            ->where(config('v1_tableName.scenicComment').'.scenic_id',$get['scenic_id'])
+            ->order('comment_id','asc')
+            ->limit($get['page_num'],12)
+            ->select()
+            ->toArray();
+
         return \RSD::wxReponse($res,'M',$res,'没有搜索到结果');
     }
 }
