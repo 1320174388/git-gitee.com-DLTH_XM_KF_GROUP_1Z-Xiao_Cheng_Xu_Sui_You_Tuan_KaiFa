@@ -45,4 +45,34 @@ class DeductionsService
         // 处理函数返回值
         return \RSD::wxReponse($res,'D');
     }
+    /**
+     * 作  者 : Feng Tianshui
+     * 名  称 : scenicLevelShow()
+     * 功  能 : 获取景区平均星级
+     * 变  量 : --------------------------------------
+     * 输  入 : $get['scenic_id']   => '景区主键';
+     * 输  出 : {"errNum":0,"retMsg":"提示信息","retData":true}
+     * 创  建 : 2018/10/06 17:05
+     */
+    public function scenicLevelShow($get)
+    {
+        // 验证数据
+        $validate = new \think\Validate([
+            'scenic_id'         => 'require',
+        ],[
+            'scenic_id.require'         => '缺少scenic_id参数',
+        ]);
+        if (!$validate->check($get)) {
+            return returnData('error',$validate->getError());
+        }
+
+        // 实例化Dao层数据类
+        $deductionsDao = new DeductionsDao();
+
+        // 执行Dao层逻辑
+        $res = $deductionsDao->scenicLevelSelect($get);
+
+        // 处理函数返回值
+        return \RSD::wxReponse($res,'D');
+    }
 }
