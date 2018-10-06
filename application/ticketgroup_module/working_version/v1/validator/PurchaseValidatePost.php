@@ -19,6 +19,7 @@ class PurchaseValidatePost extends Validate
      * 输  入 : $post['scenic_id']   => '景区主键';
      * 输  入 : $post['group_money'] => '团购价格';
      * 输  入 : $post['group_num']   => '团购人数';
+     * 输  入 : $post['form_id']     => '表单ID';
      * 创  建 : 2018/09/28 20:31
      */
     protected $rule =   [
@@ -26,6 +27,7 @@ class PurchaseValidatePost extends Validate
         'scenic_id'   => 'require|number',
         'group_money' => 'require|float',
         'group_num'   => 'require|number',
+        'form_id'     => 'require',
     ];
 
     /**
@@ -43,5 +45,6 @@ class PurchaseValidatePost extends Validate
         'group_money.float'   => '请发送团购价格',
         'group_num.require'   => '请发送团购人数',
         'group_num.number'    => '请发送团购人数',
+        'form_id.require'     => '请发送表单ID',
     ];
 }

@@ -18,12 +18,14 @@ class PurchaseValidateDelete extends Validate
      * 输  入 : $delete['user_token'] => '用户标识';
      * 输  入 : $delete['scenic_id']  => '景区主键';
      * 输  入 : $delete['group_id']   => '团购ID';
+     * 输  入 : $delete['form_id']    => '表单ID';
      * 创  建 : 2018/09/29 19:14
      */
     protected $rule =   [
         'user_token'  => 'require|min:32|max:32',
         'scenic_id'   => 'require|number',
         'group_id'    => 'require|number',
+        'form_id'     => 'require',
     ];
 
     /**
@@ -39,5 +41,6 @@ class PurchaseValidateDelete extends Validate
         'scenic_id.number'    => '请正确发送景区Id',
         'group_id.require'    => '请正确发送团购ID',
         'group_id.number'     => '请正确发送团购ID',
+        'form_id.require'     => '请正确发送表单ID',
     ];
 }

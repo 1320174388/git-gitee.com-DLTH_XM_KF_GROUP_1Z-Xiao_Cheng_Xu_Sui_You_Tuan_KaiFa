@@ -18,12 +18,14 @@ class CouponlistValidateDelete extends Validate
      * 输  入 : $delete['user_token'] => '用户Token标识';
      * 输  入 : $delete['scenic_id']  => '景区主键';
      * 输  入 : $delete['coupon_id']  => '优惠券ID';
+     * 输  入 : $delete['form_id']    => '表单ID';
      * 创  建 : 2018/09/27 09:31
      */
     protected $rule =   [
         'user_token'   => 'require|min:32|max:32',
         'coupon_id'    => 'require|number',
         'scenic_id'    => 'require|number',
+        'form_id'      => 'require',
     ];
 
     /**
@@ -39,5 +41,6 @@ class CouponlistValidateDelete extends Validate
         'coupon_id.number'      => '请正确输入景区主键',
         'scenic_id.require'     => '请正确输入景区ID',
         'scenic_id.number'      => '请正确输入景区ID',
+        'form_id.require'       => '请发送表单Form_id',
     ];
 }
