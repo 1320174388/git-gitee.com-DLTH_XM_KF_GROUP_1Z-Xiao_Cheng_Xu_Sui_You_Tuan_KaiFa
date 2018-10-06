@@ -332,3 +332,14 @@ Route::post(
     'v1/application_module/sceniccustomerserviceDel',
     'application_module/v1.controller.ScenicController/sceniccustomerserviceDel'
 );
+
+
+/**
+ * 传值方式：POST
+ * 传值参数：
+ * 路由功能：扣除景区押金接口
+ */
+Route::post(
+    'v1/application_module/deductingDeposit',
+    'application_module/v1.controller.ScenicController/deductingDeposit'
+);
