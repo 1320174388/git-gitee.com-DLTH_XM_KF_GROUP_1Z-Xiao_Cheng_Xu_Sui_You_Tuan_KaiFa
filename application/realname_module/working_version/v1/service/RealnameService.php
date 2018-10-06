@@ -14,6 +14,7 @@ use app\realname_module\working_version\v1\library\RealnameLibrary;
 class RealnameService
 {
     /**
+     * 作  者 : Feng Tianshui
      * 名  称 : realnameAdd()
      * 功  能 : 用户实名认证逻辑
      * 变  量 : --------------------------------------
@@ -74,6 +75,7 @@ class RealnameService
         }
     }
     /**
+     * 作  者 : Feng Tianshui
      * 名  称 : realnameShow()
      * 功  能 : 查询实名制状态
      * 变  量 : --------------------------------------

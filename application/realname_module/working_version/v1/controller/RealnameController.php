@@ -14,6 +14,7 @@ use app\realname_module\working_version\v1\service\RealnameService;
 class RealnameController extends Controller
 {
     /**
+     * 作  者 : Feng Tianshui
      * 名  称 : realnamePost()
      * 功  能 : 用户实名认证接口
      * 变  量 : --------------------------------------
@@ -39,6 +40,7 @@ class RealnameController extends Controller
         return \RSD::wxReponse($res,'S','请求成功');
     }
     /**
+     * 作  者 : Feng Tianshui
      * 名  称 : realnameGet()
      * 功  能 : 查询实名制状态
      * 变  量 : --------------------------------------
