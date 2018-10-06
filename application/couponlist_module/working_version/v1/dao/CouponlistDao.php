@@ -163,7 +163,7 @@ class CouponlistDao implements CouponlistInterface
                 ],320);
                 $operation->class_name        = 'app\couponlist_module\working_'.
                     'version\v1\library\CoupondelLibrary';
-                $operation->function_name     = 'coupondelDel';
+                $operation->function_name     = 'coupondelLibDelete';
                 $operation->operation_content = '【'.$scenic['scenic_name'].
                     '】申请删除【'.$coupon['coupon_money'].'元】优惠券。';
                 $operation->operation_status  = 0;

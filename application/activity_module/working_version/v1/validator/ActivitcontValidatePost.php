@@ -41,6 +41,7 @@ class ActivitcontValidatePost extends Validate
         'ActivityType.max'     => '请发送内容类型',
         'ActivityCont.min'     => '请发送6~2000字内容',
         'ActivityCont.max'     => '请发送6~2000字内容',
-        'ActivitySort.max'     => '请发送6~2000字内容',
+        'ActivitySort.require' => '请发送内容排序数字',
+        'ActivitySort.number'  => '请发送内容排序数字',
     ];
 }

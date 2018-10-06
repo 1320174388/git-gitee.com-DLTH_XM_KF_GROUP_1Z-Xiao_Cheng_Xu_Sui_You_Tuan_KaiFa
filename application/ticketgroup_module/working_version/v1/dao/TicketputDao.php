@@ -31,7 +31,7 @@ class TicketputDao implements TicketputInterface
             // TODO :  实例化 TicketgroupModel 模型
             $scenic = TicketgroupModel::get($put['scenic_id']);
             if($status==1){
-                $scenic->scenic_ticket = $put['ticket_money'];
+                $scenic->scenic_ticket = $ticket['ticket_money'];
                 $scenic->save();
             }
             // 删除景区门票申请数据
@@ -42,7 +42,7 @@ class TicketputDao implements TicketputInterface
         } catch (\Exception $e) {
             // 回滚事务
             \think\Db::rollback();
-            return returnData('error','审核失败');
+            return returnData('error',$e);
         }
     }
 }

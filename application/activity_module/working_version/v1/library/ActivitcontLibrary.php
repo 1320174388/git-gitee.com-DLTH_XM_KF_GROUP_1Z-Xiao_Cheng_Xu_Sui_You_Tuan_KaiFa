@@ -29,4 +29,36 @@ class ActivitcontLibrary
         // TODO : 返回函数输出数据
         return ['msg'=>'success','data'=>'返回数据'];
     }
+
+    /**
+     * 名  称 : activitcontLibDelete()
+     * 功  能 : 删除活动详情函数类
+     * 变  量 : --------------------------------------
+     * 输  入 : ( Int )  $delete['ContentId']       => '内容ID';
+     * 输  出 : ['msg'=>'success','data'=>'提示信息']
+     * 创  建 : 2018/10/05 10:49
+     */
+    public function activitcontLibDelete($delete)
+    {
+        // TODO : 执行函数处理逻辑
+        
+        // TODO : 返回函数输出数据
+        return ['msg'=>'success','data'=>'返回数据'];
+    }
+
+    /**
+     * 名  称 : activitcontLibGet()
+     * 功  能 : 获取活动详情列表函数类
+     * 变  量 : --------------------------------------
+     * 输  入 : ( Int )  $get['ActivityId']       => '活动ID';
+     * 输  出 : ['msg'=>'success','data'=>'返回数据']
+     * 创  建 : 2018/10/05 10:54
+     */
+    public function activitcontLibGet($get)
+    {
+        // TODO : 执行函数处理逻辑
+        
+        // TODO : 返回函数输出数据
+        return ['msg'=>'success','data'=>'返回数据'];
+    }
 }

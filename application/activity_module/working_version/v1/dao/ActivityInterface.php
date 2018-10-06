@@ -27,4 +27,42 @@ interface ActivityInterface
      * 创  建 : 2018/10/03 15:09
      */
     public function activityCreate($post);
+
+    /**
+     * 名  称 : activitySelect()
+     * 功  能 : 声明:获取活动广告列表数据处理
+     * 变  量 : --------------------------------------
+     * 输  入 : ( Int )  $get['ActivityClass']  => '活动分组';
+     * 输  出 : ['msg'=>'success','data'=>'返回数据']
+     * 创  建 : 2018/10/05 11:09
+     */
+    public function activitySelect($get);
+
+    /**
+     * 名  称 : activityUpdate()
+     * 功  能 : 声明:修改活动广告信息数据处理
+     * 变  量 : --------------------------------------
+     * 输  入 : ( File ) $put['ActivityId']     => '活动主键';
+     * 输  入 : ( File ) $put['ActivityFile']   => '活动图片';
+     * 输  入 : (String) $put['ActivityTitle']  => '活动标题';
+     * 输  入 : (String) $put['ActivityDes']    => '活动介绍';
+     * 输  入 : (String) $put['ActivityType']   => '活动类型';
+     * 输  入 : ( Int )  $put['ActivityStatus'] => '活动状态';
+     * 输  入 : ( Int )  $put['ActivityClass']  => '活动分组';
+     * 输  入 : (String) $put['ActivityStart']  => '开始时间';
+     * 输  入 : (String) $put['ActivityEnd']    => '结束时间';
+     * 输  出 : ['msg'=>'success','data'=>'提示信息']
+     * 创  建 : 2018/10/05 12:16
+     */
+    public function activityUpdate($put);
+
+    /**
+     * 名  称 : activityDelete()
+     * 功  能 : 声明:删除活动广告信息数据处理
+     * 变  量 : --------------------------------------
+     * 输  入 : ( Int )  $delete['ActivityId']     => '活动主键';
+     * 输  出 : ['msg'=>'success','data'=>'提示信息']
+     * 创  建 : 2018/10/05 14:41
+     */
+    public function activityDelete($delete);
 }
