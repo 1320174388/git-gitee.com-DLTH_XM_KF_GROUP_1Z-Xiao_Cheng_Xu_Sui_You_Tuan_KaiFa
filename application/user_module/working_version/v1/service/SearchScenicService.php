@@ -76,7 +76,7 @@ class SearchScenicService
      * 名  称 : scenicInfoShow()
      * 功  能 : 获取景区详细信息
      * 变  量 : --------------------------------------
-     * 输  入 : '$get['scenic_name']  => '景区名称';'
+     * 输  入 : '$get['scenic_id']  => '景区id';'
      * 输  出 : ['msg'=>'success','data'=>'返回数据']
      * 创  建 : 2018/10/05 10:23
      */
@@ -97,6 +97,36 @@ class SearchScenicService
 
         // 执行Dao层逻辑
         $res = $searchScenicDao->scenicInfoSelect($get);
+
+        // 处理函数返回值
+        return \RSD::wxReponse($res,'D');
+    }
+    /**
+     * 作  者 : Feng Tianshui
+     * 名  称 : scenicCarouselShow()
+     * 功  能 : 获取景区轮播图信息
+     * 变  量 : --------------------------------------
+     * 输  入 : '$get['scenic_id']  => '景区id';'
+     * 输  出 : ['msg'=>'success','data'=>'返回数据']
+     * 创  建 : 2018/10/05 10:23
+     */
+    public function scenicCarouselShow($get)
+    {
+        // 验证数据
+        $validate = new \think\Validate([
+            'scenic_id'         => 'require',
+        ],[
+            'scenic_id.require'         => '缺少scenic_id参数',
+        ]);
+        if (!$validate->check($get)) {
+            return returnData('error',$validate->getError());
+        }
+
+        // 实例化Dao层数据类
+        $searchScenicDao = new SearchScenicDao();
+
+        // 执行Dao层逻辑
+        $res = $searchScenicDao->scenicCarouselSelect($get);
 
         // 处理函数返回值
         return \RSD::wxReponse($res,'D');
