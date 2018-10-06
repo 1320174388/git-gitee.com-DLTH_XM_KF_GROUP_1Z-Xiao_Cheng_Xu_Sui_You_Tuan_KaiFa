@@ -20,6 +20,7 @@ Function_Create_Library::execCreateFunction([
     //  '$get['goodLimit']  => '商品页码';',
     //]
     'input'    => [
-        '\'$put[\'rightName\']  => \'权限名称\';\'',
+        '$put[\'ScenicId\']   => \'景区主键\';',
+        '$put[\'Deduction\']  => \'扣除原因\';',
     ],
 ]);

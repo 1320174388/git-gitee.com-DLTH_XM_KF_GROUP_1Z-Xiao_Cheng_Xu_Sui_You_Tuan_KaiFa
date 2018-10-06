@@ -10,4 +10,15 @@
 namespace app\deductions_module\working_version\v1\dao;
 
 interface DeductionsInterface
-{}
+{
+    /**
+     * 名  称 : deductionsUpdate()
+     * 功  能 : 声明:扣除景区押金数据处理
+     * 变  量 : --------------------------------------
+     * 输  入 : $put['ScenicId']   => '景区主键';
+     * 输  入 : $put['Deduction']  => '扣除原因';
+     * 输  出 : ['msg'=>'success','data'=>'提示信息']
+     * 创  建 : 2018/10/06 17:05
+     */
+    public function deductionsUpdate($put);
+}
