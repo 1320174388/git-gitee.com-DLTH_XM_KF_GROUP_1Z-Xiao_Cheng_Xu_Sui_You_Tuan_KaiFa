@@ -17,4 +17,8 @@ return [
     'Wx_Code_ShenHe' => 'Be2dJZHvWSMcr7ASGc_-eQhFGzmniwWnmc8x7-q43h0',
     // TODO：管理员审核回调路由
     'Wx_Code_Url'    => '/page/index/index',
+    // TODO : 审核通知
+    'Wx_ShenHe_ID'   => 'k98yoaiu6nQ_vQz51sHcRv1VsgF_ae_gigi8zZqexnw',
+    // TODO：管理员审核回调路由
+    'Wx_ShenHe_Url'  => '/page/index/index',
 ];

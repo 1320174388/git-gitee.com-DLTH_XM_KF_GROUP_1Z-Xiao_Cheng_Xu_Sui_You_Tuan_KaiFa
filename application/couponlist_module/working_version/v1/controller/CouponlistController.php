@@ -20,6 +20,7 @@ class CouponlistController extends Controller
      * 输  入 : $post['user_token']    => '用户标识';
      * 输  入 : $post['scenic_id']     => '景区主键';
      * 输  入 : $post['coupon_money']  => '优惠金额';
+     * 输  入 : $post['form_id']       => '表单ID';
      * 输  出 : {"errNum":0,"retMsg":"提示信息","retData":true}
      * 创  建 : 2018/09/26 14:46
      */
@@ -68,6 +69,7 @@ class CouponlistController extends Controller
      * 输  入 : $delete['user_token'] => '用户Token标识';
      * 输  入 : $delete['scenic_id']  => '景区主键';
      * 输  入 : $delete['coupon_id']  => '优惠券ID';
+     * 输  入 : $delete['form_id']    => '表单ID';
      * 输  出 : {"errNum":0,"retMsg":"提示信息","retData":true}
      * 创  建 : 2018/09/27 09:31
      */

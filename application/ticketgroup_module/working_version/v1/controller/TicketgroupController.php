@@ -43,6 +43,7 @@ class TicketgroupController extends Controller
      * 输  入 : $put['user_token']   => '用户标识';
      * 输  入 : $put['scenic_id']    => '景区ID';
      * 输  入 : $put['ticket_money'] => '门票价格';
+     * 输  入 : $put['form_id']      => '表单ID';
      * 输  出 : {"errNum":0,"retMsg":"提示信息","retData":true}
      * 创  建 : 2018/09/28 10:23
      */

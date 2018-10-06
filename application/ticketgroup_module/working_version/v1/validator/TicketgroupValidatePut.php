@@ -18,12 +18,14 @@ class TicketgroupValidatePut extends Validate
      * 输  入 : $put['user_token']   => '用户标识';
      * 输  入 : $put['scenic_id']    => '景区ID';
      * 输  入 : $put['ticket_money'] => '门票价格';
+     * 输  入 : $put['form_id']      => '表单ID';
      * 创  建 : 2018/09/28 10:23
      */
     protected $rule =   [
         'user_token'   => 'require|min:32|max:32',
         'scenic_id'    => 'require|number',
         'ticket_money' => 'require|float',
+        'form_id'      => 'require',
     ];
 
     /**
@@ -39,5 +41,6 @@ class TicketgroupValidatePut extends Validate
         'scenic_id.number'     => '请正确发送景区ID',
         'ticket_money.require' => '请正确发送门票价格',
         'ticket_money.float'   => '请正确发送门票价格',
+        'form_id.require'      => '请正确发送表单ID',
     ];
 }

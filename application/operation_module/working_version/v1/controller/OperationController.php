@@ -42,6 +42,7 @@ class OperationController extends Controller
      * 变  量 : --------------------------------------
      * 输  入 : '$get['OperationId']     => '申请主键';'
      * 输  入 : '$get['OperationStatus'] => '审核状态';'
+     * 输  入 : '$get['OperationInfo']   => '失败原因';'
      * 输  出 : {"errNum":0,"retMsg":"提示信息","retData":true}
      * 创  建 : 2018/10/06 10:37
      */
