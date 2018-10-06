@@ -888,4 +888,64 @@ class ScenicDao
         // 返回数据
         return returnData('success',$data);
     }
+
+
+    /**
+     * 名  称 : customerSel()
+     * 功  能 : 获取景区客服列表接口
+     * 变  量 : --------------------------------------
+     * 输  入 : '$post['scenic_id']  => '景区主键';
+     * 输  出 : {"errNum":0,"retMsg":"提示信息","retData":true}
+     * 创  建 : 2018/09/24 19:11
+     */
+    public function customerSel($post)
+    {
+        $ScenicserviceModel = new ScenicserviceModel();
+        // 查询
+        $list = $ScenicserviceModel->where('scenic_id',$post['scenic_id'])
+            ->select()->toArray();
+        // 验证
+        if(!$list){
+            return returnData('error',false);
+        }
+        // 返回数据
+        return returnData('success',$list);
+    }
+
+
+    /**
+     * 名  称 : customerUpt()
+     * 功  能 : 修改景区客服接口
+     * 变  量 : --------------------------------------
+     * 输  入 : '$post['service_id']  => '客服主键';
+     * 输  入 : '$post['service_name']  => '客服名称';
+     * 输  入 : '$post['service_phone']  => '客服电话';
+     * 输  入 : '$post['service_position']  => '客服职位';
+     * 输  出 : {"errNum":0,"retMsg":"提示信息","retData":true}
+     * 创  建 : 2018/09/24 19:11
+     */
+    public function customerUpt($post)
+    {
+        $ScenicserviceModel = new ScenicserviceModel();
+        if($ScenicserviceModel->field('service_name')
+                ->where('service_id',$post['service_id'])
+                ->field() == $post['service_name'])
+        {
+            return returnData('error','客服名称重复');
+        }{
+            // 进行修改
+            $res = $ScenicserviceModel->save([
+                $ScenicserviceModel->service_name    = $post['service_name'],
+                $ScenicserviceModel->service_phone    = $post['service_phone'],
+                $ScenicserviceModel->service_position    = $post['service_position'],
+            ],['service_id'=>$post['service_id']]);
+            // 验证
+            if(!$res){
+                return returnData('error',false);
+            }
+        }
+        // 返回数据
+        return returnData('success',$res);
+
+    }
 }

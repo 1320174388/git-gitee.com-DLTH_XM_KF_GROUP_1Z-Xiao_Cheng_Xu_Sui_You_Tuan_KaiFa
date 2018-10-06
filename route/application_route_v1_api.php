@@ -363,3 +363,24 @@ Route::post(
     'v1/wx_payment_module/customerAdd',
     'wx_payment_module/v1.controller.IndexController/customerAdd'
 );
+
+
+/**
+ * 传值方式：POST
+ * 传值参数：
+ * 路由功能：获取景区客服列表接口
+ */
+Route::post(
+    'v1/wx_payment_module/customerSel',
+    'wx_payment_module/v1.controller.IndexController/customerSel'
+);
+
+/**
+ * 传值方式：POST
+ * 传值参数：
+ * 路由功能：修改景区客服接口
+ */
+Route::post(
+    'v1/wx_payment_module/customerUpt',
+    'wx_payment_module/v1.controller.IndexController/customerUpt'
+);

@@ -751,4 +751,54 @@ class ScenicController extends Controller
         return returnResponse(1,'添加成功',$res['data']);
     }
 
-}.
+
+    /**
+     * 名  称 : customerSel()
+     * 功  能 : 获取景区客服列表接口
+     * 变  量 : --------------------------------------
+     * 输  入 : '$post['scenic_id']  => '景区主键';
+     * 输  出 : {"errNum":0,"retMsg":"提示信息","retData":true}
+     * 创  建 : 2018/09/24 19:11
+     */
+    public function customerSel(\think\Request $request)
+    {
+        // 实例化Service层逻辑类
+        $ScenicService = new ScenicService();
+
+        // 获取传入参数
+        $post = $request->post();
+
+        // 执行Service逻辑
+        $res = $ScenicService->customerSel($post);
+
+        // 处理函数返回值
+        return returnResponse(1,'查询成功',$res['data']);
+    }
+
+    /**
+     * 名  称 : customerUpt()
+     * 功  能 : 修改景区客服接口
+     * 变  量 : --------------------------------------
+     * 输  入 : '$post['service_id']  => '客服主键';
+     * 输  入 : '$post['service_name']  => '客服名称';
+     * 输  入 : '$post['service_phone']  => '客服电话';
+     * 输  入 : '$post['service_position']  => '客服职位';
+     * 输  出 : {"errNum":0,"retMsg":"提示信息","retData":true}
+     * 创  建 : 2018/09/24 19:11
+     */
+    public function customerUpt(\think\Request $request)
+    {
+        // 实例化Service层逻辑类
+        $ScenicService = new ScenicService();
+
+        // 获取传入参数
+        $post = $request->post();
+
+        // 执行Service逻辑
+        $res = $ScenicService->customerUpt($post);
+
+        // 处理函数返回值
+        return returnResponse(1,'修改成功',$res['data']);
+    }
+
+}

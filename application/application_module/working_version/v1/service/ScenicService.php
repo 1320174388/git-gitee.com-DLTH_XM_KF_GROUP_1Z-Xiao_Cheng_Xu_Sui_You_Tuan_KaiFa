@@ -664,4 +664,43 @@ class ScenicService
         // 返回数据
         return returnData('success',$res['data']);
     }
+
+
+    /**
+     * 名  称 : customerSel()
+     * 功  能 : 获取景区客服列表接口
+     * 变  量 : --------------------------------------
+     * 输  入 : '$post['scenic_id']  => '景区主键';
+     * 输  出 : {"errNum":0,"retMsg":"提示信息","retData":true}
+     * 创  建 : 2018/09/24 19:11
+     */
+    public function customerSel($post)
+    {
+        // ScenicDao
+        $res=(new ScenicDao())->customerSel($post);
+        if($res['msg']=='error') return returnData('error','查询失败');
+        // 返回数据
+        return returnData('success',$res['data']);
+    }
+
+    /**
+     * 名  称 : customerUpt()
+     * 功  能 : 修改景区客服接口
+     * 变  量 : --------------------------------------
+     * 输  入 : '$post['service_id']  => '客服主键';
+     * 输  入 : '$post['service_name']  => '客服名称';
+     * 输  入 : '$post['service_phone']  => '客服电话';
+     * 输  入 : '$post['service_position']  => '客服职位';
+     * 输  出 : {"errNum":0,"retMsg":"提示信息","retData":true}
+     * 创  建 : 2018/09/24 19:11
+     */
+    public function customerUpt($post)
+    {
+        // ScenicDao
+        $res=(new ScenicDao())->customerUpt($post);
+        if($res['msg']=='error') return returnData('error','修改失败');
+        // 返回数据
+        return returnData('success',$res['data']);
+    }
+
 }
