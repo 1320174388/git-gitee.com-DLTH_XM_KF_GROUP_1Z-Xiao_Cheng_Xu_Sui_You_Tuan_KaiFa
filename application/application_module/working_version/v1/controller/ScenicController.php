@@ -10,7 +10,7 @@
 namespace app\application_module\working_version\v1\controller;
 use think\Controller;
 use app\application_module\working_version\v1\service\ScenicService;
-
+use app\wx_payment_module\working_version\v1\controller\IndexController;
 class ScenicController extends Controller
 {
     /**
@@ -84,9 +84,9 @@ class ScenicController extends Controller
         $schoolid  = $request->post('scenic_id');
         // 引入Service逻辑层代码
         $res = (new ScenicService())->obtainScenic($schoolid);
-        if($res['msg']=='error') return returnResponse(1,$res['data']);
+        if($res['msg']=='error') return returnResponse(2,$res['data']);
         // 返回数据
-        return returnResponse(0,'查询成功',$res['data']);
+        return returnResponse(1,'查询成功',$res['data']);
     }
 
     /**
@@ -105,9 +105,9 @@ class ScenicController extends Controller
         $scenicstatus  = $request->post('scenic_status');
         // 引入Service逻辑层代码
         $res = (new ScenicService())->modifyScenic($schoolid,$scenicstatus);
-        if($res['msg']=='error') return returnResponse(1,$res['data']);
+        if($res['msg']=='error') return returnResponse(2,$res['data']);
         // 返回数据
-        return returnResponse(0,'修改成功',$res['data']);
+        return returnResponse(1,'修改成功',$res['data']);
     }
 
     /**
@@ -171,9 +171,9 @@ class ScenicController extends Controller
         $scenictype  = $request->post('scenic_type');
         // 引入Service逻辑层代码
         $res = (new ScenicService())->scenicVip($schoolid,$scenictype);
-        if($res['msg']=='error') return returnResponse(1,$res['data']);
+        if($res['msg']=='error') return returnResponse(2,$res['data']);
         // 返回数据
-        return returnResponse(0,'修改成功',$res['data']);
+        return returnResponse(1,'修改成功',$res['data']);
     }
 
     /**
@@ -188,12 +188,12 @@ class ScenicController extends Controller
     {
         // 获取传值
         $useridentity  = $request->post('user_identity');
-        if(!$useridentity) return returnResponse(1,'请发送身份证号');
+        if(!$useridentity) return returnResponse(2,'请发送身份证号');
         // 引入Service逻辑层代码
         $res = (new ScenicService())->singleScenic($useridentity);
-        if($res['msg']=='error') return returnResponse(1,$res['data']);
+        if($res['msg']=='error') return returnResponse(2,$res['data']);
         // 返回数据
-        return returnResponse(0,'查询成功',$res['data']);
+        return returnResponse(1,'查询成功',$res['data']);
     }
 
     /**
@@ -208,12 +208,12 @@ class ScenicController extends Controller
     {
         // 获取传值
         $useridentity  = $request->post('user_identity');
-        if(!$useridentity) return returnResponse(1,'请发送身份证号');
+        if(!$useridentity) return returnResponse(2,'请发送身份证号');
         // 引入Service逻辑层代码
         $res = (new ScenicService())->singleUser($useridentity);
-        if($res['msg']=='error') return returnResponse(1,$res['data']);
+        if($res['msg']=='error') return returnResponse(2,$res['data']);
         // 返回数据
-        return returnResponse(0,'查询成功',$res['data']);
+        return returnResponse(1,'查询成功',$res['data']);
     }
 
     /**
@@ -240,7 +240,7 @@ class ScenicController extends Controller
         $res = $ScenicService->scenicModify($post);
 
         // 处理函数返回值
-        return returnResponse(0,'修改成功',$res['data']);
+        return returnResponse(1,'修改成功',$res['data']);
     }
 
     /**
@@ -264,7 +264,7 @@ class ScenicController extends Controller
         $res = $ScenicService->modifyAdmin($post);
 
         // 处理函数返回值
-        return returnResponse(0,'修改成功',$res['data']);
+        return returnResponse(1,'修改成功',$res['data']);
     }
 
     /**
@@ -279,9 +279,9 @@ class ScenicController extends Controller
     {
         // 引入Service逻辑层代码
         $res = (new ScenicService())->membershipSel();
-        if($res['msg']=='error') return returnResponse(1,$res['data']);
+        if($res['msg']=='error') return returnResponse(2,$res['data']);
         // 返回数据
-        return returnResponse(0,'查询成功',$res['data']);
+        return returnResponse(1,'查询成功',$res['data']);
     }
 
     /**
@@ -296,9 +296,9 @@ class ScenicController extends Controller
     {
         // 引入Service逻辑层代码
         $res = (new ScenicService())->integralSel();
-        if($res['msg']=='error') return returnResponse(1,$res['data']);
+        if($res['msg']=='error') return returnResponse(2,$res['data']);
         // 返回数据
-        return returnResponse(0,'查询成功',$res['data']);
+        return returnResponse(1,'查询成功',$res['data']);
     }
 
     /**
@@ -323,7 +323,7 @@ class ScenicController extends Controller
         $res = $ScenicService->integralUpt($post);
 
         // 处理函数返回值
-        return returnResponse(0,'修改成功',$res['data']);
+        return returnResponse(1,'修改成功',$res['data']);
     }
 
     /**
@@ -340,9 +340,9 @@ class ScenicController extends Controller
         $usertoken  = $request->post('user_token');
         // 引入Service逻辑层代码
         $res = (new ScenicService())->userIntegral($usertoken);
-        if($res['msg']=='error') return returnResponse(1,$res['data']);
+        if($res['msg']=='error') return returnResponse(2,$res['data']);
         // 返回数据
-        return returnResponse(0,'查询成功',$res['data']);
+        return returnResponse(1,'查询成功',$res['data']);
     }
 
     /**
@@ -366,7 +366,7 @@ class ScenicController extends Controller
         $res = $ScenicService->userintegralUpt($post);
 
         // 处理函数返回值
-        return returnResponse(0,'修改成功',$res['data']);
+        return returnResponse(1,'修改成功',$res['data']);
     }
 
     /**
@@ -381,9 +381,9 @@ class ScenicController extends Controller
     {
         // 引入Service逻辑层代码
         $res = (new ScenicService())->depositScenic();
-        if($res['msg']=='error') return returnResponse(1,$res['data']);
+        if($res['msg']=='error') return returnResponse(2,$res['data']);
         // 返回数据
-        return returnResponse(0,'查询成功',$res['data']);
+        return returnResponse(1,'查询成功',$res['data']);
     }
 
     /**
@@ -407,7 +407,7 @@ class ScenicController extends Controller
         $res = $ScenicService->depositscenicUpt($post);
 
         // 处理函数返回值
-        return returnResponse(0,'修改成功',$res['data']);
+        return returnResponse(1,'修改成功',$res['data']);
     }
 
     /**
@@ -433,7 +433,7 @@ class ScenicController extends Controller
         $res = $ScenicService->membershipUpt($post);
 
         // 处理函数返回值
-        return returnResponse(0,'修改成功',$res['data']);
+        return returnResponse(1,'修改成功',$res['data']);
     }
 
     /**
@@ -456,7 +456,7 @@ class ScenicController extends Controller
         $res = $ScenicService->scenicList($post);
 
         // 处理函数返回值
-        return returnResponse(0,'查询成功',$res['data']);
+        return returnResponse(1,'查询成功',$res['data']);
     }
 
     /**
@@ -471,9 +471,9 @@ class ScenicController extends Controller
     {
         // 引入Service逻辑层代码
         $res = (new ScenicService())->groupProportion();
-        if($res['msg']=='error') return returnResponse(1,$res['data']);
+        if($res['msg']=='error') return returnResponse(2,$res['data']);
         // 返回数据
-        return returnResponse(0,'查询成功',$res['data']);
+        return returnResponse(1,'查询成功',$res['data']);
     }
 
     /**
@@ -497,7 +497,7 @@ class ScenicController extends Controller
         $res = $ScenicService->groupUpt($post);
 
         // 处理函数返回值
-        return returnResponse(0,'修改成功',$res['data']);
+        return returnResponse(1,'修改成功',$res['data']);
     }
 
     /**
@@ -520,7 +520,7 @@ class ScenicController extends Controller
         $res = $ScenicService->exchangeTicket($post);
 
         // 处理函数返回值
-        return returnResponse(0,'查找成功',$res['data']);
+        return returnResponse(1,'查找成功',$res['data']);
     }
 
 
@@ -545,7 +545,7 @@ class ScenicController extends Controller
         $res = $ScenicService->confirmexchangeTicket($post);
 
         // 处理函数返回值
-        return returnResponse(0,'兑换成功',$res['data']);
+        return returnResponse(1,'兑换成功',$res['data']);
     }
 
 
@@ -570,7 +570,7 @@ class ScenicController extends Controller
         $res = $ScenicService->prizeTicket($post);
 
         // 处理函数返回值
-        return returnResponse(0,'查找成功',$res['data']);
+        return returnResponse(1,'查找成功',$res['data']);
     }
 
 
@@ -596,7 +596,7 @@ class ScenicController extends Controller
         $res = $ScenicService->confirmprizeTicket($post);
 
         // 处理函数返回值
-        return returnResponse(0,'兑换成功',$res['data']);
+        return returnResponse(1,'兑换成功',$res['data']);
     }
 
 
@@ -622,7 +622,7 @@ class ScenicController extends Controller
         $res = $ScenicService->activeStatus($post);
 
         // 处理函数返回值
-        return returnResponse(0,'修改成功',$res['data']);
+        return returnResponse(1,'修改成功',$res['data']);
     }
 
 
@@ -646,7 +646,7 @@ class ScenicController extends Controller
         $res = $ScenicService->depositDeduction($post);
 
         // 处理函数返回值
-        return returnResponse(0,'查找成功',$res['data']);
+        return returnResponse(1,'查找成功',$res['data']);
     }
 
 
@@ -670,7 +670,7 @@ class ScenicController extends Controller
         $res = $ScenicService->scenicDeposit($post);
 
         // 处理函数返回值
-        return returnResponse(0,'查找成功',$res['data']);
+        return returnResponse(1,'查找成功',$res['data']);
     }
 
 
@@ -695,22 +695,20 @@ class ScenicController extends Controller
         $res = $ScenicService->sceniccustomerserviceDel($post);
 
         // 处理函数返回值
-        return returnResponse(0,'删除成功',$res['data']);
+        return returnResponse(1,'删除成功',$res['data']);
     }
 
 
+
     /**
-     * 名  称 : deductingDeposit()
-     * 功  能 : 扣除景区押金接口
+     * 名  称 : depositPayment()
+     * 功  能 : 判断用户是否支付景区押金
      * 变  量 : --------------------------------------
-     * 输  入 : '$post['scenic_id']  => '景区主键主键';
-     * 输  入 : '$post['deduct_money']  => '扣除金额';
-     * 输  入 : '$post['deposit_deduction']  => '扣除原因说明';
-     * 输  入 : '$post['deposit_time']  => '	时间';
+     * 输  入 : '$post['user_token']  => '用户token';
      * 输  出 : {"errNum":0,"retMsg":"提示信息","retData":true}
      * 创  建 : 2018/09/24 19:11
      */
-    public function deductingDeposit(\think\Request $request)
+    public function depositPayment(\think\Request $request)
     {
         // 实例化Service层逻辑类
         $ScenicService = new ScenicService();
@@ -719,9 +717,38 @@ class ScenicController extends Controller
         $post = $request->post();
 
         // 执行Service逻辑
-        $res = $ScenicService->deductingDeposit($post);
+        $res = $ScenicService->depositPayment($post);
 
         // 处理函数返回值
-        return returnResponse(0,'扣除成功',$res['data']);
+        return returnResponse(1,'查询成功',$res['data']);
     }
-}
+
+
+
+    /**
+     * 名  称 : customerAdd()
+     * 功  能 : 景区添加客服接口
+     * 变  量 : --------------------------------------
+     * 输  入 : '$post['scenic_id']  => '景区主键';
+     * 输  入 : '$post['service_name']  => '	客服名称';
+     * 输  入 : '$post['service_phone']  => '客服电话';
+     * 输  入 : '$post['service_position']  => '客服职位';
+     * 输  出 : {"errNum":0,"retMsg":"提示信息","retData":true}
+     * 创  建 : 2018/09/24 19:11
+     */
+    public function customerAdd(\think\Request $request)
+    {
+        // 实例化Service层逻辑类
+        $ScenicService = new ScenicService();
+
+        // 获取传入参数
+        $post = $request->post();
+
+        // 执行Service逻辑
+        $res = $ScenicService->customerAdd($post);
+
+        // 处理函数返回值
+        return returnResponse(1,'添加成功',$res['data']);
+    }
+
+}.

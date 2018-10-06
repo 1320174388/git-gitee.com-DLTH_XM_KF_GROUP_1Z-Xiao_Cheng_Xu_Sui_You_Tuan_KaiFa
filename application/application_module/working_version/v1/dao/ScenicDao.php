@@ -102,7 +102,7 @@ class ScenicDao
         // 景区ID
         $ScenicModel->scenic_id	 = $post['scenic_id'];
         // 用户token
-        $ScenicModel->scenic_license	 = $post['scenic_license'];
+        $ScenicModel->scenic_license = $post['scenic_license'];
         // 保存数据库
         $data = $ScenicModel->save();
         // 验证
@@ -833,43 +833,59 @@ class ScenicDao
 
 
     /**
-     * 名  称 : deductingDeposit()
-     * 功  能 : 扣除景区押金接口
+     * 名  称 : depositPayment()
+     * 功  能 : 判断用户是否支付景区押金
      * 变  量 : --------------------------------------
-     * 输  入 : '$post['scenic_id']  => '景区主键主键';
-     * 输  入 : '$post['deduct_money']  => '扣除金额';
-     * 输  入 : '$post['deposit_deduction']  => '扣除原因说明';
-     * 输  入 : '$post['deposit_time']  => '	时间';
+     * 输  入 : '$post['user_token']  => '用户token';
      * 输  出 : {"errNum":0,"retMsg":"提示信息","retData":true}
      * 创  建 : 2018/09/24 19:11
      */
-    public function deductingDeposit($post)
+    public function depositPayment($post)
     {
-        // 启动事务
-        Db::startTrans();
-        try {
-            $Depositdeduct = new DepositdeductModel();
-            // 进行修改
-            $res = $Depositdeduct->save([
-                $Depositdeduct->user_token    = $post['user_token']
-            ],['scenic_id'=>$post['scenic_id']]);
-            // 进行修改
-            $DepositModel= new DepositModel();
-            $res = $DepositModel->save([
-                $DepositModel->user_token  = $post['user_token']
-            ],['scenic_id'=>$post['scenic_id']]);
-            // 验证数据
-            if(!$res) return returnData('error');
-            Db::commit();
-            // 返回数据格式
-            return returnData('success',true);
-        } catch (\Exception $e) {
-            // 回滚事务
-            Db::rollback();
-            // 验证数据
-            return returnData('error');
+        $DepositModel = new DepositModel();
+        // 查询
+        $list = $DepositModel->where('user_token',$post['user_token'])
+            ->select()->toArray();
+        // 验证
+        if(!$list){
+            return returnData('error',false);
         }
+        // 返回数据
+        return returnData('success',$list);
+    }
 
 
+    /**
+     * 名  称 : customerAdd()
+     * 功  能 : 景区添加客服接口
+     * 变  量 : --------------------------------------
+     * 输  入 : '$post['scenic_id']  => '景区主键';
+     * 输  入 : '$post['service_name']  => '	客服名称';
+     * 输  入 : '$post['service_phone']  => '客服电话';
+     * 输  入 : '$post['service_position']  => '客服职位';
+     * 输  出 : {"errNum":0,"retMsg":"提示信息","retData":true}
+     * 创  建 : 2018/09/24 19:11
+     */
+    public function customerAdd($post)
+    {
+        // TODO :  ScenicModel 模型
+        // 实例化model
+        $ScenicserviceModel = new ScenicserviceModel();
+        // 景区主键
+        $ScenicserviceModel->scenic_id	 = $post['scenic_id'];
+        // 客服名称
+        $ScenicserviceModel->service_name = $post['service_name'];
+        // 客服电话
+        $ScenicserviceModel->service_phone = $post['service_phone'];
+        // 客服职位
+        $ScenicserviceModel->service_position = $post['service_position'];
+        // 保存数据库
+        $data = $ScenicserviceModel->save();
+        // 验证
+        if(!$data){
+            return returnData('error',false);
+        }
+        // 返回数据
+        return returnData('success',$data);
     }
 }

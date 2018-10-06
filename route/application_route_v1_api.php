@@ -333,13 +333,33 @@ Route::post(
     'application_module/v1.controller.ScenicController/sceniccustomerserviceDel'
 );
 
+/**
+ * 传值方式：POST
+ * 传值参数：
+ * 路由功能：景区押金支付接口
+ */
+Route::post(
+    'v1/wx_payment_module/wxUnifiedApy',
+    'wx_payment_module/v1.controller.IndexController/wxUnifiedApy'
+);
 
 /**
  * 传值方式：POST
  * 传值参数：
- * 路由功能：扣除景区押金接口
+ * 路由功能：判断用户是否支付景区押金
  */
 Route::post(
-    'v1/application_module/deductingDeposit',
-    'application_module/v1.controller.ScenicController/deductingDeposit'
+    'v1/wx_payment_module/depositPayment',
+    'wx_payment_module/v1.controller.IndexController/depositPayment'
+);
+
+
+/**
+ * 传值方式：POST
+ * 传值参数：
+ * 路由功能：景区添加客服接口
+ */
+Route::post(
+    'v1/wx_payment_module/customerAdd',
+    'wx_payment_module/v1.controller.IndexController/customerAdd'
 );

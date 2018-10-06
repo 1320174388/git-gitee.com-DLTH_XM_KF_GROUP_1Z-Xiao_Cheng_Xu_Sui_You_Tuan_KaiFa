@@ -60,7 +60,7 @@ class IndexController extends Controller
         $info->Out_trade_no  = $out_trade_no;
         $info->Total_fee     = $_POST['total_fee'];
         $info->Time_start    = date("YmdHis");
-        $info->Time_expire   = date("YmdHis", time() + 600);
+        $info->Time_expire   = date("YmdHis",time() + 600);
         $info->Notify_url    = config('pay_config.NotifyUrl');
         //获取微信支付参数
         $payData = $info->payOrder()['data'];
