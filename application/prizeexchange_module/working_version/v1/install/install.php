@@ -11,15 +11,15 @@ include('./library/Function_Create_Library.php');
 
 Function_Create_Library::execCreateFunction([
     // 传值类型 : (GET/POST/PUT/DELETE)
-    'dataType' => 'GET',
+    'dataType' => 'POST',
     // 函数名称 : 默认 __function
-    'name'     => 'orderinfo',
+    'name'     => 'prizeexchange',
     // 函数说明 : 默认 新创建函数
-    'explain'  => '获取订单详情',
+    'explain'  => '添加权限数据',
     // 函数输入 : 示例 [
     //  '$get['goodLimit']  => '商品页码';',
     //]
     'input'    => [
-        '$get[\'groupNumber\'] => \'订单编号\';',
+        '\'$post[\'rightName\']  => \'权限名称\';\'',
     ],
 ]);

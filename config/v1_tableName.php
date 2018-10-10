@@ -29,4 +29,8 @@ return [
     'SGY_Deposit_List'  => 'data_deposit_list',
     // 景区押金扣除信息表
     'SGY_Deposit_Deduct'=> 'data_deposit_deduct',
+    // 个人及团购订单表
+    'SGY_Group_Info'    => 'data_group_Info',
+    // 订单成员详情表
+    'SGY_Group_Member'  => 'data_group_member',
 ];

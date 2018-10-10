@@ -15,7 +15,7 @@
 Route::get(
     ':v/orderinter_module/orderinter_route',
     'orderinter_module/:v.controller.OrderinterController/orderinterGet'
-);
+)->middleware('Right_v1_IsAdmin');
 
 /**
  * 传值方式 : GET
@@ -24,4 +24,4 @@ Route::get(
 Route::get(
     ':v/orderinter_module/orderinfo_route',
     'orderinter_module/:v.controller.OrderinfoController/orderinfoGet'
-);
+)->middleware('Right_v1_IsAdmin');
