@@ -27,5 +27,8 @@ return [
     'scenicService'     => 'data_scenic_service',
     // 景区评论表
     'scenicComment'     => 'data_scenic_comment',
-
+    // 团购成员表
+    'GroupMember'       => 'data_group_member',
+    // 个人推广表
+    'userExtend'        => 'data_user_extend',
 ];

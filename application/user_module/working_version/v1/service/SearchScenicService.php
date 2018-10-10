@@ -11,6 +11,7 @@ namespace app\user_module\working_version\v1\service;
 use app\user_module\working_version\v1\dao\SearchScenicDao;
 use app\user_module\working_version\v1\library\SearchScenicLibrary;
 use app\user_module\working_version\v1\validator\SearchScenicValidateGet;
+use app\user_module\working_version\v1\validator\ScenicCommentPost;
 
 
 class SearchScenicService
@@ -190,6 +191,40 @@ class SearchScenicService
 
         // 执行Dao层逻辑
         $res = $searchScenicDao->scenicCommentSelect($get);
+
+        // 处理函数返回值
+        return \RSD::wxReponse($res,'D');
+    }
+    /**
+     * 作  者 : Feng Tianshui
+     * 名  称 : scenicCommentService()
+     * 功  能 : 景区评论接口
+     * 变  量 : --------------------------------------
+     * 输  入 : '$post['scenic_id']  => '景区id';'
+     * 输  入 : '$post['user_token']  => '用户token';'
+     * 输  入 : '$post['group_number']  => '订单号';'
+     * 输  入 : '$post['comment_service']  => '服务星级';'
+     * 输  入 : '$post['comment_health']  => '卫生星级';'
+     * 输  入 : '$post['comment_view']  => '景观星级';'
+     * 输  入 : '$post['comment_cosy']  => '舒适度星级';'
+     * 输  入 : '$post['comment_content']  => '评论内容';'
+     * 输  出 : ['msg'=>'success','data'=>'返回数据']
+     * 创  建 : 2018/10/05 10:23
+     */
+    public function scenicCommentService($post)
+    {
+        // 实例化验证器代码
+        $validate  = new ScenicCommentPost();
+
+        // 验证数据
+        if (!$validate->scene('edit')->check($post)) {
+            return ['msg'=>'error','data'=>$validate->getError()];
+        }
+        // 实例化Dao层数据类
+        $searchScenicDao = new SearchScenicDao();
+
+        // 执行Dao层逻辑
+        $res = $searchScenicDao->scenicCommentDao($post);
 
         // 处理函数返回值
         return \RSD::wxReponse($res,'D');

@@ -152,5 +152,35 @@ class SearchScenicController extends Controller
         // 处理函数返回值
         return \RSD::wxReponse($res,'S','请求成功');
     }
+    /**
+     * 作  者 : Feng Tianshui
+     * 名  称 : scenicCommentPost()
+     * 功  能 : 景区评论接口
+     * 变  量 : --------------------------------------
+     * 输  入 : '$post['scenic_id']  => '景区id';'
+     * 输  入 : '$post['user_token']  => '用户token';'
+     * 输  入 : '$post['group_number']  => '订单号';'
+     * 输  入 : '$post['comment_service']  => '服务星级';'
+     * 输  入 : '$post['comment_health']  => '卫生星级';'
+     * 输  入 : '$post['comment_view']  => '景观星级';'
+     * 输  入 : '$post['comment_cosy']  => '舒适度星级';'
+     * 输  入 : '$post['comment_content']  => '评论内容';'
+     * 输  出 : {"errNum":0,"retMsg":"请求成功","retData":"请求数据"}
+     * 创  建 : 2018/10/05 10:23
+     */
+    public function scenicCommentPost(\think\Request $request)
+    {
+        // 实例化Service层逻辑类
+        $searchScenicService = new SearchScenicService();
+
+        // 获取传入参数
+        $post = $request->post();
+
+        // 执行Service逻辑
+        $res = $searchScenicService->scenicCommentService($post);
+
+        // 处理函数返回值
+        return \RSD::wxReponse($res,'S');
+    }
 
 }

@@ -160,28 +160,71 @@ class ScenicDepositDao
     {
         //创建景区余额模型
         $scenicBalance = new ScenicBalanceModel();
+        //获取景区余额
+        $money = $scenicBalance->where('scenic_id',$post['scenic_id'])
+                                ->field('balance_money')
+                                ->find();
+        //返回余额不足
+        if((int)$money['balance_money'] < (int)$post['balance_money']){
+            return returnData('error','余额不足');
+        }
+        //获取用户openid
+        $homeUsers = HomeUsers::Where('user_token',$post['user_token'])
+            ->field('user_openid')
+            ->find();
+        //获取用户真实姓名
+        $userName = UserModel::Where('user_token',$post['user_token'])
+            ->field('user_name')
+            ->find();
+
+        //传入配置信息
+        $extract = new EnterprisePay(
+            config('pay_config.AppId'),
+            config('pay_config.Merchant'),
+            config('pay_config.Key'),
+            config('pay_config.CertPath'),
+            config('pay_config.KeyPath')
+        );
+        $extractRes = $extract->pay([
+            //用户openid
+            'openid'        => $homeUsers['user_openid'],
+            //企业付款描述信息
+            'desc'          => '景区余额提现',
+            //收款用户姓名
+            're_user_name'  => $userName['user_name'],
+            //金额 单位分
+            'amount'        => (int)$post['balance_money']*100
+        ]);
         //开始事务
         \think\Db::startTrans();
 
+        if($extractRes['msg'] == 0){
+            //更新景区余额
+            $res = $scenicBalance->where('scenic_id',$post['scenic_id'])
+                ->setDec('balance_money',
+                    (int)$post['balance_money']);
+            //插入提现表
+            $extract = new ExtractListModel();
+            $extract->save([
+                'user_token'    => $post['user_token'],
+                'scenic_id'     => $post['scenic_id'],
+                'extract_money' => $post['balance_money'],
+                'extract_type'  => 2,
+            ]);
+            if($res){
+                //提交事务
+                \think\Db::commit();
+                return returnData('success','提现成功');
+            }else{
+                //事务回滚
+                \think\Db::rollback();
+                return returnData('error','提现失败');
+            }
+        }else{
+            //事务回滚
+            \think\Db::rollback();
+            return returnData('error',$extractRes['data']);
+        }
 
-
-        //更新景区余额
-          $res = $scenicBalance->where('scenic_id',$post['scenic_id'])
-                                ->setDec('balance_money',
-                                    (int)$post['balance_money']);
-          //插入提现表
-        $extract = new ExtractListModel();
-        $extract->save([
-            'user_token'    => $post['user_token'],
-            'scenic_id'     => $post['scenic_id'],
-            'extract_money' => $post['balance_money'],
-            'extract_type'  => 2,
-        ]);
-        //提交事务
-        \think\Db::commit();
-        //事务回滚
-        \think\Db::rollback();
-        //返回结果
-        return \RSD::wxReponse($res,'M',$res,'提现成功');
     }
 }

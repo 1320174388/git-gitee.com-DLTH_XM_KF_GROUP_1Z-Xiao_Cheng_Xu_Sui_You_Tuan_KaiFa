@@ -74,6 +74,14 @@ Route::get(
     'user_module/:v.controller.UserInfoController/vipExplainGet'
 );
 /**
+ * 传值方式 : GET
+ * 路由功能 : 获取用户推广人员列表
+ */
+Route::get(
+    ':v/user_module/extendGet',
+    'user_module/:v.controller.UserInfoController/extendGet'
+);
+/**
  * 传值方式 : POST
  * 路由功能 : 用户实名认证接口
  */
@@ -89,3 +97,22 @@ Route::get(
     ':v/realname_module/realnameGet',
     'realname_module/:v.controller.RealnameController/realnameGet'
 );
+/**
+ * 传值方式：POST
+ * 传值参数：
+ * 路由功能：提现景区余额接口
+ */
+Route::post(
+    'v1/application_module/scenicBalanceExtract',
+    'application_module/v1.controller.ScenicDepositController/scenicBalanceExtract'
+);
+/**
+ * 传值方式：POST
+ * 传值参数：
+ * 路由功能：景区评论接口
+ */
+Route::post(
+    ':v/user_module/scenicCommentPost',
+    'user_module/:v.controller.SearchScenicController/scenicCommentPost'
+);
+

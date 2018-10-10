@@ -19,7 +19,7 @@ class UserInfoService
      * 功  能 : 获取用户信息及会员信息
      * 变  量 : --------------------------------------
      * 输  入 : '$get['user_token']  => '用户token';'
-     * 输  出 : {"errNum":0,"retMsg":"请求成功","retData":"请求数据"}
+     * 输  出 : ['msg'=>'success','data'=>'返回数据']
      * 创  建 : 2018/10/06 10:23
      */
     public function userInfoShow($get)
@@ -48,7 +48,7 @@ class UserInfoService
      * 功  能 : 获取会员权益说明
      * 变  量 : --------------------------------------
      * 输  入 : '$get['member_id']  => '会员主键';'
-     * 输  出 : {"errNum":0,"retMsg":"请求成功","retData":"请求数据"}
+     * 输  出 : ['msg'=>'success','data'=>'返回数据']
      * 创  建 : 2018/10/06 10:23
      */
     public function vipExplainShow($get)
@@ -67,6 +67,38 @@ class UserInfoService
 
         // 执行Dao层逻辑
         $res = $searchScenicDao->vipExplainSelect($get);
+
+        // 处理函数返回值
+        return \RSD::wxReponse($res,'D');
+    }
+    /**
+     * 作  者 : Feng Tianshui
+     * 名  称 : extendShow()
+     * 功  能 : 获取推广人员列表
+     * 变  量 : --------------------------------------
+     * 输  入 : '$get['user_token']  => '用户token';'
+     * 输  入 : '$get['num']  => '分页数量';'
+     * 输  出 : ['msg'=>'success','data'=>'返回数据']
+     * 创  建 : 2018/10/06 10:23
+     */
+    public function extendShow($get)
+    {
+        // 验证数据
+        $validate = new \think\Validate([
+            'user_token'         => 'require',
+            'num'                => 'require',
+        ],[
+            'user_token.require'         => '缺少user_token参数',
+            'num.require'                => '缺少num参数',
+        ]);
+        if (!$validate->check($get)) {
+            return returnData('error',$validate->getError());
+        }
+        // 实例化Dao层数据类
+        $searchScenicDao = new UserInfoDao();
+
+        // 执行Dao层逻辑
+        $res = $searchScenicDao->extendSelect($get);
 
         // 处理函数返回值
         return \RSD::wxReponse($res,'D');

@@ -8,6 +8,7 @@
  *  历史记录 :  -----------------------
  */
 namespace app\user_module\working_version\v1\dao;
+use app\user_module\working_version\v1\model\GroupMemberModel;
 use app\user_module\working_version\v1\model\ScenicModel;
 use app\user_module\working_version\v1\model\ScenicCommentModel;
 use app\user_module\working_version\v1\model\ScenicImagesModel;
@@ -163,5 +164,49 @@ class SearchScenicDao
             ->toArray();
 
         return \RSD::wxReponse($res,'M',$res,'没有搜索到结果');
+    }
+    /**
+     * 作  者 : Feng Tianshui
+     * 名  称 : scenicCommentDao()
+     * 功  能 : 景区评论接口
+     * 变  量 : --------------------------------------
+     * 输  入 : '$post['scenic_id']  => '景区id';'
+     * 输  入 : '$post['user_token']  => '用户token';'
+     * 输  入 : '$post['group_number']  => '订单号';'
+     * 输  入 : '$post['comment_service']  => '服务星级';'
+     * 输  入 : '$post['comment_health']  => '卫生星级';'
+     * 输  入 : '$post['comment_view']  => '景观星级';'
+     * 输  入 : '$post['comment_cosy']  => '舒适度星级';'
+     * 输  入 : '$post['comment_content']  => '评论内容';'
+     * 输  出 : ['msg'=>'success','data'=>'返回数据']
+     * 创  建 : 2018/10/05 10:23
+     */
+    public function scenicCommentDao($post)
+    {
+        //开启事务
+        \think\Db::startTrans();
+        // 创建评论模型
+        $comment = new ScenicCommentModel($post);
+        // 插入评论表
+        $comment->allowField(true)->save();
+
+            // 更改评论状态
+            $order = new GroupMemberModel();
+            $res = $order->save([
+                'comment_status' => 1
+            ],[
+                'user_token'    => $post['user_token'],
+                'group_number'  => $post['group_number']
+            ]);
+        if ($res){
+            //提交事务
+            \think\Db::commit();
+            return returnData('success','评论成功');
+        }else{
+            //事务回滚
+            \think\Db::rollback();
+            return returnData('error','评论失败');
+        }
+
     }
 }
