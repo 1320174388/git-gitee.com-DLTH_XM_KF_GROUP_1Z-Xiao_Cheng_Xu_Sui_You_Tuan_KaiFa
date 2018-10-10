@@ -343,3 +343,30 @@ Route::post(
     'v1/application_module/deductingDeposit',
     'application_module/v1.controller.ScenicController/deductingDeposit'
 );
+/**
+ * 传值方式：POST
+ * 传值参数：
+ * 路由功能：提现景区押金接口
+ */
+Route::post(
+    'v1/application_module/scenicExtractPost',
+    'application_module/v1.controller.ScenicDepositController/scenicDepositExtract'
+);
+/**
+ * 传值方式：GET
+ * 传值参数：
+ * 路由功能：获取景区余额
+ */
+Route::get(
+    'v1/application_module/scenicBalanceGet',
+    'application_module/v1.controller.ScenicDepositController/scenicBalanceGet'
+);
+/**
+ * 传值方式：GET
+ * 传值参数：
+ * 路由功能：获取景区收益余额列表
+ */
+Route::get(
+    'v1/application_module/profitListGet',
+    'application_module/v1.controller.ScenicDepositController/scenicProfitGet'
+);
