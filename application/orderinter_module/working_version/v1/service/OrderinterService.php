@@ -16,4 +16,40 @@ use app\orderinter_module\working_version\v1\validator\OrderinterValidatePut;
 use app\orderinter_module\working_version\v1\validator\OrderinterValidateDelete;
 
 class OrderinterService
-{}
+{
+    /**
+     * 名  称 : orderinterShow()
+     * 功  能 : 获取订单列表逻辑
+     * 变  量 : --------------------------------------
+     * 输  入 : $get['scenicId']    => '景区ID';
+     * 输  入 : $get['groupType']   => '团购类型';
+     * 输  入 : $get['groupStatus'] => '完成状态';
+     * 输  入 : $get['groupLimit']  => '订单数量';
+     * 输  出 : ['msg'=>'success','data'=>'返回数据']
+     * 创  建 : 2018/10/09 13:27
+     */
+    public function orderinterShow($get)
+    {
+        // 实例化验证器代码
+        $validate  = new OrderinterValidateGet();
+
+        // 验证数据
+        if(empty($get['groupType'])){
+            $get['groupType'] = 0;
+        }
+        
+        // 验证数据
+        if (!$validate->scene('edit')->check($get)) {
+            return ['msg'=>'error','data'=>$validate->getError()];
+        }
+        
+        // 实例化Dao层数据类
+        $orderinterDao = new OrderinterDao();
+        
+        // 执行Dao层逻辑
+        $res = $orderinterDao->orderinterSelect($get);
+        
+        // 处理函数返回值
+        return \RSD::wxReponse($res,'D');
+    }
+}
