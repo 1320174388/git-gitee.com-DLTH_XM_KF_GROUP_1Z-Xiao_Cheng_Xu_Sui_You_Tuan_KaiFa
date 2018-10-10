@@ -779,5 +779,80 @@ class ScenicService
     }
 
 
+    /**
+     * 名  称 : fightGroup()
+     * 功  能 : 查看拼团是否完成
+     * 变  量 : --------------------------------------
+     * 输  入 : '$post['group_number']  => '订单号';
+     * 输  出 : {"errNum":0,"retMsg":"提示信息","retData":true}
+     * 创  建 : 2018/09/24 19:11
+     */
+    public function fightGroup($post)
+    {
+        // ScenicDao
+        $res=(new ScenicDao())->fightGroup($post);
+        if($res['msg']=='error') return returnData('error','查询失败');
+        // 返回数据
+        return returnData('success',$res['data']);
+    }
+
+    /**
+     * 名  称 : personalPrize()
+     * 功  能 : 领取个人奖品接口
+     * 变  量 : --------------------------------------
+     * 输  入 : '$post['user_token']  => '用户TOKEN';
+     * 输  入 : '$post['index_id']  => '奖品或优惠券主键';
+     * 输  入 : '$post['bag_type']  => '类型 【奖品、优惠券】';
+     * 输  出 : {"errNum":0,"retMsg":"提示信息","retData":true}
+     * 创  建 : 2018/09/24 19:11
+     */
+    public function personalPrize($post)
+    {
+        // ScenicDao
+        $res=(new ScenicDao())->personalPrize($post);
+        if($res['msg']=='error') return returnData('error','查询失败');
+        // 返回数据
+        return returnData('success',$res['data']);
+    }
+
+
+    /**
+     * 名  称 : personalCoupon()
+     * 功  能 : 查询个人优惠券列表
+     * 变  量 : --------------------------------------
+     * 输  入 : '$post['user_token']  => '用户TOKEN';
+     * 输  入 : '$post['bag_status']  => '状态';
+     * 输  入 : '$post['bag_type']  => '类型 【奖品、优惠券】';
+     * 输  出 : {"errNum":0,"retMsg":"提示信息","retData":true}
+     * 创  建 : 2018/09/24 19:11
+     */
+    public function personalCoupon($post)
+    {
+        // ScenicDao
+        $res=(new ScenicDao())->personalCoupon($post);
+        if($res['msg']=='error') return returnData('error','查询失败');
+        // 返回数据
+        return returnData('success',$res['data']);
+    }
+
+
+    /**
+     * 名  称 : personalCustomers()
+     * 功  能 : 获取个人团购信息
+     * 变  量 : --------------------------------------
+     * 输  入 : '$post['user_token']  => '用户TOKEN';
+     * 输  出 : {"errNum":0,"retMsg":"提示信息","retData":true}
+     * 创  建 : 2018/09/24 19:11
+     */
+    public function personalCustomers($post)
+    {
+        // ScenicDao
+        $res=(new ScenicDao())->personalCustomers($post);
+        if($res['msg']=='error') return returnData('error','查询失败');
+        // 返回数据
+        return returnData('success',$res['data']);
+    }
+
+
 
 }

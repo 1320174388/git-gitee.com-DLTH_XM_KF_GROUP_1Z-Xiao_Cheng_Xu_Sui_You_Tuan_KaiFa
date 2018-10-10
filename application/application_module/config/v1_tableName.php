@@ -49,4 +49,8 @@ return [
     'Group' => 'data_group_list',
     // 个人及团购订单表
     'Groupinfo' => 'data_group_Info',
+    // 个人及团购订单表
+    'Order' => 'data_order_list',
+    // 订单成员详情表
+    'Groupmember' => 'data_group_member',
 ];

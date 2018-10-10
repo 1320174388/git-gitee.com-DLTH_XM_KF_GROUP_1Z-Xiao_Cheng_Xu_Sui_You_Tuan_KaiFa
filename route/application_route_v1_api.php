@@ -446,12 +446,45 @@ Route::get(
     'v1/application_module/scenicBalanceGet',
     'application_module/v1.controller.ScenicDepositController/scenicBalanceGet'
 );
+
+
 /**
- * 传值方式：GET
+ * 传值方式：POST
  * 传值参数：
- * 路由功能：获取景区收益余额列表
+ * 路由功能：查看拼团是否完成
  */
-Route::get(
-    'v1/application_module/profitListGet',
-    'application_module/v1.controller.ScenicDepositController/scenicProfitGet'
+Route::post(
+    'v1/application_module/fightGroup',
+    'application_module/v1.controller.ScenicController/fightGroup'
+);
+
+
+/**
+ * 传值方式：POST
+ * 传值参数：
+ * 路由功能：领取个人奖品接口
+ */
+Route::post(
+    'v1/application_module/personalPrize',
+    'application_module/v1.controller.ScenicController/personalPrize'
+);
+
+/**
+ * 传值方式：POST
+ * 传值参数：
+ * 路由功能：查询个人优惠券,奖品列表
+ */
+Route::post(
+    'v1/application_module/personalCoupon',
+    'application_module/v1.controller.ScenicController/personalCoupon'
+);
+
+/**
+ * 传值方式：POST
+ * 传值参数：
+ * 路由功能：获取个人团购信息
+ */
+Route::post(
+    'v1/application_module/personalCustomers',
+    'application_module/v1.controller.ScenicController/personalCustomers'
 );

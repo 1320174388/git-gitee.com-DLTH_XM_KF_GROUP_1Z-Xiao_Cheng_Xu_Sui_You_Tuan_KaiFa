@@ -14,9 +14,11 @@ use app\application_module\working_version\v1\model\CourseModel;
 use app\application_module\working_version\v1\model\DepositdeductModel;
 use app\application_module\working_version\v1\model\DepositModel;
 use app\application_module\working_version\v1\model\GroupinfoModel;
+use app\application_module\working_version\v1\model\GroupmemberModel;
 use app\application_module\working_version\v1\model\GroupModel;
 use app\application_module\working_version\v1\model\IntegralModel;
 use app\application_module\working_version\v1\model\MemberModel;
+use app\application_module\working_version\v1\model\OrderModel;
 use app\application_module\working_version\v1\model\PrizeModel;
 use app\application_module\working_version\v1\model\ScenicModel;
 use app\application_module\working_version\v1\model\ScenicserviceModel;
@@ -999,7 +1001,7 @@ class ScenicDao
         // 类型 【奖品、优惠券】
         $UserbagModel->bag_type = $post['bag_type'];
         // 使用状态
-        $UserbagModel->bag_status = '1';
+        $UserbagModel->bag_status = '0';
         // 领取时间
         $UserbagModel->bag_time = time();
         // 保存数据库
@@ -1062,6 +1064,132 @@ class ScenicDao
         }
         // 返回数据
         return returnData('success',$list);
+    }
+
+
+    /**
+    * 名  称 : fightGroup()
+    * 功  能 : 查看拼团是否完成
+    * 变  量 : --------------------------------------
+    * 输  入 : '$post['group_number']  => '订单号';
+     * 输  出 : {"errNum":0,"retMsg":"提示信息","retData":true}
+     * 创  建 : 2018/09/24 19:11
+     */
+    public function fightGroup($post)
+    {
+        $GroupinfoModel = new GroupinfoModel();
+        // 查询
+        $list = $GroupinfoModel->where('group_number',$post['group_number'])
+            ->find()->toArray();
+        // 验证
+        if(!$list){
+            return returnData('error',false);
+        }
+        // 返回数据
+        return returnData('success',$list);
+    }
+
+
+    /**
+     * 名  称 : personalPrize()
+     * 功  能 : 领取个人奖品接口
+     * 变  量 : --------------------------------------
+     * 输  入 : '$post['user_token']  => '用户TOKEN';
+     * 输  入 : '$post['index_id']  => '奖品或优惠券主键';
+     * 输  入 : '$post['bag_type']  => '类型 【奖品、优惠券】';
+     * 输  出 : {"errNum":0,"retMsg":"提示信息","retData":true}
+     * 创  建 : 2018/09/24 19:11
+     */
+    public function personalPrize($post)
+    {
+        $UserbagModel = new UserbagModel();
+        if($UserbagModel->field('index_id')
+                ->where('user_token',$post['user_token'])
+                ->select()->toArray() == $post['index_id']){
+            return returnData('error','您已领过此奖品');
+        }else{
+            // 用户token
+            $UserbagModel->user_token	= $post['user_token'];
+            // 奖品或优惠券主键
+            $UserbagModel->index_id = $post['index_id'];
+            // 类型 【奖品、优惠券】
+            $UserbagModel->bag_type = $post['bag_type'];
+            // 使用状态
+            $UserbagModel->bag_status = '0';
+            // 领取时间
+            $UserbagModel->bag_time = time();
+            // 保存数据库
+            $data = $UserbagModel->save();
+            // 验证
+            if(!$data){
+                return returnData('error',false);
+            }
+        }
+        // 返回数据
+        return returnData('success',$data);
+    }
+
+
+    /**
+     * 名  称 : personalCoupon()
+     * 功  能 : 查询个人优惠券,奖品列表
+     * 变  量 : --------------------------------------
+     * 输  入 : '$post['user_token']  => '用户TOKEN';
+     * 输  入 : '$post['bag_status']  => '状态';
+     * 输  入 : '$post['bag_type']  => '类型 【奖品、优惠券】';
+     * 输  出 : {"errNum":0,"retMsg":"提示信息","retData":true}
+     * 创  建 : 2018/09/24 19:11
+     */
+    public function personalCoupon($post)
+    {
+        $UserbagModel = new UserbagModel();
+        // 查询
+        $list = $UserbagModel->where('user_token',$post['user_token'])
+            ->where('bag_type',$post['bag_type'])
+            ->order('bag_status',$post['bag_status'])
+            ->select()->toArray();
+        // 验证
+        if(!$list){
+            return returnData('error',false);
+        }
+        // 返回数据
+        return returnData('success',$list);
+    }
+
+
+
+    /**
+     * 名  称 : personalCustomers()
+     * 功  能 : 获取个人团购信息
+     * 变  量 : --------------------------------------
+     * 输  入 : '$post['user_token']  => '用户TOKEN';
+     * 输  出 : {"errNum":0,"retMsg":"提示信息","retData":true}
+     * 创  建 : 2018/09/24 19:11
+     */
+    public function personalCustomers($post)
+    {
+        $res = GroupmemberModel::field(
+            config('v1_tableName.Scenic').'.scenic_id,'.
+            config('v1_tableName.Groupinfo').'.group_num,'.
+            config('v1_tableName.Groupinfo').'.man_num,'.
+            config('v1_tableName.Users').'.user_token,'.
+            config('v1_tableName.Groupinfo').'.group_money,'.
+            config('v1_tableName.Groupinfo').'.group_time,'
+        )->leftJoin(
+            config('v1_tableName.Scenic'),
+            config('v1_tableName.Scenic').'.user_token = ' .
+            config('v1_tableName.GroupmemberModel').'.user_token'
+        )->leftJoin(
+            config('v1_tableName.Scenic'),
+            config('v1_tableName.Scenic').'.user_token = ' .
+            config('v1_tableName.GroupmemberModel').'.user_token'
+        )->where(
+            config('v1_tableName.Scenic').'.scenic_status',
+            $post['scenic_status']
+        );
+        $res = $res->select()->toArray();
+        // 返回数据
+        return returnData('success',$res);
     }
 
 
