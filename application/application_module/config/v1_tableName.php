@@ -33,4 +33,12 @@ return [
     'Scenicservice' => 'data_scenic_service',
     // 景区客服表
     'Depositdeduct' => 'data_deposit_deduct',
+    // 景区评论表
+    'Comment' => 'data_scenic_comment',
+    // 个人卡包表
+    'Userbag' => 'data_user_bag',
+    // 团购表
+    'Group' => 'data_group_list',
+    // 个人及团购订单表
+    'Groupinfo' => 'data_group_Info',
 ];

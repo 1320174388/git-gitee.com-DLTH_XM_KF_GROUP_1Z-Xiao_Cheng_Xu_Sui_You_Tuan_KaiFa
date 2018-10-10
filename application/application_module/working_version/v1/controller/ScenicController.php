@@ -801,4 +801,106 @@ class ScenicController extends Controller
         return returnResponse(1,'修改成功',$res['data']);
     }
 
+
+    /**
+     * 名  称 : Comment()
+     * 功  能 : 获取景区评论列表
+     * 变  量 : --------------------------------------
+     * 输  入 : '$post['scenic_id']  => '景区主键';
+     * 输  出 : {"errNum":0,"retMsg":"提示信息","retData":true}
+     * 创  建 : 2018/09/24 19:11
+     */
+    public function Comment(\think\Request $request)
+    {
+        // 实例化Service层逻辑类
+        $ScenicService = new ScenicService();
+
+        // 获取传入参数
+        $post = $request->post();
+
+        // 执行Service逻辑
+        $res = $ScenicService->Comment($post);
+
+        // 处理函数返回值
+        return returnResponse(1,'查询成功',$res['data']);
+    }
+
+
+
+    /**
+     * 名  称 : coupon()
+     * 功  能 : 领取个人优惠券接口
+     * 变  量 : --------------------------------------
+     * 输  入 : '$post['user_token']  => '用户token';
+     * 输  入 : '$post['index_id']  => '	奖品或优惠券主键';
+     * 输  入 : '$post['bag_type']  => '	类型 【奖品、优惠券】';
+     * 输  出 : {"errNum":0,"retMsg":"提示信息","retData":true}
+     * 创  建 : 2018/09/24 19:11
+     */
+    public function coupon(\think\Request $request)
+    {
+        // 实例化Service层逻辑类
+        $ScenicService = new ScenicService();
+
+        // 获取传入参数
+        $post = $request->post();
+
+        // 执行Service逻辑
+        $res = $ScenicService->coupon($post);
+
+        // 处理函数返回值
+        return returnResponse(1,'添加成功', $res['data']);
+    }
+
+    /**
+     * 名  称 : couponReceive()
+     * 功  能 : 判断用户是否已经领取优惠券
+     * 变  量 : --------------------------------------
+     * 输  入 : '$post['user_token']  => '用户TOKEN';
+     * 输  入 : '$post['index_id']  => '优惠劵主键';
+     * 输  出 : {"errNum":0,"retMsg":"提示信息","retData":true}
+     * 创  建 : 2018/09/24 19:11
+     */
+    public function couponReceive(\think\Request $request)
+    {
+        // 实例化Service层逻辑类
+        $ScenicService = new ScenicService();
+
+        // 获取传入参数
+        $post = $request->post();
+
+        // 执行Service逻辑
+        $res = $ScenicService->couponReceive($post);
+
+        // 处理函数返回值
+        return returnResponse(1,'查询成功',$res['data']);
+    }
+
+
+    /**
+     * 名  称 : grouppurchaseList()
+     * 功  能 : 获取景区下正在进行的团购列表
+     * 变  量 : --------------------------------------
+     * 输  入 : '$post['scenic_id']  => '景区主键';
+     * 输  入 : '$post['group_status']  => '	存在状态';
+     * 输  出 : {"errNum":0,"retMsg":"提示信息","retData":true}
+     * 创  建 : 2018/09/24 19:11
+     */
+    public function grouppurchaseList(\think\Request $request,$pagination)
+    {
+        // 实例化Service层逻辑类
+        $ScenicService = new ScenicService();
+
+        // 获取传入参数
+        $post = $request->post();
+
+        // 执行Service逻辑
+        $res = $ScenicService->grouppurchaseList($post,$pagination);
+
+        // 处理函数返回值
+        return returnResponse(1,'查询成功',$res['data']);
+    }
+
+
+
 }

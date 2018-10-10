@@ -703,4 +703,81 @@ class ScenicService
         return returnData('success',$res['data']);
     }
 
+
+    /**
+     * 名  称 : Comment()
+     * 功  能 : 获取景区评论列表
+     * 变  量 : --------------------------------------
+     * 输  入 : '$post['scenic_id']  => '景区主键';
+     * 输  出 : {"errNum":0,"retMsg":"提示信息","retData":true}
+     * 创  建 : 2018/09/24 19:11
+     */
+    public function Comment($post)
+    {
+        // ScenicDao
+        $res=(new ScenicDao())->Comment($post);
+        if($res['msg']=='error') return returnData('error','查询失败');
+        // 返回数据
+        return returnData('success',$res['data']);
+    }
+
+
+    /**
+     * 名  称 : coupon()
+     * 功  能 : 领取个人优惠券接口
+     * 变  量 : --------------------------------------
+     * 输  入 : '$post['user_token']  => '用户token';
+     * 输  入 : '$post['index_id']  => '	奖品或优惠券主键';
+     * 输  入 : '$post['bag_type']  => '	类型 【奖品、优惠券】';
+     * 输  出 : {"errNum":0,"retMsg":"提示信息","retData":true}
+     * 创  建 : 2018/09/24 19:11
+     */
+    public function coupon($post)
+    {
+        // ScenicDao
+        $res=(new ScenicDao())->coupon($post);
+        if($res['msg']=='error') return returnData('error','添加失败');
+        // 返回数据
+        return returnData('success',$res['data']);
+    }
+
+
+    /**
+     * 名  称 : couponReceive()
+     * 功  能 : 判断用户是否已经领取优惠券
+     * 变  量 : --------------------------------------
+     * 输  入 : '$post['user_token']  => '用户TOKEN';
+     * 输  入 : '$post['index_id']  => '优惠劵主键';
+     * 输  出 : {"errNum":0,"retMsg":"提示信息","retData":true}
+     * 创  建 : 2018/09/24 19:11
+     */
+    public function couponReceive($post)
+    {
+        // ScenicDao
+        $res=(new ScenicDao())->couponReceive($post);
+        if($res['msg']=='error') return returnData('error','查询失败');
+        // 返回数据
+        return returnData('success',$res['data']);
+    }
+
+    /**
+     * 名  称 : grouppurchaseList()
+     * 功  能 : 获取景区下正在进行的团购列表
+     * 变  量 : --------------------------------------
+     * 输  入 : '$post['scenic_id']  => '景区主键';
+     * 输  入 : '$post['group_status']  => '	存在状态';
+     * 输  出 : {"errNum":0,"retMsg":"提示信息","retData":true}
+     * 创  建 : 2018/09/24 19:11
+     */
+    public function grouppurchaseList($post,$pagination)
+    {
+        // ScenicDao
+        $res=(new ScenicDao())->grouppurchaseList($post,$pagination);
+        if($res['msg']=='error') return returnData('error','查询失败');
+        // 返回数据
+        return returnData('success',$res['data']);
+    }
+
+
+
 }
