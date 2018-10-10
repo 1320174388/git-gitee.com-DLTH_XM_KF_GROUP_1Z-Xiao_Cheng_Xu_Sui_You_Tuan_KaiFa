@@ -11,10 +11,18 @@
 return [
     // 景区表
     'Scenic' => 'data_scenic_list',
+    // 登录表
+    'HomeUsers' => 'data_home_users',
     // 用户表
     'Users' => 'data_users_list',
     // 景区押金表
     'Deposit' => 'data_deposit_list',
+    // 景区余额表
+    'ScenicBalance' => 'data_scenic_balance',
+    // 景区收益表
+    'ScenicProfit' => 'data_scenic_profit',
+    // 提现表
+    'ExtractList' => 'data_extract_list',
     // 会员卡表
     'Member' => 'data_member_list',
     // 管理积分获得表
@@ -33,4 +41,12 @@ return [
     'Scenicservice' => 'data_scenic_service',
     // 景区客服表
     'Depositdeduct' => 'data_deposit_deduct',
+    // 景区评论表
+    'Comment' => 'data_scenic_comment',
+    // 个人卡包表
+    'Userbag' => 'data_user_bag',
+    // 团购表
+    'Group' => 'data_group_list',
+    // 个人及团购订单表
+    'Groupinfo' => 'data_group_Info',
 ];

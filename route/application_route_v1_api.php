@@ -349,8 +349,8 @@ Route::post(
  * 路由功能：判断用户是否支付景区押金
  */
 Route::post(
-    'v1/wx_payment_module/depositPayment',
-    'wx_payment_module/v1.controller.IndexController/depositPayment'
+    'v1/application_module/depositPayment',
+    'application_module/v1.controller.ScenicController/depositPayment'
 );
 
 
@@ -360,8 +360,8 @@ Route::post(
  * 路由功能：景区添加客服接口
  */
 Route::post(
-    'v1/wx_payment_module/customerAdd',
-    'wx_payment_module/v1.controller.IndexController/customerAdd'
+    'v1/application_module/customerAdd',
+    'application_module/v1.controller.ScenicController/customerAdd'
 );
 
 
@@ -371,8 +371,8 @@ Route::post(
  * 路由功能：获取景区客服列表接口
  */
 Route::post(
-    'v1/wx_payment_module/customerSel',
-    'wx_payment_module/v1.controller.IndexController/customerSel'
+    'v1/application_module/customerSel',
+    'application_module/v1.controller.ScenicController/customerSel'
 );
 
 /**
@@ -381,6 +381,77 @@ Route::post(
  * 路由功能：修改景区客服接口
  */
 Route::post(
-    'v1/wx_payment_module/customerUpt',
-    'wx_payment_module/v1.controller.IndexController/customerUpt'
+    'v1/application_module/customerUpt',
+    'application_module/v1.controller.ScenicController/customerUpt'
+);
+
+
+/**
+ * 传值方式：POST
+ * 传值参数：
+ * 路由功能：获取景区评论列表
+ */
+Route::post(
+    'v1/application_module/Comment',
+    'application_module/v1.controller.ScenicController/Comment'
+);
+
+/**
+ * 传值方式：POST
+ * 传值参数：
+ * 路由功能：领取个人优惠券接口
+ */
+Route::post(
+    'v1/application_module/coupon',
+    'application_module/v1.controller.ScenicController/coupon'
+);
+
+
+/**
+ * 传值方式：POST
+ * 传值参数：
+ * 路由功能：判断用户是否领取优惠劵接口
+ */
+Route::post(
+    'v1/application_module/couponReceive',
+    'application_module/v1.controller.ScenicController/couponReceive'
+);
+
+/**
+ * 传值方式：POST
+ * 传值参数：
+ * 路由功能：获取景区下正在进行的团购列表
+ */
+Route::post(
+    'v1/application_module/grouppurchaseList',
+    'application_module/v1.controller.ScenicController/grouppurchaseList'
+);
+
+
+/**
+ * 传值方式：POST
+ * 传值参数：
+ * 路由功能：提现景区押金接口
+ */
+Route::post(
+    'v1/application_module/scenicExtractPost',
+    'application_module/v1.controller.ScenicDepositController/scenicDepositExtract'
+);
+/**
+ * 传值方式：GET
+ * 传值参数：
+ * 路由功能：获取景区余额
+ */
+Route::get(
+    'v1/application_module/scenicBalanceGet',
+    'application_module/v1.controller.ScenicDepositController/scenicBalanceGet'
+);
+/**
+ * 传值方式：GET
+ * 传值参数：
+ * 路由功能：获取景区收益余额列表
+ */
+Route::get(
+    'v1/application_module/profitListGet',
+    'application_module/v1.controller.ScenicDepositController/scenicProfitGet'
 );

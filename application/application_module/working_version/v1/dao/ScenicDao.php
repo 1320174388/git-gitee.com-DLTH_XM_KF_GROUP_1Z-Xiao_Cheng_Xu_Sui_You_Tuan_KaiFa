@@ -10,14 +10,18 @@
 namespace app\application_module\working_version\v1\dao;
 use app\application_module\working_version\v1\model\ActivityModel;
 use app\application_module\working_version\v1\model\AdminbespeakModel;
+use app\application_module\working_version\v1\model\CourseModel;
 use app\application_module\working_version\v1\model\DepositdeductModel;
 use app\application_module\working_version\v1\model\DepositModel;
+use app\application_module\working_version\v1\model\GroupinfoModel;
+use app\application_module\working_version\v1\model\GroupModel;
 use app\application_module\working_version\v1\model\IntegralModel;
 use app\application_module\working_version\v1\model\MemberModel;
 use app\application_module\working_version\v1\model\PrizeModel;
 use app\application_module\working_version\v1\model\ScenicModel;
 use app\application_module\working_version\v1\model\ScenicserviceModel;
 use app\application_module\working_version\v1\model\TicketModel;
+use app\application_module\working_version\v1\model\UserbagModel;
 use app\application_module\working_version\v1\model\UsermemberModel;
 use app\application_module\working_version\v1\model\UserModel;
 use think\Db;
@@ -948,4 +952,117 @@ class ScenicDao
         return returnData('success',$res);
 
     }
+
+
+    /**
+     * 名  称 : Comment()
+     * 功  能 : 获取景区评论列表
+     * 变  量 : --------------------------------------
+     * 输  入 : '$post['scenic_id']  => '景区主键';
+     * 输  出 : {"errNum":0,"retMsg":"提示信息","retData":true}
+     * 创  建 : 2018/09/24 19:11
+     */
+    public function Comment($post)
+    {
+        $CourseModel = new CourseModel();
+        // 查询
+        $list = $CourseModel->where('scenic_id',$post['scenic_id'])
+            ->select()->toArray();
+        // 验证
+        if(!$list){
+            return returnData('error',false);
+        }
+        // 返回数据
+        return returnData('success',$list);
+    }
+
+
+    /**
+     * 名  称 : coupon()
+     * 功  能 : 领取个人优惠券接口
+     * 变  量 : --------------------------------------
+     * 输  入 : '$post['user_token']  => '用户token';
+     * 输  入 : '$post['index_id']  => '	奖品或优惠券主键';
+     * 输  入 : '$post['bag_type']  => '	类型 【奖品、优惠券】';
+     * 输  出 : {"errNum":0,"retMsg":"提示信息","retData":true}
+     * 创  建 : 2018/09/24 19:11
+     */
+    public function coupon($post)
+    {
+        // TODO :  ScenicModel 模型
+        // 实例化model
+        $UserbagModel = new UserbagModel();
+        // 用户token
+        $UserbagModel->user_token	= $post['user_token'];
+        // 奖品或优惠券主键
+        $UserbagModel->index_id = $post['index_id'];
+        // 类型 【奖品、优惠券】
+        $UserbagModel->bag_type = $post['bag_type'];
+        // 使用状态
+        $UserbagModel->bag_status = '1';
+        // 领取时间
+        $UserbagModel->bag_time = time();
+        // 保存数据库
+        $data = $UserbagModel->save();
+        // 验证
+        if(!$data){
+            return returnData('error',false);
+        }
+        // 返回数据
+        return returnData('success',$data);
+    }
+
+
+    /**
+     * 名  称 : couponReceive()
+     * 功  能 : 判断用户是否已经领取优惠券
+     * 变  量 : --------------------------------------
+     * 输  入 : '$post['user_token']  => '用户TOKEN';
+     * 输  入 : '$post['index_id']  => '优惠劵主键';
+     * 输  出 : {"errNum":0,"retMsg":"提示信息","retData":true}
+     * 创  建 : 2018/09/24 19:11
+     */
+    public function couponReceive($post)
+    {
+        // 实例化model
+        $UserbagModel = new UserbagModel();
+        // 查询
+        if ($UserbagModel->field('index_id')
+                ->where('user_token', $post['user_token'])
+                ->find() == $post['index_id']) {
+            // 返回数据
+            return returnData('error', '已有此优惠劵');
+        } else {
+            // 返回数据
+            return returnData('success', '没有此优惠劵');
+        }
+    }
+
+
+    /**
+     * 名  称 : grouppurchaseList()
+     * 功  能 : 获取景区下正在进行的团购列表
+     * 变  量 : --------------------------------------
+     * 输  入 : '$post['scenic_id']  => '景区主键';
+     * 输  入 : '$post['group_status']  => '	存在状态';
+     * 输  入 : $pagination  => '分页';
+     * 输  出 : {"errNum":0,"retMsg":"提示信息","retData":true}
+     * 创  建 : 2018/09/24 19:11
+     */
+    public function grouppurchaseList($post,$pagination)
+    {
+        $GroupModel = new GroupModel();
+        // 查询
+        $list = $GroupModel->where('scenic_id',$post['scenic_id'])
+            ->where('group_status',$post['group_status'])
+            ->limit($pagination,12)->select()->toArray();
+        // 验证
+        if(!$list){
+            return returnData('error',false);
+        }
+        // 返回数据
+        return returnData('success',$list);
+    }
+
+
 }
