@@ -33,8 +33,11 @@ class Right_v1_IsAdmin
         // 遍历权限数据
         $typs = false;
         foreach($res['data'] as $v){
-            if($v['right_route']==request()->baseUrl()){
-                $typs = true;
+            $vArr = explode(',',$v['right_route']);
+            foreach($vArr as $i){
+                if($i==request()->baseUrl()){
+                    $typs = true;
+                }
             }
         }
         // 获取用户访问路由
