@@ -83,5 +83,28 @@ class UserInfoController extends Controller
         // 处理函数返回值
         return \RSD::wxReponse($res,'S','请求成功');
     }
-
+    /**
+     * 作  者 : Feng Tianshui
+     * 名  称 : userGroupList()
+     * 功  能 : 获取个人团购列表
+     * 变  量 : --------------------------------------
+     * 输  入 : '$get['user_token']  => '用户token';'
+     * 输  入 : '$get['group_status']  => '团购状态';'
+     * 输  出 : {"errNum":0,"retMsg":"请求成功","retData":"请求数据"}
+     * 创  建 : 2018/10/06 10:23
+     */
+//    public function userGroupList(\think\Request $request)
+//    {
+//        // 实例化Service层逻辑类
+//        $searchScenicService = new UserInfoService();
+//
+//        // 获取传入参数
+//        $get = $request->get();
+//
+//        // 执行Service逻辑
+//        $res = $searchScenicService->($get);
+//
+//        // 处理函数返回值
+//        return \RSD::wxReponse($res,'S','请求成功');
+//    }
 }
