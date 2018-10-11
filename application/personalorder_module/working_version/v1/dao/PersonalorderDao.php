@@ -16,7 +16,6 @@ class PersonalorderDao implements PersonalorderInterface
      * 名  称 : personalorder()
      * 功  能 : 根据用户token状态，查询出有无用户
      * 变  量 : --------------------------------------
-     * 变  量 : --------------------------------------
      * 输  入 : user_token => user_token;
      * 输  出 : [ 'msg' => 'success', 'data' => $userInfo ]
      * 输  出 : [ 'msg' => 'error',  'data' => false ]
