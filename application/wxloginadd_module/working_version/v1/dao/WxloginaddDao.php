@@ -8,6 +8,7 @@
  *  历史记录 :  -----------------------
  */
 namespace app\wxloginadd_module\working_version\v1\dao;
+use app\wxloginadd_module\working_version\v1\model\WxscenicModel;
 use app\wxloginadd_module\working_version\v1\model\WxloginaddModel;
 use app\wxloginadd_module\working_version\v1\model\WxusermemnerModel;
 
@@ -62,9 +63,17 @@ class WxloginaddDao implements WxloginaddInterface
                 // 保存数据
                 $wxusermemner->save();
             }
+            $scenic = WxscenicModel::where(
+                'user_token',$post['userToken']
+            )->find();
+            if($scenic){
+                $scenicId = $scenic['scenic_id'];
+            }else{
+                $scenicId = 'false';
+            }
             // 提交事务
             \think\Db::commit();
-            return returnData('success','授权成功');
+            return returnData('success',['scenicId'=>$scenicId]);
         } catch (\Exception $e) {
             // 回滚事务
             \think\Db::rollback();
