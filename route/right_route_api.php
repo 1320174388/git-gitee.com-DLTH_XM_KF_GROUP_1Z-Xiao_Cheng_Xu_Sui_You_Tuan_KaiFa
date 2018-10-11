@@ -17,7 +17,7 @@
 Route::post(
     ':v/right_module/apply_route',
     'right_module/:v.controller.AdminController/adminPost'
-)->middleware('Right_v1_IsAdmin');
+);
 
 /**
  * 传值方式 : GET
