@@ -24,4 +24,4 @@ Route::post(
 Route::get(
     ':v/scenicspot_module/scenicspot_route',
     'scenicspot_module/:v.controller.ScenicspotController/scenicspotGet'
-)->middleware('Right_v1_IsAdmin');
+);
