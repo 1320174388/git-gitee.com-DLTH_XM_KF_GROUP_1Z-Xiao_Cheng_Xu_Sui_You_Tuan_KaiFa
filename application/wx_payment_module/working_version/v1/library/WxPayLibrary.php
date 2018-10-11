@@ -37,13 +37,11 @@ class WxPayLibrary
         $validate =  new Validate([
             'token'      => 'require',
             'body'       => 'require',
-            'attach'     => 'require',
             'total_fee'  => 'require',
             'out_trade_no' => 'require'
         ],[
             'token.require'      => '缺少用户标识`token`数据',
             'body.require'       => '缺少商品描述`body`数据',
-            'attach.require'     => '缺少商品附加描述`attach`数据',
             'total_fee.require'  => '缺少商品价格`total_fee`数据',
             'out_trade_no.require'  => '缺少订单号`out_trade_no`数据',
         ]);
@@ -52,11 +50,12 @@ class WxPayLibrary
         {
             return returnData('error',$validate->getError());
         }
+        $attach = isset($_POST['attach']) ? $_POST['attach'] : $_POST['body'];
         //创建微信SDK
         $info = new WxSdkService();
         $info->Openid        = $info->GetOpenid($_POST['token']);
         $info->Body          = $_POST['body'];
-        $info->Attach        = $_POST['attach'];
+        $info->Attach        = $attach;
         $info->Out_trade_no  = $_POST['out_trade_no'];
         $info->Total_fee     = $_POST['total_fee'];
         $info->Time_start    = date("YmdHis");

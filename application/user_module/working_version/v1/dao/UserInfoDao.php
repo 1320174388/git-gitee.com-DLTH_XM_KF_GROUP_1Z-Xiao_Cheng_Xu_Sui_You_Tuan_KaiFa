@@ -8,10 +8,12 @@
  *  历史记录 :  -----------------------
  */
 namespace app\user_module\working_version\v1\dao;
+use app\user_module\working_version\v1\model\GroupMemberModel;
 use app\user_module\working_version\v1\model\UsersListModel;
 use app\user_module\working_version\v1\model\UserMemberModel;
 use app\user_module\working_version\v1\model\MemberListModel;
 use app\user_module\working_version\v1\model\UserExtendModel;
+use app\user_module\working_version\v1\model\GroupInfoModel;
 class UserInfoDao
 {
     /**
@@ -95,5 +97,43 @@ class UserInfoDao
         ];
         //返回结果
         return \RSD::wxReponse($res,'M',$data,'没有搜索到结果');
+    }
+    /**
+     * 作  者 : Feng Tianshui
+     * 名  称 : userGroupListDao()
+     * 功  能 : 获取个人团购列表
+     * 变  量 : --------------------------------------
+     * 输  入 : '$get['user_token']  => '用户token';'
+     * 输  入 : '$get['group_status']  => '团购状态';'
+     * 输  出 : ['msg'=>'success','data'=>'返回数据']
+     * 创  建 : 2018/10/06 10:23
+     */
+    public function userGroupListDao($get)
+    {
+        // 创建模型
+//        $opject = new GroupInfoModel();
+//        // 执行查询
+//         $res = $opject->where([
+//                        'user_token'    => $get['user_token'],
+//                        'group_status'  => $get['group_status']
+//                    ])->select()
+//                      ->toArray();
+        $res = GroupMemberModel::leftjoin(
+                    config('v1_tableName.groupInfo'),
+                    config('v1_tableName.GroupMember').'.group_number = '.
+                    config('v1_tableName.groupInfo').'.group_number'
+                )
+                    ->where(
+                        config('v1_tableName.GroupMember').'.user_token',
+                        $get['user_token']
+                    )
+                    ->where(
+                        config('v1_tableName.groupInfo').'.group_status',
+                    $get['group_status']
+                )
+                    ->select()
+                    ->toArray();
+        //返回结果
+        return \RSD::wxReponse($res,'M',$res,'没有搜索到结果');
     }
 }

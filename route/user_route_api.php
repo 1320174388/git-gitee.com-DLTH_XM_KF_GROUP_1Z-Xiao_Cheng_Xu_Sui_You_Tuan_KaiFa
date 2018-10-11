@@ -115,4 +115,13 @@ Route::post(
     ':v/user_module/scenicCommentPost',
     'user_module/:v.controller.SearchScenicController/scenicCommentPost'
 );
+/**
+ * 传值方式：GET
+ * 传值参数：
+ * 路由功能：获取个人团购列表
+ */
+Route::get(
+    ':v/user_module/userGroupList',
+    'user_module/:v.controller.UserInfoController/userGroupList'
+);
 

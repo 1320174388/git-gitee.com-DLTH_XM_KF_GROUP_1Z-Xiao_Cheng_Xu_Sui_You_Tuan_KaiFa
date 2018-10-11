@@ -105,12 +105,34 @@ class UserInfoService
     }
     /**
      * 作  者 : Feng Tianshui
-     * 名  称 : userGroupList()
+     * 名  称 : userGroupListService()
      * 功  能 : 获取个人团购列表
      * 变  量 : --------------------------------------
      * 输  入 : '$get['user_token']  => '用户token';'
      * 输  入 : '$get['group_status']  => '团购状态';'
-     * 输  出 : {"errNum":0,"retMsg":"请求成功","retData":"请求数据"}
+     * 输  出 : ['msg'=>'success','data'=>'返回数据']
      * 创  建 : 2018/10/06 10:23
      */
+    public function userGroupListService($get)
+    {
+        // 验证数据
+        $validate = new \think\Validate([
+            'user_token'         => 'require',
+            'group_status'       => 'require',
+        ],[
+            'user_token.require'         => '缺少user_token参数',
+            'group_status.require'       => '缺少group_status参数',
+        ]);
+        if (!$validate->check($get)) {
+            return returnData('error',$validate->getError());
+        }
+        // 实例化Dao层数据类
+        $searchScenicDao = new UserInfoDao();
+
+        // 执行Dao层逻辑
+        $res = $searchScenicDao->userGroupListDao($get);
+
+        // 处理函数返回值
+        return \RSD::wxReponse($res,'D');
+    }
 }

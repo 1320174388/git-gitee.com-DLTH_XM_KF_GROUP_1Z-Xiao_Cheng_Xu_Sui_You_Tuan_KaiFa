@@ -31,4 +31,6 @@ return [
     'GroupMember'       => 'data_group_member',
     // 个人推广表
     'userExtend'        => 'data_user_extend',
+    // 个人及团购订单表
+    'groupInfo'         => 'data_group_Info',
 ];
