@@ -13,4 +13,6 @@ return [
     'Data_UserList'   => 'data_users_list',
     // 用户会员表
     'Data_UserMember' => 'data_user_member',
+    // 景区表
+    'Data_ScenicList' => 'data_scenic_list',
 ];
