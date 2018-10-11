@@ -9,13 +9,13 @@
  */
 return [
     //小程序appid      【必填】
-    'AppId'     => 'wxbaa373833fc5237d',
+    'AppId'     => 'wx6516385261fa963a',
     //小程序AppSecret  【必填】
-    'AppSecret' => 'b261dfdd19b56183d0ed4adaad88bc93',
+    'AppSecret' => 'dc9823245780a506e679a121bb535e0b',
     //商户号           【必填】
-    'Merchant'  => '1493660532',
+    'Merchant'  => '1502775551',
     //商户支付密钥     【必填】
-    'Key'       => 'fgGHGJ58GHJgjkjkj568GHghkfhjFHJ9',
+    'Key'       => 'weqoiHJLDK46291werpvmdklsDPOS389',
     //支付回调Url      【必填】
     'NotifyUrl' => 'http://www.zhshgp.com/v1/wx_payment_module/wxPayNotify',
     //设置商户证书路径 cert.pem 【选填】 仅退款、撤销订单时需要
