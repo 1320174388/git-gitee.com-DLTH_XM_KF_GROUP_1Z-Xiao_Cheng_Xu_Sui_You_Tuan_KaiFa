@@ -35,6 +35,17 @@ class AdminDao implements AdminInterface
         $userIsToken = $this->userIs(
             'admin_token',$post['admin_token'],$post['admin_class']
         );
+        // 判断用户是否已在其他组注册过
+        $userfind = AdminModel::where(
+            'admin_token',$post['admin_token']
+        )->where(
+            'admin_status','in','0,1'
+        )->where(
+            'right_class',$post['right_class']
+        )->find();
+        if($userfind){
+            return returnData('error','您已在其他景区申请过管理员');
+        }
         // TODO :  验证数据，返回数据
         if($userIsToken){
             return returnData('error','您的账号已经申请过管理员');

@@ -42,7 +42,7 @@ class PersonalpurchaseDao implements PersonalpurchaseInterface
         // TODO :  处理数据
         $money = math_sub($scenicData['scenic_ticket'], $couponData['coupon_money']);
         if($money<=0){
-            $money = 0;
+            $money = 0.01;
         }
         $user = UserModel::where(
             'user_token',$post['token']
