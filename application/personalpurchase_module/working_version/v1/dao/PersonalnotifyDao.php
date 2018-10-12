@@ -34,7 +34,7 @@ class PersonalnotifyDao implements PersonalnotifyInterface
             $group = new GroupModel();
             // 处理数据
             $group->group_number = $data['out_trade_no'];
-            $group->scenic_id    = json_decode($data['attach'])['scenic_id'];
+            $group->scenic_id    = $data['attach']['scenic_id'];
             $group->group_num    = 1;
             $group->man_num      = 1;
             $group->group_type   = 1;
@@ -48,7 +48,7 @@ class PersonalnotifyDao implements PersonalnotifyInterface
             $member = new MemberModel();
             // 处理数据
             $member->group_number   = $data['out_trade_no'];
-            $member->user_token     = json_decode($data['attach'])['token'];
+            $member->user_token     = $data['attach']['token'];
             $member->group_invite   = $data['out_trade_no'];
             $member->member_status  = 1;
             $member->comment_status = 0;
