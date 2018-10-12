@@ -113,6 +113,8 @@ class AdminDao implements AdminInterface
         // TODO :  AdminModel 模型
         $res = AdminModel::where(
             'admin_class',$get['admin_class']
+        )->where(
+            'admin_status',0
         )->select()->toArray();
         // TODO :  返回数据
         return \RSD::wxReponse($res,'M',$res,'当前没有管理员申请');
