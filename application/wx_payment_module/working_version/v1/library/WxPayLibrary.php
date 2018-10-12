@@ -57,7 +57,7 @@ class WxPayLibrary
         $info->Body          = $_POST['body'];
         $info->Attach        = $attach;
         $info->Out_trade_no  = $_POST['out_trade_no'];
-        $info->Total_fee     = $_POST['total_fee'];
+        $info->Total_fee     = ($_POST['total_fee']*100);
         $info->Time_start    = date("YmdHis");
         $info->Time_expire   = date("YmdHis", time() + 600);
         $info->Notify_url    = $notifyUrl;

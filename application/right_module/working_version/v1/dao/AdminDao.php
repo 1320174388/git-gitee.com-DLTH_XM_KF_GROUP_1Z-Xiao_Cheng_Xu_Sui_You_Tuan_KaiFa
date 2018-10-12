@@ -104,7 +104,7 @@ class AdminDao implements AdminInterface
             'admin_class',$get['admin_class']
         )->select()->toArray();
         // TODO :  返回数据
-        return \RSD::wxReponse($res,'M',$res,'请求失败');
+        return \RSD::wxReponse($res,'M',$res,'当前没有管理员申请');
     }
 
     /**
