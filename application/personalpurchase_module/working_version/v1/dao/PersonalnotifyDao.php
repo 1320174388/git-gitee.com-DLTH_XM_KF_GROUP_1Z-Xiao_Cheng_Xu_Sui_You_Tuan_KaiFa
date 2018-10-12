@@ -8,7 +8,9 @@
  *  历史记录 :  -----------------------
  */
 namespace app\personalpurchase_module\working_version\v1\dao;
-use app\personalpurchase_module\working_version\v1\model\PersonalnotifyModel;
+use app\wx_payment_module\working_version\v1\library\WxPayLibrary;
+use app\personalpurchase_module\working_version\v1\model\GroupModel;
+use app\personalpurchase_module\working_version\v1\model\MemberModel;
 
 class PersonalnotifyDao implements PersonalnotifyInterface
 {
@@ -22,8 +24,43 @@ class PersonalnotifyDao implements PersonalnotifyInterface
      */
     public function personalnotifyCreate($post)
     {
-        // TODO :  PersonalnotifyModel 模型
-        
+        // TODO : wxPayNotify 回调
+        $data = (new WxPayLibrary)->wxPayNotify();
+        // TODO : 启动事务
+        \think\Db::startTrans();
+        try {
+            // 实例化订单表模型
+            $group = new GroupModel();
+            // 处理数据
+            $group->group_number = $data['out_trade_no'];
+            $group->scenic_id    = json_decode($data['attach'])['scenic_id'];
+            $group->group_num    = 1;
+            $group->man_num      = 1;
+            $group->group_type   = 1;
+            $group->order_depict = '个人购票订单';
+            $group->group_status = 1;
+            $group->group_time   = time();
+            $group->group_money  = $data['cash_fee'];
+            // 保存数据
+            $group->save();
+            // 实例化订单表模型
+            $member = new MemberModel();
+            // 处理数据
+            $member->group_number   = $data['out_trade_no'];
+            $member->user_token     = json_decode($data['attach'])['token'];
+            $member->group_invite   = $data['out_trade_no'];
+            $member->member_status  = 1;
+            $member->comment_status = 0;
+            $member->comment_status = 1;
+            $member->member_time    = time();
+            // 保存数据
+            $member->save();
+            // 提交事务
+            \think\Db::commit();
+        } catch (\Exception $e) {
+            // 回滚事务
+            \think\Db::rollback();
+        }
         // 处理函数返回值
         return \RSD::wxReponse(true,'M','','');
     }
