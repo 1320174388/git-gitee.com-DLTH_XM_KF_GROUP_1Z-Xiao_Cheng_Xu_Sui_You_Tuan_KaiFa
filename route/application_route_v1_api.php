@@ -362,7 +362,7 @@ Route::post(
 Route::post(
     'v1/application_module/customerAdd',
     'application_module/v1.controller.ScenicController/customerAdd'
-);
+)->middleware('Right_v1_IsAdmin');
 
 
 /**
@@ -383,7 +383,7 @@ Route::post(
 Route::post(
     'v1/application_module/customerUpt',
     'application_module/v1.controller.ScenicController/customerUpt'
-);
+)->middleware('Right_v1_IsAdmin');
 
 
 /**
@@ -487,4 +487,4 @@ Route::post(
 Route::post(
     'v1/application_module/personalCustomers',
     'application_module/v1.controller.ScenicController/personalCustomers'
-)->middleware('Right_v1_IsAdmin');
+);
