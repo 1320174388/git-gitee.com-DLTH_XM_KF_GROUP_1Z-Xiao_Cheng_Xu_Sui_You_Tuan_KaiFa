@@ -110,14 +110,6 @@ class UserInfoDao
      */
     public function userGroupListDao($get)
     {
-        // 创建模型
-//        $opject = new GroupInfoModel();
-//        // 执行查询
-//         $res = $opject->where([
-//                        'user_token'    => $get['user_token'],
-//                        'group_status'  => $get['group_status']
-//                    ])->select()
-//                      ->toArray();
         $res = GroupMemberModel::leftjoin(
                     config('v1_tableName.groupInfo'),
                     config('v1_tableName.GroupMember').'.group_number = '.
