@@ -41,7 +41,7 @@ class PersonalnotifyDao implements PersonalnotifyInterface
             $group->order_depict = '个人购票订单';
             $group->group_status = '1';
             $group->group_time   = time();
-            $group->group_money  = $data['cash_fee'];
+            $group->group_money  = ($data['cash_fee']/100);
             // 保存数据
             $group->save();
             // 实例化订单表模型
