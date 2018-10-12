@@ -877,6 +877,15 @@ class ScenicDao
         // TODO :  ScenicModel 模型
         // 实例化model
         $ScenicserviceModel = new ScenicserviceModel();
+        $scenic = $ScenicserviceModel->field('service_name,service_phone')
+            ->where('service_id',$post['service_id'])
+            ->field();
+        if(
+            $scenic['service_name'] == $post['service_name'] and
+            $scenic['service_phone'] == $post['service_phone']
+        ){
+            return returnData('error','客服重复');
+        }else{
         // 景区主键
         $ScenicserviceModel->scenic_id	 = $post['scenic_id'];
         // 客服名称
@@ -891,6 +900,7 @@ class ScenicDao
         if(!$data){
             return returnData('error',false);
         }
+    }
         // 返回数据
         return returnData('success',$data);
     }
