@@ -86,7 +86,7 @@ class ScenicController extends Controller
         $res = (new ScenicService())->obtainScenic($schoolid);
         if ($res['msg'] == 'error') return returnResponse(2, $res['data']);
         // 返回数据
-        return returnResponse(1, '查询成功', $res['data']);
+        return returnResponse(0, '查询成功', $res['data']);
     }
 
     /**
@@ -107,7 +107,7 @@ class ScenicController extends Controller
         $res = (new ScenicService())->modifyScenic($schoolid, $scenicstatus);
         if ($res['msg'] == 'error') return returnResponse(2, $res['data']);
         // 返回数据
-        return returnResponse(1, '修改成功', $res['data']);
+        return returnResponse(0, '修改成功', $res['data']);
     }
 
     /**
@@ -173,7 +173,7 @@ class ScenicController extends Controller
         $res = (new ScenicService())->scenicVip($schoolid, $scenictype);
         if ($res['msg'] == 'error') return returnResponse(2, $res['data']);
         // 返回数据
-        return returnResponse(1, '修改成功', $res['data']);
+        return returnResponse(0, '修改成功', $res['data']);
     }
 
     /**
@@ -193,7 +193,7 @@ class ScenicController extends Controller
         $res = (new ScenicService())->singleScenic($useridentity);
         if ($res['msg'] == 'error') return returnResponse(2, $res['data']);
         // 返回数据
-        return returnResponse(1, '查询成功', $res['data']);
+        return returnResponse(0, '查询成功', $res['data']);
     }
 
     /**
@@ -213,7 +213,7 @@ class ScenicController extends Controller
         $res = (new ScenicService())->singleUser($useridentity);
         if ($res['msg'] == 'error') return returnResponse(2, $res['data']);
         // 返回数据
-        return returnResponse(1, '查询成功', $res['data']);
+        return returnResponse(0, '查询成功', $res['data']);
     }
 
     /**
@@ -240,7 +240,7 @@ class ScenicController extends Controller
         $res = $ScenicService->scenicModify($post);
 
         // 处理函数返回值
-        return returnResponse(1, '修改成功', $res['data']);
+        return returnResponse(0, '修改成功', $res['data']);
     }
 
     /**
@@ -264,7 +264,7 @@ class ScenicController extends Controller
         $res = $ScenicService->modifyAdmin($post);
 
         // 处理函数返回值
-        return returnResponse(1, '修改成功', $res['data']);
+        return returnResponse(0, '修改成功', $res['data']);
     }
 
     /**
@@ -281,7 +281,7 @@ class ScenicController extends Controller
         $res = (new ScenicService())->membershipSel();
         if ($res['msg'] == 'error') return returnResponse(2, $res['data']);
         // 返回数据
-        return returnResponse(1, '查询成功', $res['data']);
+        return returnResponse(0, '查询成功', $res['data']);
     }
 
     /**
@@ -298,7 +298,7 @@ class ScenicController extends Controller
         $res = (new ScenicService())->integralSel();
         if ($res['msg'] == 'error') return returnResponse(2, $res['data']);
         // 返回数据
-        return returnResponse(1, '查询成功', $res['data']);
+        return returnResponse(0, '查询成功', $res['data']);
     }
 
     /**
@@ -323,7 +323,7 @@ class ScenicController extends Controller
         $res = $ScenicService->integralUpt($post);
 
         // 处理函数返回值
-        return returnResponse(1, '修改成功', $res['data']);
+        return returnResponse(0, '修改成功', $res['data']);
     }
 
     /**
@@ -342,7 +342,7 @@ class ScenicController extends Controller
         $res = (new ScenicService())->userIntegral($usertoken);
         if ($res['msg'] == 'error') return returnResponse(2, $res['data']);
         // 返回数据
-        return returnResponse(1, '查询成功', $res['data']);
+        return returnResponse(0, '查询成功', $res['data']);
     }
 
     /**
@@ -366,7 +366,7 @@ class ScenicController extends Controller
         $res = $ScenicService->userintegralUpt($post);
 
         // 处理函数返回值
-        return returnResponse(1, '修改成功', $res['data']);
+        return returnResponse(0, '修改成功', $res['data']);
     }
 
     /**
@@ -383,7 +383,7 @@ class ScenicController extends Controller
         $res = (new ScenicService())->depositScenic();
         if ($res['msg'] == 'error') return returnResponse(2, $res['data']);
         // 返回数据
-        return returnResponse(1, '查询成功', $res['data']);
+        return returnResponse(0, '查询成功', $res['data']);
     }
 
     /**
@@ -407,7 +407,7 @@ class ScenicController extends Controller
         $res = $ScenicService->depositscenicUpt($post);
 
         // 处理函数返回值
-        return returnResponse(1, '修改成功', $res['data']);
+        return returnResponse(0, '修改成功', $res['data']);
     }
 
     /**
@@ -433,7 +433,7 @@ class ScenicController extends Controller
         $res = $ScenicService->membershipUpt($post);
 
         // 处理函数返回值
-        return returnResponse(1, '修改成功', $res['data']);
+        return returnResponse(0, '修改成功', $res['data']);
     }
 
     /**
@@ -456,7 +456,7 @@ class ScenicController extends Controller
         $res = $ScenicService->scenicList($post);
 
         // 处理函数返回值
-        return returnResponse(1, '查询成功', $res['data']);
+        return returnResponse(0, '查询成功', $res['data']);
     }
 
     /**
@@ -473,7 +473,7 @@ class ScenicController extends Controller
         $res = (new ScenicService())->groupProportion();
         if ($res['msg'] == 'error') return returnResponse(2, $res['data']);
         // 返回数据
-        return returnResponse(1, '查询成功', $res['data']);
+        return returnResponse(0, '查询成功', $res['data']);
     }
 
     /**
@@ -497,7 +497,7 @@ class ScenicController extends Controller
         $res = $ScenicService->groupUpt($post);
 
         // 处理函数返回值
-        return returnResponse(1, '修改成功', $res['data']);
+        return returnResponse(0, '修改成功', $res['data']);
     }
 
     /**
@@ -520,7 +520,7 @@ class ScenicController extends Controller
         $res = $ScenicService->exchangeTicket($post);
 
         // 处理函数返回值
-        return returnResponse(1, '查找成功', $res['data']);
+        return returnResponse(0, '查找成功', $res['data']);
     }
 
 
@@ -545,7 +545,7 @@ class ScenicController extends Controller
         $res = $ScenicService->confirmexchangeTicket($post);
 
         // 处理函数返回值
-        return returnResponse(1, '兑换成功', $res['data']);
+        return returnResponse(0, '兑换成功', $res['data']);
     }
 
 
@@ -569,7 +569,7 @@ class ScenicController extends Controller
         $res = $ScenicService->prizeTicket($post);
 
         // 处理函数返回值
-        return returnResponse(1, '查找成功', $res['data']);
+        return returnResponse(0, '查找成功', $res['data']);
     }
 
 
@@ -594,7 +594,7 @@ class ScenicController extends Controller
         $res = $ScenicService->confirmprizeTicket($post);
 
         // 处理函数返回值
-        return returnResponse(1, '兑换成功', $res['data']);
+        return returnResponse(0, '兑换成功', $res['data']);
     }
 
 
@@ -619,7 +619,7 @@ class ScenicController extends Controller
         $res = $ScenicService->activeStatus($post);
 
         // 处理函数返回值
-        return returnResponse(1, '修改成功', $res['data']);
+        return returnResponse(0, '修改成功', $res['data']);
     }
 
 
@@ -643,7 +643,7 @@ class ScenicController extends Controller
         $res = $ScenicService->depositDeduction($post);
 
         // 处理函数返回值
-        return returnResponse(1, '查找成功', $res['data']);
+        return returnResponse(0, '查找成功', $res['data']);
     }
 
 
@@ -667,7 +667,7 @@ class ScenicController extends Controller
         $res = $ScenicService->scenicDeposit($post);
 
         // 处理函数返回值
-        return returnResponse(1, '查找成功', $res['data']);
+        return returnResponse(0, '查找成功', $res['data']);
     }
 
 
@@ -692,7 +692,7 @@ class ScenicController extends Controller
         $res = $ScenicService->sceniccustomerserviceDel($post);
 
         // 处理函数返回值
-        return returnResponse(1, '删除成功', $res['data']);
+        return returnResponse(0, '删除成功', $res['data']);
     }
 
 
@@ -716,7 +716,7 @@ class ScenicController extends Controller
         $res = $ScenicService->depositPayment($post);
 
         // 处理函数返回值
-        return returnResponse(1, '查询成功', $res['data']);
+        return returnResponse(0, '查询成功', $res['data']);
     }
 
 
@@ -725,7 +725,7 @@ class ScenicController extends Controller
      * 功  能 : 景区添加客服接口
      * 变  量 : --------------------------------------
      * 输  入 : '$post['scenic_id']  => '景区主键';
-     * 输  入 : '$post['service_name']  => '    客服名称';
+     * 输  入 : '$post['service_name']  => '客服名称';
      * 输  入 : '$post['service_phone']  => '客服电话';
      * 输  入 : '$post['service_position']  => '客服职位';
      * 输  出 : {"errNum":0,"retMsg":"提示信息","retData":true}
@@ -743,7 +743,7 @@ class ScenicController extends Controller
         $res = $ScenicService->customerAdd($post);
 
         // 处理函数返回值
-        return returnResponse(1, '添加成功', $res['data']);
+        return returnResponse(0, '添加成功', $res['data']);
     }
 
 
@@ -767,7 +767,7 @@ class ScenicController extends Controller
         $res = $ScenicService->customerSel($post);
 
         // 处理函数返回值
-        return returnResponse(1, '查询成功', $res['data']);
+        return returnResponse(0, '查询成功', $res['data']);
     }
 
     /**
@@ -793,7 +793,7 @@ class ScenicController extends Controller
         $res = $ScenicService->customerUpt($post);
 
         // 处理函数返回值
-        return returnResponse(1, '修改成功', $res['data']);
+        return returnResponse(0, '修改成功', $res['data']);
     }
 
 
@@ -817,7 +817,7 @@ class ScenicController extends Controller
         $res = $ScenicService->Comment($post);
 
         // 处理函数返回值
-        return returnResponse(1, '查询成功', $res['data']);
+        return returnResponse(0, '查询成功', $res['data']);
     }
 
 
@@ -843,7 +843,7 @@ class ScenicController extends Controller
         $res = $ScenicService->coupon($post);
 
         // 处理函数返回值
-        return returnResponse(1, '添加成功', $res['data']);
+        return returnResponse(0, '添加成功', $res['data']);
     }
 
     /**
@@ -867,7 +867,7 @@ class ScenicController extends Controller
         $res = $ScenicService->couponReceive($post);
 
         // 处理函数返回值
-        return returnResponse(1, '查询成功', $res['data']);
+        return returnResponse(0, '查询成功', $res['data']);
     }
 
 
@@ -892,7 +892,7 @@ class ScenicController extends Controller
         $res = $ScenicService->grouppurchaseList($post, $pagination);
 
         // 处理函数返回值
-        return returnResponse(1, '查询成功', $res['data']);
+        return returnResponse(0, '查询成功', $res['data']);
     }
 
 
@@ -916,7 +916,7 @@ class ScenicController extends Controller
         $res = $ScenicService->fightGroup($post);
 
         // 处理函数返回值
-        return returnResponse(1, '查询成功', $res['data']);
+        return returnResponse(0, '查询成功', $res['data']);
     }
 
 
@@ -942,7 +942,7 @@ class ScenicController extends Controller
         $res = $ScenicService->personalPrize($post);
 
         // 处理函数返回值
-        return returnResponse(1, '查询成功', $res['data']);
+        return returnResponse(0, '查询成功', $res['data']);
     }
 
 
@@ -968,7 +968,7 @@ class ScenicController extends Controller
         $res = $ScenicService->personalCoupon($post);
 
         // 处理函数返回值
-        return returnResponse(1, '查询成功', $res['data']);
+        return returnResponse(0, '查询成功', $res['data']);
     }
 
 
@@ -976,7 +976,7 @@ class ScenicController extends Controller
      * 名  称 : personalCustomers()
      * 功  能 : 获取个人团购信息
      * 变  量 : --------------------------------------
-     * 输  入 : '$post['user_token']  => '用户TOKEN';
+     * 输  入 : '$post['group_number']  => '订单号';
      * 输  出 : {"errNum":0,"retMsg":"提示信息","retData":true}
      * 创  建 : 2018/09/24 19:11
      */
@@ -992,6 +992,6 @@ class ScenicController extends Controller
         $res = $ScenicService->personalCustomers($post);
 
         // 处理函数返回值
-        return returnResponse(1, '查询成功', $res['data']);
+        return returnResponse(0, '查询成功', $res['data']);
     }
 }

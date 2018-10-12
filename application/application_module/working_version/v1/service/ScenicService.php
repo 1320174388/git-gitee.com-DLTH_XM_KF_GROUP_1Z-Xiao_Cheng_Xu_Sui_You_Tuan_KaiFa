@@ -840,7 +840,7 @@ class ScenicService
      * 名  称 : personalCustomers()
      * 功  能 : 获取个人团购信息
      * 变  量 : --------------------------------------
-     * 输  入 : '$post['user_token']  => '用户TOKEN';
+     * 输  入 : '$post['group_number']  => '订单号';
      * 输  出 : {"errNum":0,"retMsg":"提示信息","retData":true}
      * 创  建 : 2018/09/24 19:11
      */

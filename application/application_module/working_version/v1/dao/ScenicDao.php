@@ -349,7 +349,7 @@ class ScenicDao
             // 回滚事务
             Db::rollback();
             // 验证数据
-            return returnData('error');
+            return returnData('error',$res);
         }
     }
 
@@ -1157,40 +1157,41 @@ class ScenicDao
     }
 
 
-
     /**
      * 名  称 : personalCustomers()
      * 功  能 : 获取个人团购信息
      * 变  量 : --------------------------------------
-     * 输  入 : '$post['user_token']  => '用户TOKEN';
+     * 输  入 : '$post['group_number']  => '订单号';
      * 输  出 : {"errNum":0,"retMsg":"提示信息","retData":true}
      * 创  建 : 2018/09/24 19:11
      */
     public function personalCustomers($post)
     {
         $res = GroupmemberModel::field(
-            config('v1_tableName.Scenic').'.scenic_id,'.
+            config('v1_tableName.Scenic').'.scenic_name,'.
             config('v1_tableName.Groupinfo').'.group_num,'.
             config('v1_tableName.Groupinfo').'.man_num,'.
-            config('v1_tableName.Users').'.user_token,'.
+            config('v1_tableName.Users').'.user_name,'.
             config('v1_tableName.Groupinfo').'.group_money,'.
             config('v1_tableName.Groupinfo').'.group_time,'
         )->leftJoin(
-            config('v1_tableName.Scenic'),
-            config('v1_tableName.Scenic').'.user_token = ' .
-            config('v1_tableName.GroupmemberModel').'.user_token'
+            config('v1_tableName.Groupinfo'),
+            config('v1_tableName.Groupinfo').'.group_number = ' .
+            config('v1_tableName.Groupmember').'.group_number'
         )->leftJoin(
             config('v1_tableName.Scenic'),
-            config('v1_tableName.Scenic').'.user_token = ' .
-            config('v1_tableName.GroupmemberModel').'.user_token'
+            config('v1_tableName.Scenic').'.scenic_id = ' .
+            config('v1_tableName.group_Info').'.scenic_id'
+        )->leftJoin(
+            config('v1_tableName.Users'),
+            config('v1_tableName.Users').'.user_token = ' .
+            config('v1_tableName.Groupmember').'.user_token'
         )->where(
-            config('v1_tableName.Scenic').'.scenic_status',
-            $post['scenic_status']
+            config('v1_tableName.Groupmember').'.group_number',
+            $post['group_number']
         );
-        $res = $res->select()->toArray();
         // 返回数据
         return returnData('success',$res);
     }
-
 
 }
