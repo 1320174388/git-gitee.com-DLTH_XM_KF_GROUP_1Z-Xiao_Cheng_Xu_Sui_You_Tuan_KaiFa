@@ -849,8 +849,8 @@ class ScenicService
         // ScenicDao
         $res=(new ScenicDao())->personalCustomers($post);
         if($res['msg']=='error') return returnData('error','查询失败');
-        // 处理函数返回值
-        return \RSD::wxReponse($res,'D');
+        // 返回数据
+        return returnData('success',$res['data']);
     }
 
 

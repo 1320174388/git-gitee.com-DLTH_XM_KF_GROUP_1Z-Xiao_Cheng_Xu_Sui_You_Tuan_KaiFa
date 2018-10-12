@@ -743,7 +743,7 @@ class ScenicController extends Controller
         $res = $ScenicService->customerAdd($post);
 
         // 处理函数返回值
-        return \RSD::wxReponse($res, 'S', '请求成功');
+        return \RSD::wxReponse($res, 'S');
     }
 
 
