@@ -56,7 +56,7 @@ class ScenicService
         $res = $scenicDao->scenicAdd($post);
 
         // 处理函数返回值
-        return returnData('success',$res['data']);
+        return \RSD::wxReponse($res,'D');
     }
 
     /**
@@ -88,7 +88,7 @@ class ScenicService
         $res = $scenicDao->imgPost($post);
 
         // 处理函数返回值
-        return returnData('success',$res['data']);
+        return \RSD::wxReponse($res,'D');
     }
 
 
@@ -105,8 +105,8 @@ class ScenicService
         // ScenicDao
         $res=(new ScenicDao())->obtainScenic($scenicid);
         if($res['msg']=='error') return returnData('error','查询失败');
-        // 返回数据
-        return returnData('success',$res['data']);
+        // 处理函数返回值
+        return \RSD::wxReponse($res,'D');
     }
 
     /**
@@ -123,8 +123,8 @@ class ScenicService
         // ScenicDao
         $res=(new ScenicDao())->modifyScenic($schoolid,$scenicstatus);
         if($res['msg']=='error') return returnData('error','修改失败');
-        // 返回数据
-        return returnData('success',$res['data']);
+        // 处理函数返回值
+        return \RSD::wxReponse($res,'D');
     }
 
 
@@ -145,7 +145,7 @@ class ScenicService
         $res = $scenicDao->obtainApplication();
 
         // 处理函数返回值
-        return returnData('success',$res['data']);
+        return \RSD::wxReponse($res,'D');
     }
 
 
@@ -167,7 +167,7 @@ class ScenicService
         $res = $scenicDao->scenicApplication($post);
 
         // 处理函数返回值
-        return returnData('success',$res['data']);
+        return \RSD::wxReponse($res,'D');
     }
 
     /**
@@ -184,8 +184,8 @@ class ScenicService
         // ScenicDao
         $res=(new ScenicDao())->scenicVip($schoolid,$scenictype);
         if($res['msg']=='error') return returnData('error','修改失败');
-        // 返回数据
-        return returnData('success',$res['data']);
+        // 处理函数返回值
+        return \RSD::wxReponse($res,'D');
     }
 
 
@@ -202,8 +202,8 @@ class ScenicService
         // ScenicDao
         $res=(new ScenicDao())->singleScenic($useridentity);
         if($res['msg']=='error') return returnData('error','查询失败');
-        // 返回数据
-        return returnData('success',$res['data']);
+        // 处理函数返回值
+        return \RSD::wxReponse($res,'D');
     }
 
     /**
@@ -219,8 +219,8 @@ class ScenicService
         // ScenicDao
         $res=(new ScenicDao())->singleUser($useridentity);
         if($res['msg']=='error') return returnData('error','查询失败');
-        // 返回数据
-        return returnData('success',$res['data']);
+        // 处理函数返回值
+        return \RSD::wxReponse($res,'D');
     }
 
 
@@ -244,7 +244,7 @@ class ScenicService
         $res = $scenicDao->scenicModify($post);
 
         // 处理函数返回值
-        return returnData('success',$res['data']);
+        return \RSD::wxReponse($res,'D');
     }
 
 
@@ -265,7 +265,7 @@ class ScenicService
         $res = $scenicDao->modifyAdmin($post);
 
         // 处理函数返回值
-        return returnData('success',$res['data']);
+        return \RSD::wxReponse($res,'D');
     }
 
 
@@ -282,8 +282,8 @@ class ScenicService
         // ScenicDao
         $res=(new ScenicDao())->membershipSel();
         if($res['msg']=='error') return returnData('error','查询失败');
-        // 返回数据
-        return returnData('success',$res['data']);
+        // 处理函数返回值
+        return \RSD::wxReponse($res,'D');
     }
 
 
@@ -300,8 +300,8 @@ class ScenicService
         // ScenicDao
         $res=(new ScenicDao())->integralSel();
         if($res['msg']=='error') return returnData('error','查询失败');
-        // 返回数据
-        return returnData('success',$res['data']);
+        // 处理函数返回值
+        return \RSD::wxReponse($res,'D');
     }
 
 
@@ -322,7 +322,7 @@ class ScenicService
         // 执行Dao层逻辑
         $res = $scenicDao->integralUpt($post);
         // 处理函数返回值
-        return returnData('success',$res['data']);
+        return \RSD::wxReponse($res,'D');
     }
 
 
@@ -340,8 +340,8 @@ class ScenicService
         // ScenicDao
         $res=(new ScenicDao())->userIntegral($usertoken);
         if($res['msg']=='error') return returnData('error','查询失败');
-        // 返回数据
-        return returnData('success',$res['data']);
+        // 处理函数返回值
+        return \RSD::wxReponse($res,'D');
     }
 
     /**
@@ -360,7 +360,7 @@ class ScenicService
         // 执行Dao层逻辑
         $res = $scenicDao->userintegralUpt($post);
         // 处理函数返回值
-        return returnData('success',$res['data']);
+        return \RSD::wxReponse($res,'D');
     }
 
 
@@ -377,8 +377,8 @@ class ScenicService
         // ScenicDao
         $res=(new ScenicDao())->depositScenic();
         if($res['msg']=='error') return returnData('error','查询失败');
-        // 返回数据
-        return returnData('success',$res['data']);
+        // 处理函数返回值
+        return \RSD::wxReponse($res,'D');
     }
 
     /**
@@ -397,7 +397,7 @@ class ScenicService
         // 执行Dao层逻辑
         $res = $scenicDao->depositscenicUpt($post);
         // 处理函数返回值
-        return returnData('success',$res['data']);
+        return \RSD::wxReponse($res,'D');
     }
 
 
@@ -420,7 +420,7 @@ class ScenicService
         // 执行Dao层逻辑
         $res = $scenicDao->membershipUpt($post);
         // 处理函数返回值
-        return returnData('success',$res['data']);
+        return \RSD::wxReponse($res,'D');
     }
 
 
@@ -438,8 +438,8 @@ class ScenicService
         // ScenicDao
         $res=(new ScenicDao())->scenicList($post);
         if($res['msg']=='error') return returnData('error','查询失败');
-        // 返回数据
-        return returnData('success',$res['data']);
+        // 处理函数返回值
+        return \RSD::wxReponse($res,'D');
     }
 
 
@@ -457,8 +457,8 @@ class ScenicService
         // ScenicDao
         $res=(new ScenicDao())->groupProportion();
         if($res['msg']=='error') return returnData('error','查询失败');
-        // 返回数据
-        return returnData('success',$res['data']);
+        // 处理函数返回值
+        return \RSD::wxReponse($res,'D');
     }
 
 
@@ -479,7 +479,7 @@ class ScenicService
         // 执行Dao层逻辑
         $res = $scenicDao->groupUpt($post);
         // 处理函数返回值
-        return returnData('success',$res['data']);
+        return \RSD::wxReponse($res,'D');
     }
 
 
@@ -496,8 +496,8 @@ class ScenicService
         // ScenicDao
         $res=(new ScenicDao())->exchangeTicket($post);
         if($res['msg']=='error') return returnData('error','查询失败');
-        // 返回数据
-        return returnData('success',$res['data']);
+        // 处理函数返回值
+        return \RSD::wxReponse($res,'D');
     }
 
 
@@ -515,8 +515,8 @@ class ScenicService
         // ScenicDao
         $res=(new ScenicDao())->confirmexchangeTicket($post);
         if($res['msg']=='error') return returnData('error','兑换失败');
-        // 返回数据
-        return returnData('success',$res['data']);
+        // 处理函数返回值
+        return \RSD::wxReponse($res,'D');
     }
 
 
@@ -533,8 +533,8 @@ class ScenicService
         // ScenicDao
         $res=(new ScenicDao())->prizeTicket($post);
         if($res['msg']=='error') return returnData('error','查询失败');
-        // 返回数据
-        return returnData('success',$res['data']);
+        // 处理函数返回值
+        return \RSD::wxReponse($res,'D');
     }
 
 
@@ -552,8 +552,8 @@ class ScenicService
         // ScenicDao
         $res=(new ScenicDao())->confirmprizeTicket($post);
         if($res['msg']=='error') return returnData('error','兑换失败');
-        // 返回数据
-        return returnData('success',$res['data']);
+        // 处理函数返回值
+        return \RSD::wxReponse($res,'D');
     }
 
 
@@ -571,8 +571,8 @@ class ScenicService
         // ScenicDao
         $res=(new ScenicDao())->activeStatus($post);
         if($res['msg']=='error') return returnData('error','兑换失败');
-        // 返回数据
-        return returnData('success',$res['data']);
+        // 处理函数返回值
+        return \RSD::wxReponse($res,'D');
     }
 
     /**
@@ -588,8 +588,8 @@ class ScenicService
         // ScenicDao
         $res=(new ScenicDao())->depositDeduction($post);
         if($res['msg']=='error') return returnData('error','查询失败');
-        // 返回数据
-        return returnData('success',$res['data']);
+        // 处理函数返回值
+        return \RSD::wxReponse($res,'D');
     }
 
     /**
@@ -605,8 +605,8 @@ class ScenicService
         // ScenicDao
         $res=(new ScenicDao())->scenicDeposit($post);
         if($res['msg']=='error') return returnData('error','查询失败');
-        // 返回数据
-        return returnData('success',$res['data']);
+        // 处理函数返回值
+        return \RSD::wxReponse($res,'D');
     }
 
 
@@ -624,8 +624,8 @@ class ScenicService
         // ScenicDao
         $res=(new ScenicDao())->sceniccustomerserviceDel($post);
         if($res['msg']=='error') return returnData('error','删除失败');
-        // 返回数据
-        return returnData('success',$res['data']);
+        // 处理函数返回值
+        return \RSD::wxReponse($res,'D');
     }
 
     /**
@@ -641,8 +641,8 @@ class ScenicService
         // ScenicDao
         $res=(new ScenicDao())->depositPayment($post);
         if($res['msg']=='error') return returnData('error','查询失败');
-        // 返回数据
-        return returnData('success',$res['data']);
+        // 处理函数返回值
+        return \RSD::wxReponse($res,'D');
     }
 
     /**
@@ -661,8 +661,8 @@ class ScenicService
         // ScenicDao
         $res=(new ScenicDao())->customerAdd($post);
         if($res['msg']=='error') return returnData('error','添加失败');
-        // 返回数据
-        return returnData('success',$res['data']);
+        // 处理函数返回值
+        return \RSD::wxReponse($res,'D');
     }
 
 
@@ -679,8 +679,8 @@ class ScenicService
         // ScenicDao
         $res=(new ScenicDao())->customerSel($post);
         if($res['msg']=='error') return returnData('error','查询失败');
-        // 返回数据
-        return returnData('success',$res['data']);
+        // 处理函数返回值
+        return \RSD::wxReponse($res,'D');
     }
 
     /**
@@ -699,8 +699,8 @@ class ScenicService
         // ScenicDao
         $res=(new ScenicDao())->customerUpt($post);
         if($res['msg']=='error') return returnData('error','修改失败');
-        // 返回数据
-        return returnData('success',$res['data']);
+        // 处理函数返回值
+        return \RSD::wxReponse($res,'D');
     }
 
 
@@ -717,8 +717,8 @@ class ScenicService
         // ScenicDao
         $res=(new ScenicDao())->Comment($post);
         if($res['msg']=='error') return returnData('error','查询失败');
-        // 返回数据
-        return returnData('success',$res['data']);
+        // 处理函数返回值
+        return \RSD::wxReponse($res,'D');
     }
 
 
@@ -737,8 +737,8 @@ class ScenicService
         // ScenicDao
         $res=(new ScenicDao())->coupon($post);
         if($res['msg']=='error') return returnData('error','添加失败');
-        // 返回数据
-        return returnData('success',$res['data']);
+        // 处理函数返回值
+        return \RSD::wxReponse($res,'D');
     }
 
 
@@ -756,8 +756,8 @@ class ScenicService
         // ScenicDao
         $res=(new ScenicDao())->couponReceive($post);
         if($res['msg']=='error') return returnData('error','查询失败');
-        // 返回数据
-        return returnData('success',$res['data']);
+        // 处理函数返回值
+        return \RSD::wxReponse($res,'D');
     }
 
     /**
@@ -774,8 +774,8 @@ class ScenicService
         // ScenicDao
         $res=(new ScenicDao())->grouppurchaseList($post,$pagination);
         if($res['msg']=='error') return returnData('error','查询失败');
-        // 返回数据
-        return returnData('success',$res['data']);
+        // 处理函数返回值
+        return \RSD::wxReponse($res,'D');
     }
 
 
@@ -792,8 +792,8 @@ class ScenicService
         // ScenicDao
         $res=(new ScenicDao())->fightGroup($post);
         if($res['msg']=='error') return returnData('error','查询失败');
-        // 返回数据
-        return returnData('success',$res['data']);
+        // 处理函数返回值
+        return \RSD::wxReponse($res,'D');
     }
 
     /**
@@ -811,8 +811,8 @@ class ScenicService
         // ScenicDao
         $res=(new ScenicDao())->personalPrize($post);
         if($res['msg']=='error') return returnData('error','查询失败');
-        // 返回数据
-        return returnData('success',$res['data']);
+        // 处理函数返回值
+        return \RSD::wxReponse($res,'D');
     }
 
 
@@ -831,8 +831,8 @@ class ScenicService
         // ScenicDao
         $res=(new ScenicDao())->personalCoupon($post);
         if($res['msg']=='error') return returnData('error','查询失败');
-        // 返回数据
-        return returnData('success',$res['data']);
+        // 处理函数返回值
+        return \RSD::wxReponse($res,'D');
     }
 
 
@@ -849,8 +849,8 @@ class ScenicService
         // ScenicDao
         $res=(new ScenicDao())->personalCustomers($post);
         if($res['msg']=='error') return returnData('error','查询失败');
-        // 返回数据
-        return returnData('success',$res['data']);
+        // 处理函数返回值
+        return \RSD::wxReponse($res,'D');
     }
 
 
