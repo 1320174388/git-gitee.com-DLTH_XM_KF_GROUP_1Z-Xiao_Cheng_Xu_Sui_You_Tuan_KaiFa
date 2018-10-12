@@ -952,22 +952,20 @@ class ScenicDao
             'service_phone',$post['service_phone']
         )->where(
             'service_name',$post['service_name']
-        )->where(
-            'scenic_id',$post['scenic_id']
         )->find();
         if($data) {
             return returnData('error','重复客服');
         }
-            // 进行修改
-            $res = $ScenicserviceModel->save([
-                $ScenicserviceModel->service_name    = $post['service_name'],
-                $ScenicserviceModel->service_phone    = $post['service_phone'],
-                $ScenicserviceModel->service_position    = $post['service_position'],
-            ],['service_id'=>$post['service_id']]);
-            // 验证
-            if(!$res){
-                return returnData('error',false);
-            }
+        // 进行修改
+        $res = $ScenicserviceModel->save([
+            $ScenicserviceModel->service_name    = $post['service_name'],
+            $ScenicserviceModel->service_phone    = $post['service_phone'],
+            $ScenicserviceModel->service_position    = $post['service_position'],
+        ],['service_id'=>$post['service_id']]);
+        // 验证
+        if(!$res){
+            return returnData('error',false);
+        }
         // 返回数据
         return returnData('success',$res);
 

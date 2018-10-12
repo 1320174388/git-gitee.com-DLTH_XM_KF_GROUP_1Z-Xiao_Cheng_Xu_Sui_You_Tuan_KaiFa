@@ -383,7 +383,7 @@ Route::post(
 Route::post(
     'v1/application_module/customerUpt',
     'application_module/v1.controller.ScenicController/customerUpt'
-)->middleware('Right_v1_IsAdmin');
+);
 
 
 /**
