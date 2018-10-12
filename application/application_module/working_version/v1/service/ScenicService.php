@@ -154,6 +154,7 @@ class ScenicService
      * 功  能 : 获取景区申请列表
      * 变  量 : '$post['scenic_type']  => '景区类型';
      * 变  量 : '$post['scenic_status']  => '景区状态';
+     * 变  量 : '$post['pagination']  => '分页';
      * 输  入 : --------------------------------------
      * 输  出 : {"errNum":0,"retMsg":"提示信息","retData":true}
      * 创  建 : 2018/09/24 19:11
