@@ -27,14 +27,6 @@ class PersonalnotifyService
      */
     public function personalnotifyAdd($post)
     {
-        // 实例化验证器代码
-        $validate  = new PersonalnotifyValidatePost();
-        
-        // 验证数据
-        if (!$validate->scene('edit')->check($post)) {
-            return ['msg'=>'error','data'=>$validate->getError()];
-        }
-        
         // 实例化Dao层数据类
         $personalnotifyDao = new PersonalnotifyDao();
         

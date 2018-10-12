@@ -10,7 +10,6 @@
 namespace app\personalpurchase_module\working_version\v1\dao;
 use app\wx_payment_module\working_version\v1\library\WxPayLibrary;
 use app\personalpurchase_module\working_version\v1\model\UserModel;
-use app\personalpurchase_module\working_version\v1\model\GroupModel;
 use app\personalpurchase_module\working_version\v1\model\ScenicModel;
 use app\personalpurchase_module\working_version\v1\model\CouponModel;
 

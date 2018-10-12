@@ -21,6 +21,6 @@ class GroupModel extends Model
     // 加载配置数据表名
     protected function initialize()
     {
-        $this->table = config('wx_sgy_config.SGY_Group_Info');
+        $this->table = config('v1_tableName.SGY_Group_Info');
     }
 }
