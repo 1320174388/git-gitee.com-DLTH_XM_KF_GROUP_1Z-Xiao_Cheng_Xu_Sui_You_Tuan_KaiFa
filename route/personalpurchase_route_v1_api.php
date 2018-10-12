@@ -18,10 +18,10 @@ Route::post(
 );
 
 /**
- * 传值方式 : POST
+ * 传值方式 : rule
  * 路由功能 : 个人购票回调
  */
-Route::post(
+Route::rule(
     ':v/personalpurchase_module/personalnotify_route',
     'personalpurchase_module/:v.controller.PersonalnotifyController/personalnotifyPost'
 );
