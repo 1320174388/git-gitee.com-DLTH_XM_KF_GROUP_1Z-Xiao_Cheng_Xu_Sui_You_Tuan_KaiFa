@@ -35,11 +35,11 @@ class PersonalnotifyDao implements PersonalnotifyInterface
             // 处理数据
             $group->group_number = $data['out_trade_no'];
             $group->scenic_id    = $data['attach']['scenic_id'];
-            $group->group_num    = 1;
-            $group->man_num      = 1;
-            $group->group_type   = 1;
+            $group->group_num    = '1';
+            $group->man_num      = '1';
+            $group->group_type   = '1';
             $group->order_depict = '个人购票订单';
-            $group->group_status = 1;
+            $group->group_status = '1';
             $group->group_time   = time();
             $group->group_money  = $data['cash_fee'];
             // 保存数据
@@ -50,9 +50,9 @@ class PersonalnotifyDao implements PersonalnotifyInterface
             $member->group_number   = $data['out_trade_no'];
             $member->user_token     = $data['attach']['token'];
             $member->group_invite   = $data['out_trade_no'];
-            $member->member_status  = 1;
-            $member->comment_status = 0;
-            $member->comment_status = 1;
+            $member->member_status  = '1';
+            $member->comment_status = '0';
+            $member->comment_status = '1';
             $member->member_time    = time();
             // 保存数据
             $member->save();
@@ -62,7 +62,5 @@ class PersonalnotifyDao implements PersonalnotifyInterface
             // 回滚事务
             \think\Db::rollback();
         }
-        // 处理函数返回值
-        return \RSD::wxReponse(true,'M','','');
     }
 }
