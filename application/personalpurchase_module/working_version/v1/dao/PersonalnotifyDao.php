@@ -34,21 +34,21 @@ class PersonalnotifyDao implements PersonalnotifyInterface
             $group = new GroupModel();
             // 处理数据
             $group->group_number = $data['out_trade_no'];
-            $group->scenic_id    = json_decode($data['attach'])['scenic_id'];
+            $group->scenic_id    = json_decode($data['attach'],true)['scenic_id'];
             $group->group_num    = '1';
             $group->man_num      = '1';
             $group->group_type   = '1';
             $group->order_depict = '个人购票订单';
             $group->group_status = '1';
             $group->group_time   = time();
-            $group->group_money  = ($data['cash_fee']/100);
+            $group->group_money  = math_div($data['total_fee'],100);
             // 保存数据
             $group->save();
             // 实例化订单表模型
             $member = new MemberModel();
             // 处理数据
             $member->group_number   = $data['out_trade_no'];
-            $member->user_token     = json_decode($data['attach'])['token'];
+            $member->user_token     = json_decode($data['attach'],true)['token'];
             $member->group_invite   = $data['out_trade_no'];
             $member->member_status  = '1';
             $member->comment_status = '0';
