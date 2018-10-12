@@ -362,7 +362,7 @@ Route::post(
 Route::post(
     'v1/application_module/customerAdd',
     'application_module/v1.controller.ScenicController/customerAdd'
-)->middleware('Right_v1_IsAdmin');
+);
 
 
 /**
