@@ -110,30 +110,58 @@ class UserInfoDao
      */
     public function userGroupListDao($get)
     {
-        // 创建模型
-//        $opject = new GroupInfoModel();
-//        // 执行查询
-//         $res = $opject->where([
-//                        'user_token'    => $get['user_token'],
-//                        'group_status'  => $get['group_status']
-//                    ])->select()
-//                      ->toArray();
+        //查询条件 用户token、 团购状态 、查团购订单
         $res = GroupMemberModel::leftjoin(
                     config('v1_tableName.groupInfo'),
                     config('v1_tableName.GroupMember').'.group_number = '.
                     config('v1_tableName.groupInfo').'.group_number'
                 )
-                    ->where(
-                        config('v1_tableName.GroupMember').'.user_token',
-                        $get['user_token']
-                    )
-                    ->where(
-                        config('v1_tableName.groupInfo').'.group_status',
-                    $get['group_status']
-                )
+                    ->where([
+                        config('v1_tableName.GroupMember').'.user_token' => $get['user_token'],
+                        config('v1_tableName.groupInfo').'.group_status' => $get['group_status'],
+                    ])
+                    ->where('group_type','in','2,3')
                     ->select()
                     ->toArray();
         //返回结果
         return \RSD::wxReponse($res,'M',$res,'没有搜索到结果');
+    }
+    /**
+     * 作  者 : Feng Tianshui
+     * 名  称 : cancelGroupDao()
+     * 功  能 : 取消预约团购
+     * 变  量 : --------------------------------------
+     * 输  入 : '$post['user_token']  => '用户token';'
+     * 输  入 : '$post['group_number']  => '订单号';'
+     * 输  出 : ['msg'=>'success','data'=>'返回数据']
+     * 创  建 : 2018/10/06 10:23
+     */
+    public function cancelGroupDao($post)
+    {
+        // 创建模型
+        $opject = new GroupMemberModel();
+        // 修改加入团购状态
+       $res = $opject->save([
+                    'member_status' => 0
+                ],[
+                    'user_token'    => $post['user_token'],
+                    'group_number'  => $post['group_number']
+                ]);
+        //返回结果
+        return \RSD::wxReponse($res,'M','取消成功','取消失败');
+    }
+    /**
+     * 作  者 : Feng Tianshui
+     * 名  称 : userOrderInfoGet()
+     * 功  能 : 获取订单信息
+     * 变  量 : --------------------------------------
+     * 输  入 : '$post['user_token']  => '用户token';'
+     * 输  入 : '$post['group_number']  => '订单号';'
+     * 输  出 : ['msg'=>'success','data'=>'返回数据']
+     * 创  建 : 2018/10/06 10:23
+     */
+    public function userOrderInfoGet($data)
+    {
+        
     }
 }

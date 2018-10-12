@@ -10,6 +10,7 @@
 namespace app\user_module\working_version\v1\service;
 
 use app\user_module\working_version\v1\dao\UserInfoDao;
+use app\wx_payment_module\working_version\v1\service\WxSdkService;
 
 class UserInfoService
 {
@@ -135,4 +136,52 @@ class UserInfoService
         // 处理函数返回值
         return \RSD::wxReponse($res,'D');
     }
+    /**
+     * 作  者 : Feng Tianshui
+     * 名  称 : cancelGroupPost()
+     * 功  能 : 取消预约团购
+     * 变  量 : --------------------------------------
+     * 输  入 : '$post['user_token']  => '用户token';'
+     * 输  入 : '$post['group_number']  => '订单号';'
+     * 输  出 : ['msg'=>'success','data'=>'返回数据']
+     * 创  建 : 2018/10/06 10:23
+     */
+    public function cancelGroupService($post)
+    {
+        // 验证数据
+        $validate = new \think\Validate([
+            'user_token'         => 'require',
+            'group_number'       => 'require',
+        ],[
+            'user_token.require'         => '缺少user_token参数',
+            'group_number.require'       => '缺少group_number参数',
+        ]);
+        if (!$validate->check($post)) {
+            return returnData('error',$validate->getError());
+        }
+        // 获取订单价格
+        // 获取退款比例
+        // 引入退款类
+        $info = new WxSdkService();
+        // 订单号
+        $info->Out_trade_no = $post['group_number'];
+        // 支付总金额
+        $info->Total_fee    = $total_fee;
+        // 退款金额
+        $info->Refund_fee   = $refund_fee;
+        // 退款单号
+        $info->Out_refund_no= 'T'.time();
+        // 返回退款状态信息
+        $refundData = $info->refund();
+
+        // 实例化Dao层数据类
+        $searchScenicDao = new UserInfoDao();
+
+        // 执行Dao层逻辑
+        $res = $searchScenicDao->cancelGroupDao($post);
+
+        // 处理函数返回值
+        return \RSD::wxReponse($res,'D');
+    }
+
 }
