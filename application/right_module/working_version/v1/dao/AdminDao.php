@@ -207,7 +207,6 @@ class AdminDao implements AdminInterface
             // 写入职位
             $adminRole = new AdminRole();
             $adminRole->saveAll($roleArray);
-
             // 提交事务
             \think\Db::commit();
             return returnData('success','审核成功');
