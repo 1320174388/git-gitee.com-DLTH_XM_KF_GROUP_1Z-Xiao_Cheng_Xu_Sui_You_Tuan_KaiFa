@@ -60,6 +60,9 @@ class PersonalnotifyDao implements PersonalnotifyInterface
         } catch (\Exception $e) {
             // 回滚事务
             \think\Db::rollback();
+            file_put_contents(
+                './Exception.txt',json_encode($e,320)
+            );
         }
         // 处理函数返回值
         return \RSD::wxReponse(true,'M','','');
