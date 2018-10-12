@@ -107,4 +107,29 @@ class UserInfoController extends Controller
         // 处理函数返回值
         return \RSD::wxReponse($res,'S','请求成功');
     }
+    /**
+     * 作  者 : Feng Tianshui
+     * 名  称 : cancelGroupPost()
+     * 功  能 : 取消预约团购
+     * 变  量 : --------------------------------------
+     * 输  入 : '$post['user_token']  => '用户token';'
+     * 输  入 : '$post['group_number']  => '订单号';'
+     * 输  出 : {"errNum":0,"retMsg":"请求成功","retData":"请求数据"}
+     * 创  建 : 2018/10/06 10:23
+     */
+    public function cancelGroupPost(\think\Request $request)
+    {
+        // 实例化Service层逻辑类
+        $searchScenicService = new UserInfoService();
+
+        // 获取传入参数
+        $post = $request->post();
+
+        // 执行Service逻辑
+        $res = $searchScenicService->cancelGroupService($post);
+
+        // 处理函数返回值
+        return \RSD::wxReponse($res,'S');
+    }
+
 }
