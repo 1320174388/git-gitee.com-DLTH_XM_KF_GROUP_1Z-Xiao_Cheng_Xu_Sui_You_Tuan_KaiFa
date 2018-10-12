@@ -875,33 +875,37 @@ class ScenicDao
     public function customerAdd($post)
     {
         // TODO :  ScenicModel 模型
+//        return returnData('success',$post['scenic_id']);
         // 实例化model
         $ScenicserviceModel = new ScenicserviceModel();
-        $scenic = $ScenicserviceModel->field('service_name,service_phone')
-            ->where('scenic_id',$post['scenic_id'])
-            ->find();
-        if($scenic['service_name'] == $post['service_name'] and
-            $scenic['service_phone'] == $post['service_phone'])
-        {
-            return returnData('error','客服重复');
-        }else{
-            // 景区主键
-            $ScenicserviceModel->scenic_id	 = $post['scenic_id'];
-            // 客服名称
-            $ScenicserviceModel->service_name = $post['service_name'];
-            // 客服电话
-            $ScenicserviceModel->service_phone = $post['service_phone'];
-            // 客服职位
-            $ScenicserviceModel->service_position = $post['service_position'];
-            // 保存数据库
-            $data = $ScenicserviceModel->save();
-            // 验证
-            if(!$data){
-                return returnData('error',false);
-            }
+        $data = ScenicserviceModel::field(
+            'service_id'
+        )->where(
+            'service_phone',$post['service_phone']
+        )->where(
+            'service_name',$post['service_name']
+        )->where(
+            'scenic_id',$post['scenic_id']
+        )->find();
+        if($data) {
+            return returnData('error','重复客服');
+        }
+        // 景区主键
+        $ScenicserviceModel->scenic_id	 = $post['scenic_id'];
+        // 客服名称
+        $ScenicserviceModel->service_name = $post['service_name'];
+        // 客服电话
+        $ScenicserviceModel->service_phone = $post['service_phone'];
+        // 客服职位
+        $ScenicserviceModel->service_position = $post['service_position'];
+        // 保存数据库
+        $data = $ScenicserviceModel->save();
+        // 验证
+        if(!$data){
+            return returnData('error',false);
         }
         // 返回数据
-        return returnData('success',$data);
+        return returnData('success','添加成功');
     }
 
 
@@ -942,12 +946,18 @@ class ScenicDao
     public function customerUpt($post)
     {
         $ScenicserviceModel = new ScenicserviceModel();
-        if($ScenicserviceModel->field('service_name')
-                ->where('service_id',$post['service_id'])
-                ->field() == $post['service_name'])
-        {
-            return returnData('error','客服名称重复');
-        }{
+        $data = ScenicserviceModel::field(
+            'service_id'
+        )->where(
+            'service_phone',$post['service_phone']
+        )->where(
+            'service_name',$post['service_name']
+        )->where(
+            'scenic_id',$post['scenic_id']
+        )->find();
+        if($data) {
+            return returnData('error','重复客服');
+        }
             // 进行修改
             $res = $ScenicserviceModel->save([
                 $ScenicserviceModel->service_name    = $post['service_name'],
@@ -958,7 +968,6 @@ class ScenicDao
             if(!$res){
                 return returnData('error',false);
             }
-        }
         // 返回数据
         return returnData('success',$res);
 
