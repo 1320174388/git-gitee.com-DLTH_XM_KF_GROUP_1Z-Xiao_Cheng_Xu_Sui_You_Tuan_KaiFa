@@ -324,7 +324,7 @@ class ScenicController extends Controller
         $res = $ScenicService->integralUpt($post);
 
         // 处理函数返回值
-        return \RSD::wxReponse($res, 'S', '修改成功');
+        return \RSD::wxReponse($res, 'S', '成功');
     }
 
     /**
