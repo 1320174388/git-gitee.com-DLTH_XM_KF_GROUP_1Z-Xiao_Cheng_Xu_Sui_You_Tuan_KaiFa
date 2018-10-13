@@ -22,6 +22,7 @@ class PersonalpurchaseService
      * 功  能 : 个人购票逻辑
      * 变  量 : --------------------------------------
      * 输  入 : $post['scenic_id']    => '景区ID';
+     * 输  入 : $post['group_id']     => '团购ID';
      * 输  入 : $post['group_type']   => '购票类型:1=个人,2=发起团购,3=加入团购,4=发起预约,5=加入预约';
      * 输  入 : $post['token']        => '用户token';
      * 输  入 : $post['coupon_id']    => '优惠券ID不使用发0';
@@ -43,6 +44,15 @@ class PersonalpurchaseService
         // 验证数据
         if (!$validate->scene('edit')->check($post)) {
             return ['msg'=>'error','data'=>$validate->getError()];
+        }
+
+        // 团购标识是否发送
+        if(
+            ($post['group_type']!='1')&&
+            (empty($post['group_id']))&&
+            (!is_numeric($post['group_id']))
+        ){
+            return ['msg'=>'error','data'=>'请正确发送团购ID'];
         }
 
         // 判断邀请状态标识是否发送

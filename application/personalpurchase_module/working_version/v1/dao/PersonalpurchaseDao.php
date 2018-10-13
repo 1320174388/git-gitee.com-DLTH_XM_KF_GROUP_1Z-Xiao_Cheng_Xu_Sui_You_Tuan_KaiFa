@@ -13,6 +13,7 @@ use app\personalpurchase_module\working_version\v1\model\UserModel;
 use app\personalpurchase_module\working_version\v1\model\ScenicModel;
 use app\personalpurchase_module\working_version\v1\model\CouponModel;
 use app\personalpurchase_module\working_version\v1\model\MemberModel;
+use app\personalpurchase_module\working_version\v1\model\GroupTypeModel;
 
 class PersonalpurchaseDao implements PersonalpurchaseInterface
 {
@@ -21,6 +22,7 @@ class PersonalpurchaseDao implements PersonalpurchaseInterface
      * 功  能 : 个人购票数据处理
      * 变  量 : --------------------------------------
      * 输  入 : $post['scenic_id']    => '景区ID';
+     * 输  入 : $post['group_id']     => '团购ID';
      * 输  入 : $post['group_type']   => '购票类型:1=个人,2=发起团购,3=加入团购,4=发起预约,5=加入预约';
      * 输  入 : $post['token']        => '用户token';
      * 输  入 : $post['coupon_id']    => '优惠券ID不使用发0';
@@ -52,18 +54,40 @@ class PersonalpurchaseDao implements PersonalpurchaseInterface
             return returnData('error','景区不存在');
         }
 
-        // TODO :  实例化景区表 ScenicModel 模型 获取景区数据
+        // TODO :  实例化优惠券表 CouponModel 模型 获取优惠券数据
         $couponData = CouponModel::get($post['coupon_id']);
         if(!$couponData){
             $couponData = [];
             $couponData['coupon_money'] = 0;
         }
+        if($post['group_type']!='1'){
+            // TODO : 获取团购数据
+            $groupType = GroupTypeModel::where(
+                'group_id',$post['group_id']
+            )->where(
+                'group_status',1
+            )->find();
+            if(!$groupType){
+                return returnData('error','团购模式已被删除');
+            }
+        }
 
-        // TODO :  处理数据
-        $money = math_sub($scenicData['scenic_ticket'], $couponData['coupon_money']);
+        // 判断购票状态
+        if($post['group_type']=='1'){
+            // TODO :  处理数据
+            $money = math_sub($scenicData['scenic_ticket'], $couponData['coupon_money']);
+            $post['group_num'] = 1;
+            $post['group_money'] = $scenicData['scenic_ticket'];
+        }else{
+            // TODO :  处理数据
+            $money = math_sub($groupType['group_money'], $couponData['coupon_money']);
+            $post['group_num'] = $groupType['group_num'];
+            $post['group_money'] = $groupType['group_money'];
+        }
         if($money<=0){
             $money = 0.01;
         }
+
         $user = UserModel::where(
             'user_token',$post['token']
         )->find();

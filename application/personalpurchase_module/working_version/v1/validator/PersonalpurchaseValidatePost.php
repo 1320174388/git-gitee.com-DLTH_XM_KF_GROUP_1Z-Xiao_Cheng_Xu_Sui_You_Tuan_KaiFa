@@ -16,6 +16,7 @@ class PersonalpurchaseValidatePost extends Validate
      * 名  称 : $rule
      * 功  能 : 验证规则
      * 输  入 : $post['scenic_id']    => '景区ID';
+     * 输  入 : $post['group_id']     => '团购ID';
      * 输  入 : $post['group_type']   => '购票类型:1=个人,2=发起团购,3=加入团购,4=发起预约,5=加入预约';
      * 输  入 : $post['token']        => '用户token';
      * 输  入 : $post['coupon_id']    => '优惠券ID不使用发0';
