@@ -33,6 +33,11 @@ class PersonalnotifyDao implements PersonalnotifyInterface
         // TODO : 启动事务
         \think\Db::startTrans();
         try {
+            // 如果已经处理订单，将不再处理
+            $result = MemberModel::where(
+                'group_invite',$data['out_trade_no']
+            )->find();
+            if($result){return '';}
             // 定义状态
             $depictArr = [
                 1 => '个人购票订单',
@@ -112,13 +117,6 @@ class PersonalnotifyDao implements PersonalnotifyInterface
                 // 保存数据
                 $bag->save();
             }
-            // 如果已经处理订单，将不再处理
-            $result = MemberModel::where(
-                'group_invite',$data['out_trade_no']
-            )->find();
-            file_put_contents('./Result.txt',json_encode($result,320));
-            if($result){return '';}
-
             // 提交事务
             \think\Db::commit();
         } catch (\Exception $e) {
