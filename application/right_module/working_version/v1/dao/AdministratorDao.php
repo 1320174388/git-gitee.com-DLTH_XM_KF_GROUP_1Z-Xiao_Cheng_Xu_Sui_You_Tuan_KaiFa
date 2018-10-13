@@ -97,6 +97,9 @@ class AdministratorDao implements AdministratorInterface
         )->where(
             'admin_type',
             2
+        )->where(
+            'admin_status',
+            1
         )->select()->toArray();
     }
 
@@ -110,6 +113,9 @@ class AdministratorDao implements AdministratorInterface
             'admin_token',$get['admin_token']
         )->where(
             'admin_class',$get['admin_class']
+        )->where(
+            'admin_status',
+            1
         )->find()['admin_right'];
         // TODO :  AdminModel 模型，返回权限数据列表
         $resArr = AdminModel::where(
@@ -118,6 +124,9 @@ class AdministratorDao implements AdministratorInterface
         )->where(
             'admin_type',
             2
+        )->where(
+            'admin_status',
+            1
         )->select()->toArray();
 
         // 处理数据
