@@ -120,6 +120,7 @@ class PersonalnotifyDao implements PersonalnotifyInterface
             // 回滚事务
             \think\Db::rollback();
             file_put_contents('./Exception.txt',$e);
+            file_put_contents('./prizeArr.txt',$prizeArr);
         }
     }
 }
