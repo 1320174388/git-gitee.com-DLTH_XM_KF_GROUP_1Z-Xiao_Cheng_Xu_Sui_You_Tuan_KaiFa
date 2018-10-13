@@ -19,7 +19,7 @@ class PersonalpurchaseValidatePost extends Validate
      * 输  入 : $post['group_type']   => '购票类型:1=个人,2=发起团购,3=加入团购,4=发起预约,5=加入预约';
      * 输  入 : $post['token']        => '用户token';
      * 输  入 : $post['coupon_id']    => '优惠券ID不使用发0';
-     * 输  入 : $post['invitation']   => '优惠券ID不使用发0';
+     * 输  入 : $post['invitation']   => '邀请状态标识:yes/no';
      * 创  建 : 2018/10/12 14:29
      */
     protected $rule =   [

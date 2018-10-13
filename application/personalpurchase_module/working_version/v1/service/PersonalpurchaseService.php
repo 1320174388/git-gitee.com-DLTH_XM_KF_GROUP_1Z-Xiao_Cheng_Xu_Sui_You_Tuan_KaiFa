@@ -22,9 +22,11 @@ class PersonalpurchaseService
      * 功  能 : 个人购票逻辑
      * 变  量 : --------------------------------------
      * 输  入 : $post['scenic_id']    => '景区ID';
-     * 输  入 : $post['group_type']   => '购票类型';
+     * 输  入 : $post['group_type']   => '购票类型:1=个人,2=发起团购,3=加入团购,4=发起预约,5=加入预约';
      * 输  入 : $post['token']        => '用户token';
      * 输  入 : $post['coupon_id']    => '优惠券ID不使用发0';
+     * 输  入 : $post['invitation']   => '邀请状态标识:yes/no';
+     * 输  入 : $post['invitanumber'] => '邀请订单号';
      * 输  出 : ['msg'=>'success','data'=>'提示信息']
      * 创  建 : 2018/10/12 14:29
      */
@@ -32,10 +34,45 @@ class PersonalpurchaseService
     {
         // 实例化验证器代码
         $validate  = new PersonalpurchaseValidatePost();
+
+        // 判断邀请状态标识是否发送
+        if(empty($post['invitation'])){
+            $post['invitation'] = 'no';
+        }
         
         // 验证数据
         if (!$validate->scene('edit')->check($post)) {
             return ['msg'=>'error','data'=>$validate->getError()];
+        }
+
+        // 判断邀请状态标识是否发送
+        if(
+            ($post['invitation']!='no')&&
+            ($post['invitation']!='yes')
+        ){
+            return ['msg'=>'error','data'=>'请正确发送邀请状态标识'];
+        }
+
+        // 判断订单号是否发送
+        if(
+            ($post['invitation']!='yes')&&
+            ($post['group_type']!='3')&&
+            ($post['group_type']!='5')
+        ){
+            if(empty($post['invitanumber'])){
+                return returnData('error','请发送邀请码或加入订单号');
+            }
+        }
+
+        // 验证购票类型
+        if(
+            ($post['group_type']!='1')&&
+            ($post['group_type']!='2')&&
+            ($post['group_type']!='3')&&
+            ($post['group_type']!='4')&&
+            ($post['group_type']!='5')
+        ){
+            return returnData('error','请正确发送购票类型');
         }
         
         // 实例化Dao层数据类
