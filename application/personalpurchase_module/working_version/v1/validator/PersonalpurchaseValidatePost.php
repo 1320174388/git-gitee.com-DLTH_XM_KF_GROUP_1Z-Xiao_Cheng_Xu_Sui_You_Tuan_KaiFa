@@ -16,12 +16,15 @@ class PersonalpurchaseValidatePost extends Validate
      * 名  称 : $rule
      * 功  能 : 验证规则
      * 输  入 : $post['scenic_id']    => '景区ID';
+     * 输  入 : $post['group_type']   => '购票类型:1=个人,2=发起团购,3=加入团购,4=发起预约,5=加入预约';
      * 输  入 : $post['token']        => '用户token';
      * 输  入 : $post['coupon_id']    => '优惠券ID不使用发0';
+     * 输  入 : $post['invitation']   => '优惠券ID不使用发0';
      * 创  建 : 2018/10/12 14:29
      */
     protected $rule =   [
         'scenic_id' => 'require|number',
+        'group_type'=> 'require|number',
         'token'     => 'require|min:32|max:32',
         'coupon_id' => 'require|number',
     ];
@@ -34,6 +37,8 @@ class PersonalpurchaseValidatePost extends Validate
     protected $message  =   [
         'scenic_id.require' => '请正确发送景区ID',
         'scenic_id.number'  => '请正确发送景区ID',
+        'group_type.require'=> '请正确发送购票类型',
+        'group_type.number' => '请正确发送购票类型',
         'token.require'     => '请正确发送用户token',
         'token.min'         => '请正确发送用户token',
         'token.max'         => '请正确发送用户token',
