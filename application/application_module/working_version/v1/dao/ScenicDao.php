@@ -420,7 +420,7 @@ class ScenicDao
         ],['integral_id'=>$post['integral_id']]);
         // 验证
         if(!$res){
-            return returnData('error',false);
+            return returnData('error','数字未变,修改失败');
         }
         // 返回数据
         return returnData('success',$res);
