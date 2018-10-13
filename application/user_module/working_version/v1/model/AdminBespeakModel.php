@@ -1,28 +1,26 @@
 <?php
 /**
  *  版权声明 :  地老天荒科技有限公司
- *  文件名称 :  GroupMemberModel.php
+ *  文件名称 :  AdminBespeakModel.php
  *  创 建 者 :  Feng Tianshui
- *  创建日期 :  2018/10/06 09:54
- *  文件描述 :  团购成员表模型层
+ *  创建日期 :  2018/10/05 09:54
+ *  文件描述 :  取消团购比例表模型层
  *  历史记录 :  -----------------------
  */
 namespace app\user_module\working_version\v1\model;
 use think\Model;
 
-class GroupMemberModel extends Model
+class AdminBespeakModel extends Model
 {
     // 设置当前模型对应的完整数据表名称
     protected $table = '';
 
+    // 设置当前模型对应数据表的主键
+    protected $pk = 'bespeak_id';
+
     // 加载配置数据表名
     protected function initialize()
     {
-        $this->table = config('v1_tableName.GroupMember');
-    }
-    // 关联个人团购表
-    public function GroupInfo()
-    {
-        return $this->hasOne('GroupInfoModel','group_number');
+        $this->table = config('v1_tableName.adminBespeak');
     }
 }

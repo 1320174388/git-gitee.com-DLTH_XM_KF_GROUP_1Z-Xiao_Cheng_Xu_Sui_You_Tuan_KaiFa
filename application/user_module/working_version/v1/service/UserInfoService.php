@@ -142,7 +142,7 @@ class UserInfoService
      * 功  能 : 取消预约团购
      * 变  量 : --------------------------------------
      * 输  入 : '$post['user_token']  => '用户token';'
-     * 输  入 : '$post['group_number']  => '订单号';'
+     * 输  入 : '$post['group_invite']  => '订单号';'
      * 输  出 : ['msg'=>'success','data'=>'返回数据']
      * 创  建 : 2018/10/06 10:23
      */
@@ -151,37 +151,53 @@ class UserInfoService
         // 验证数据
         $validate = new \think\Validate([
             'user_token'         => 'require',
-            'group_number'       => 'require',
+            'group_invite'       => 'require',
         ],[
             'user_token.require'         => '缺少user_token参数',
-            'group_number.require'       => '缺少group_number参数',
+            'group_invite.require'       => '缺少group_invite参数',
         ]);
         if (!$validate->check($post)) {
             return returnData('error',$validate->getError());
         }
-        // 获取订单价格
-        // 获取退款比例
-        // 引入退款类
-        $info = new WxSdkService();
-        // 订单号
-        $info->Out_trade_no = $post['group_number'];
-        // 支付总金额
-        $info->Total_fee    = $total_fee;
-        // 退款金额
-        $info->Refund_fee   = $refund_fee;
-        // 退款单号
-        $info->Out_refund_no= 'T'.time();
-        // 返回退款状态信息
-        $refundData = $info->refund();
 
         // 实例化Dao层数据类
         $searchScenicDao = new UserInfoDao();
+        //判断预约团购订单
+        $isUserGroup = $searchScenicDao->isUserGroup($post);
+       if ($isUserGroup['msg'] == 'error')
+       {
+           return returnData('error',$isUserGroup['data']);
+       }
 
-        // 执行Dao层逻辑
-        $res = $searchScenicDao->cancelGroupDao($post);
+        // 获取退款比例
+        $scale = $searchScenicDao->cancelGroupScale();
+        // 退款金额
+        $res = $isUserGroup['data']['group_money']*$scale['data']['deductions'];
 
-        // 处理函数返回值
-        return \RSD::wxReponse($res,'D');
+        // 引入退款类
+        $info = new WxSdkService();
+        // 订单号
+        $info->Out_trade_no = $post['group_invite'];
+        // 支付总金额
+        $info->Total_fee    = $isUserGroup['data']['group_money'];
+        // 退款金额
+        $info->Refund_fee   = round($res,2);
+        // 退款单号
+        $info->Out_refund_no= 'T'.$post['group_invite'];
+        // 退款描述
+        $info->SetRefund_desc = '取消团购';
+
+        // 返回退款状态信息
+        $refundData = $info->refund();
+
+        if ($refundData['data']['return_code'] == 'SUCCESS')
+        {
+            // 执行Dao层逻辑
+            $res = $searchScenicDao->cancelGroupDao($post);
+            // 处理函数返回值
+            return \RSD::wxReponse($res,'D');
+        }
+
+        return returnData('error',$refundData['data']);
     }
-
 }

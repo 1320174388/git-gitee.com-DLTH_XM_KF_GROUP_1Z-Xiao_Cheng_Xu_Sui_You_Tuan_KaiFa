@@ -43,6 +43,8 @@ class WxSdkService
     public $Refund_fee;
     //退款单号
     public $Out_refund_no;
+    // 退款描述
+    public $SetRefund_desc;
     /**
      * 名  称 : payOrder()
      * 创  建 : 2018/07/24 16:40
@@ -124,6 +126,8 @@ class WxSdkService
         $input->SetRefund_fee($this->Refund_fee);
         //设置退款单号
         $input->SetOut_refund_no($this->Out_refund_no);
+        //设置退款描述
+        $input->SetRefund_desc($this->SetRefund_desc);
         //设置操作帐号, 默认为商户号
         $input->SetOp_user_id($config->GetMerchantId());
         //返回退款信息

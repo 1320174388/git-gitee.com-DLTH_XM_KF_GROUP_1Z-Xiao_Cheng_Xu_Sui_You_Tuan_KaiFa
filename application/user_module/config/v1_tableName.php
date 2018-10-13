@@ -33,4 +33,8 @@ return [
     'userExtend'        => 'data_user_extend',
     // 个人及团购订单表
     'groupInfo'         => 'data_group_Info',
+    // 取消团购比例表
+    'adminBespeak'      => 'data_admin_bespeak',
+
+
 ];

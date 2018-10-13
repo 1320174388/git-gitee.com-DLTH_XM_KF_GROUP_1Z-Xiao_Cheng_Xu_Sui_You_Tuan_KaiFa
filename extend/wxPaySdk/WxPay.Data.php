@@ -1115,6 +1115,14 @@ class WxPayCloseOrder extends WxPayDataBase
  */
 class WxPayRefund extends WxPayDataBase
 {
+    /**
+     * 设置退款描述
+     * @param string $value
+     **/
+    public function SetRefund_desc($value)
+    {
+        $this->values['refund_desc'] = $value;
+    }
 	/**
 	* 设置微信分配的公众账号ID
 	* @param string $value 

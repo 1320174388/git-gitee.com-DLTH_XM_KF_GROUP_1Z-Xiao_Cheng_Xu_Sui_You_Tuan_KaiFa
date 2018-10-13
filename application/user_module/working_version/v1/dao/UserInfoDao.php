@@ -8,6 +8,7 @@
  *  历史记录 :  -----------------------
  */
 namespace app\user_module\working_version\v1\dao;
+use app\user_module\working_version\v1\model\AdminBespeakModel;
 use app\user_module\working_version\v1\model\GroupMemberModel;
 use app\user_module\working_version\v1\model\UsersListModel;
 use app\user_module\working_version\v1\model\UserMemberModel;
@@ -128,11 +129,44 @@ class UserInfoDao
     }
     /**
      * 作  者 : Feng Tianshui
+     * 名  称 : isUserGroup()
+     * 功  能 : 获取预约团购订单信息
+     * 变  量 : --------------------------------------
+     * 输  入 : '$data['group_invite']  => '邀请码|订单号';'
+     * 输  出 : ['msg'=>'success','data'=>'返回数据']
+     * 创  建 : 2018/10/06 10:23
+     */
+    public function isUserGroup($data)
+    {
+        $res = GroupMemberModel::field(
+                config('v1_tableName.groupInfo').'.group_type,
+                            group_money'
+            )
+            ->leftjoin(
+                config('v1_tableName.groupInfo'),
+                config('v1_tableName.GroupMember').'.group_number = '.
+                config('v1_tableName.groupInfo').'.group_number'
+            )
+            ->where(
+                config('v1_tableName.GroupMember').'.group_invite',
+                $data['group_invite']
+            )->find();
+        //判断
+        if ($res){
+            if($res['group_type'] != 2){
+                return returnData('error','此订单不是预约团购');
+            }
+        }
+        //返回结果
+        return \RSD::wxReponse($res,'M',$res,'查询异常');
+    }
+    /**
+     * 作  者 : Feng Tianshui
      * 名  称 : cancelGroupDao()
      * 功  能 : 取消预约团购
      * 变  量 : --------------------------------------
      * 输  入 : '$post['user_token']  => '用户token';'
-     * 输  入 : '$post['group_number']  => '订单号';'
+     * 输  入 : '$post['group_invite']  => '订单号';'
      * 输  出 : ['msg'=>'success','data'=>'返回数据']
      * 创  建 : 2018/10/06 10:23
      */
@@ -145,23 +179,25 @@ class UserInfoDao
                     'member_status' => 0
                 ],[
                     'user_token'    => $post['user_token'],
-                    'group_number'  => $post['group_number']
+                    'group_invite'  => $post['group_invite']
                 ]);
         //返回结果
-        return \RSD::wxReponse($res,'M','取消成功','取消失败');
+        return \RSD::wxReponse($res,'M','金额已退回您的零钱，请查收','取消失败');
     }
     /**
      * 作  者 : Feng Tianshui
-     * 名  称 : userOrderInfoGet()
-     * 功  能 : 获取订单信息
+     * 名  称 : cancelGroupScale()
+     * 功  能 : 获取取消预约退款比例
      * 变  量 : --------------------------------------
-     * 输  入 : '$post['user_token']  => '用户token';'
-     * 输  入 : '$post['group_number']  => '订单号';'
      * 输  出 : ['msg'=>'success','data'=>'返回数据']
      * 创  建 : 2018/10/06 10:23
      */
-    public function userOrderInfoGet($data)
+    public function cancelGroupScale()
     {
-        
+        // 执行查询
+        $res = AdminBespeakModel::get(1);
+        // 返回结果
+        return \RSD::wxReponse($res,'M',$res,'么有数据');
     }
+
 }
