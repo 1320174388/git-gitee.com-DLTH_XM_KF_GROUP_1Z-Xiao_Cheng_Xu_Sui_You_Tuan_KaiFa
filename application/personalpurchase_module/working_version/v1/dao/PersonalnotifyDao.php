@@ -13,6 +13,7 @@ use app\personalpurchase_module\working_version\v1\model\GroupModel;
 use app\personalpurchase_module\working_version\v1\model\MemberModel;
 use app\personalpurchase_module\working_version\v1\model\PrizeModel;
 use app\personalpurchase_module\working_version\v1\model\BagModel;
+use app\personalpurchase_module\working_version\v1\model\TicketModel;
 
 class PersonalnotifyDao implements PersonalnotifyInterface
 {
@@ -46,6 +47,13 @@ class PersonalnotifyDao implements PersonalnotifyInterface
                 4 => '预约团购订单',
                 5 => '预约团购订单',
             ];
+            $statusArr = [
+                1 => 1,
+                2 => 0,
+                3 => 0,
+                4 => 0,
+                5 => 0,
+            ];
             $dataArr = json_decode($data['attach'],true);
             // 判断购票状态
             if(
@@ -57,33 +65,89 @@ class PersonalnotifyDao implements PersonalnotifyInterface
                 // 处理数据
                 $group->group_number = $data['out_trade_no'];
                 $group->scenic_id    = $dataArr['scenic_id'];
-                $group->group_num    = '1';
+                $group->group_num    = $dataArr['group_num'];
                 $group->man_num      = '1';
                 $group->group_type   = '1';
                 $group->order_depict = $depictArr[$dataArr['group_type']];
-                $group->group_status = '1';
+                $group->group_status = $statusArr[$dataArr['group_type']];;
                 $group->group_time   = time();
-                $group->group_money  = math_div($data['total_fee'],100);
+                $group->group_money  = $dataArr['group_money'];
                 // 保存数据
                 $group->save();
                 // 配置订单号
                 $out_trade_no = $data['out_trade_no'];
+
+                // 实例化订单表模型
+                $member = new MemberModel();
+                // 处理数据
+                $member->group_number   = $out_trade_no;
+                $member->user_token     = $dataArr['token'];
+                $member->group_invite   = $data['out_trade_no'];
+                $member->member_status  = '1';
+                $member->comment_status = '0';
+                $member->group_status   = $statusArr[$dataArr['group_type']];
+                $member->comment_status = '1';
+                $member->member_time    = time();
+                $member->group_money    = math_div($data['total_fee'],100);
+                // 保存数据
+                $member->save();
+                // 个人购票
+                if($dataArr['group_type']==1){
+                    $data = [
+                        'scenic_id'    => $dataArr['scenic_id'],
+                        'user_token'   => $dataArr['token'],
+                        'order_number' => $data['out_trade_no'],
+                        'ticket_type'  => $dataArr['group_type'],
+                        'ticket_sratus'=> 0,
+                        'group_money'  => $dataArr['group_money'],
+                    ];
+                    $this->userTicketData($data);
+                }
             }else{
+                // 获取已存在订单数据
+                $group = GroupModel::where(
+                    'group_number',$data['out_trade_no']
+                )->find();
+                // 处理数据
+                $group->man_num      = math_add($group['man_num'],1);
+                if($group['group_num']==$group['man_num']){
+                    $group->group_status = '1';
+                }
+                $group->group_money  = $dataArr['group_money'];
+                // 保存数据
+                $group->save();
                 // 赋值邀请人订单号
                 $out_trade_no = $dataArr['invitanumber'];
+
+                // 实例化订单表模型
+                $member = new MemberModel();
+                // 处理数据
+                $member->group_number   = $out_trade_no;
+                $member->user_token     = $dataArr['token'];
+                $member->group_invite   = $data['out_trade_no'];
+                $member->member_status  = '1';
+                $member->comment_status = '0';
+                if($group['group_num']==$group['man_num']){
+                    $member->group_status = '1';
+                }
+                $member->comment_status = '1';
+                $member->member_time    = time();
+                $member->group_money    = math_div($data['total_fee'],100);
+                // 保存数据
+                $member->save();
+                // 修改所有团购人员状态
+                $memberResult = $this->updataGroupStatus($out_trade_no);
+                // 团购购票
+                $data = [
+                    'scenic_id'    => $dataArr['scenic_id'],
+                    'user_token'   => '',
+                    'order_number' => '',
+                    'ticket_type'  => $dataArr['group_type'],
+                    'ticket_sratus'=> 0,
+                    'group_money'  => $dataArr['group_money'],
+                ];
+                $this->userTicketData($data,$memberResult);
             }
-            // 实例化订单表模型
-            $member = new MemberModel();
-            // 处理数据
-            $member->group_number   = $out_trade_no;
-            $member->user_token     = $dataArr['token'];
-            $member->group_invite   = $data['out_trade_no'];
-            $member->member_status  = '1';
-            $member->comment_status = '0';
-            $member->comment_status = '1';
-            $member->member_time    = time();
-            // 保存数据
-            $member->save();
 
             // 如果用户是通过邀请码进入团购的，
             // 邀请码订单号发起人随机获取一个景区的奖品到个人仓库
@@ -124,5 +188,43 @@ class PersonalnotifyDao implements PersonalnotifyInterface
             \think\Db::rollback();
             file_put_contents('./Exception.txt',$e);
         }
+    }
+
+    /**
+     * 修改团购所有人完成状态
+     */
+    private function updataGroupStatus($orderNumber)
+    {
+        // 获取所有团购人员信息
+        $member = MemberModel::where(
+            'group_number',$orderNumber
+        )->where(
+            'member_status',1
+        );
+        $member1 = clone($member);
+        $member2 = clone($member);
+        $member2->update(['group_status' => 1]);
+        $memberResult = $member1->select()->toArray();
+        return $memberResult;
+    }
+
+    /**
+     * 给用户添加门票
+     */
+    private function userTicketData($data=[],$memberResult=false)
+    {
+        $ticket =  new TicketModel();
+        if($memberResult){
+            $list = [];
+            foreach($memberResult as $v){
+                $data['user_token']   = $v['user_token'];
+                $data['order_number'] = $v['group_invite'];
+                $list[] = $data;
+            }
+        }else{
+            $list = [];
+            $list[] = $data;
+        }
+        $ticket->saveAll($list);
     }
 }

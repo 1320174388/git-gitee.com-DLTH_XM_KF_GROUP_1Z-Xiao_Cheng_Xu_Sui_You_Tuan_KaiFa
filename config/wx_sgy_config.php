@@ -24,4 +24,6 @@ return [
     'SGY_Data_Prize_list'=> 'data_prize_list',
     // 个人卡包表
     'SGY_Data_Userbag'   => 'data_user_bag',
+    // 个人门票表
+    'SGY_Data_Ticket'    => 'data_user_ticket',
 ];
