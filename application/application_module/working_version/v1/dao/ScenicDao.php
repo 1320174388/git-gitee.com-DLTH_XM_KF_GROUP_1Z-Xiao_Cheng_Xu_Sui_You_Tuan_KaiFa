@@ -26,6 +26,7 @@ use app\application_module\working_version\v1\model\TicketModel;
 use app\application_module\working_version\v1\model\UserbagModel;
 use app\application_module\working_version\v1\model\UsermemberModel;
 use app\application_module\working_version\v1\model\UserModel;
+use app\right_module\working_version\v1\library\AdministratorLibrary;
 use think\Db;
 
 class ScenicDao
@@ -168,8 +169,6 @@ class ScenicDao
         // 返回数据
         return returnData('success',$res);
     }
-
-
 
     /**
      * 名  称 : obtainApplication()
