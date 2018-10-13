@@ -324,7 +324,7 @@ class ScenicController extends Controller
         $res = $ScenicService->integralUpt($post);
 
         // 处理函数返回值
-        return \RSD::wxReponse($res, 'S', '成功');
+        return \RSD::wxReponse($res, 'S', '修改成功');
     }
 
     /**
@@ -366,23 +366,6 @@ class ScenicController extends Controller
         // 执行Service逻辑
         $res = $ScenicService->userintegralUpt($post);
 
-        // 处理函数返回值
-        return \RSD::wxReponse($res, 'S', '请求成功');
-    }
-
-    /**
-     * 名  称 : depositScenic()
-     * 功  能 : 获取景区押金接口
-     * 变  量 : --------------------------------------
-     * 输  入 : --------------------------------------
-     * 输  出 : {"errNum":0,"retMsg":"提示信息","retData":true}
-     * 创  建 : 2018/09/24 19:11
-     */
-    public function depositScenic(\think\Request $request)
-    {
-        // 引入Service逻辑层代码
-        $res = (new ScenicService())->depositScenic();
-        if ($res['msg'] == 'error') return returnResponse(2, $res['data']);
         // 处理函数返回值
         return \RSD::wxReponse($res, 'S', '请求成功');
     }
@@ -992,6 +975,25 @@ class ScenicController extends Controller
         // 执行Service逻辑
         $res = $ScenicService->personalCustomers($post);
 
+        // 处理函数返回值
+        return \RSD::wxReponse($res, 'S', '请求成功');
+    }
+
+    /**
+     * 名  称 : scenicPoints()
+     * 功  能 : 获取景区押金接口
+     * 变  量 : --------------------------------------
+     * 输  入 : '$post['scenic_id']  => '景区主键';'
+     * 输  出 : {"errNum":0,"retMsg":"提示信息","retData":true}
+     * 创  建 : 2018/09/24 19:11
+     */
+    public function scenicPoints(\think\Request $request)
+    {
+        // 获取传值
+        $schoolid = $request->post();
+        // 引入Service逻辑层代码
+        $res = (new ScenicService())->scenicPoints($schoolid);
+        if ($res['msg'] == 'error') return returnResponse(2, $res['data']);
         // 处理函数返回值
         return \RSD::wxReponse($res, 'S', '请求成功');
     }

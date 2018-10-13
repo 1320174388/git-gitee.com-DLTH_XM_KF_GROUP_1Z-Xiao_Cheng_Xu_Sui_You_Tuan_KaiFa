@@ -366,23 +366,6 @@ class ScenicService
 
 
     /**
-     * 名  称 : depositScenic()
-     * 功  能 : 获取景区押金接口
-     * 变  量 : --------------------------------------
-     * 输  入 : --------------------------------------
-     * 输  出 : {"errNum":0,"retMsg":"提示信息","retData":true}
-     * 创  建 : 2018/09/24 19:11
-     */
-    public function depositScenic()
-    {
-        // ScenicDao
-        $res=(new ScenicDao())->depositScenic();
-        if($res['msg']=='error') return returnData('error','查询失败');
-        // 处理函数返回值
-        return \RSD::wxReponse($res,'D');
-    }
-
-    /**
      * 名  称 : depositscenicUpt()
      * 功  能 : 修改景区押金接口
      * 变  量 : --------------------------------------
@@ -849,6 +832,24 @@ class ScenicService
     {
         // ScenicDao
         $res=(new ScenicDao())->personalCustomers($post);
+        if($res['msg']=='error') return returnData('error','查询失败');
+        // 返回数据
+        return returnData('success',$res['data']);
+    }
+
+
+    /**
+     * 名  称 : scenicPoints()
+     * 功  能 : 获取景区押金接口
+     * 变  量 : --------------------------------------
+     * 输  入 : '$post['scenic_id']  => '景区主键';'
+     * 输  出 : {"errNum":0,"retMsg":"提示信息","retData":true}
+     * 创  建 : 2018/09/24 19:11
+     */
+    public function scenicPoints($post)
+    {
+        // ScenicDao
+        $res=(new ScenicDao())->scenicPoints($post);
         if($res['msg']=='error') return returnData('error','查询失败');
         // 返回数据
         return returnData('success',$res['data']);
