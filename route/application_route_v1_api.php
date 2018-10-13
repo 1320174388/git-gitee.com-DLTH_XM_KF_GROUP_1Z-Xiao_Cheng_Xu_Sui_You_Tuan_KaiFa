@@ -186,9 +186,9 @@ Route::post(
  * 路由功能：获取景区押金接口
  */
 Route::post(
-    'v1/application_module/depositScenic',
-    'application_module/v1.controller.ScenicController/depositScenic'
-)->middleware('Right_v1_IsAdmin');
+    'v1/application_module/scenicPoints',
+    'application_module/v1.controller.ScenicController/scenicPoints'
+);
 
 
 /**

@@ -170,6 +170,8 @@ class ScenicDao
         return returnData('success',$res);
     }
 
+
+
     /**
      * 名  称 : obtainApplication()
      * 功  能 : 默认获取景区申请列表
@@ -420,7 +422,7 @@ class ScenicDao
         ],['integral_id'=>$post['integral_id']]);
         // 验证
         if(!$res){
-            return returnData('error','数字未变,修改失败');
+            return returnData('error',false);
         }
         // 返回数据
         return returnData('success',$res);
@@ -474,28 +476,6 @@ class ScenicDao
         // 返回数据
         return returnData('success',$res);
     }
-
-
-    /**
-     * 名  称 : userIntegral()
-     * 功  能 : 获取用户积分接口
-     * 变  量 : --------------------------------------
-     * 输  入 : --------------------------------------
-     * 输  出 : {"errNum":0,"retMsg":"提示信息","retData":true}
-     * 创  建 : 2018/09/24 19:11
-     */
-    public function depositScenic()
-    {
-        $DepositModel = new DepositModel();
-        // 查找
-        $list = $DepositModel->select();
-        if(!$list){
-            return returnData('error',false);
-        }
-        // 返回数据
-        return returnData('success',$list);
-    }
-
 
     /**
      * 名  称 : depositscenicUpt()
@@ -1209,6 +1189,27 @@ class ScenicDao
         );
         // 返回数据
         return returnData('success',$res);
+    }
+
+
+    /**
+     * 名  称 : scenicPoints()
+     * 功  能 : 获取景区押金接口
+     * 变  量 : --------------------------------------
+     * 输  入 : '$post['scenic_id']  => '景区主键';'
+     * 输  出 : {"errNum":0,"retMsg":"提示信息","retData":true}
+     * 创  建 : 2018/09/24 19:11
+     */
+    public function scenicPoints($post)
+    {
+        $DepositModel = new DepositModel();
+        // 查找
+        $list = $DepositModel->where('scenic_id',$post['scenic_id'])->find();
+        if(!$list){
+            return returnData('error',false);
+        }
+        // 返回数据
+        return returnData('success',$list);
     }
 
 }
