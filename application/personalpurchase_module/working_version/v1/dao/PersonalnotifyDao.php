@@ -114,7 +114,7 @@ class PersonalnotifyDao implements PersonalnotifyInterface
             }
             // 如果已经处理订单，将不再处理
             $result = MemberModel::where(
-                'group_invite',$dataArr['invitanumber']
+                'group_invite',$data['out_trade_no']
             )->find();
             if($result){return '';}
 
