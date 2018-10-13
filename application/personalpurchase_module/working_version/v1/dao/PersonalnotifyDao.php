@@ -39,6 +39,11 @@ class PersonalnotifyDao implements PersonalnotifyInterface
             5 => '预约团购订单',
         ];
         $dataArr = json_decode($data['attach'],true);
+        // 如果已经处理订单，将不再处理
+        $result = MemberModel::where(
+            'group_invite',$dataArr['invitanumber']
+        )->find();
+        if($result){return;}
         // TODO : 启动事务
         \think\Db::startTrans();
         try {
