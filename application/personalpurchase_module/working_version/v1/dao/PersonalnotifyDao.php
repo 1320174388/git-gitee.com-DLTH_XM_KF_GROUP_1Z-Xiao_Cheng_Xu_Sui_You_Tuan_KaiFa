@@ -116,6 +116,7 @@ class PersonalnotifyDao implements PersonalnotifyInterface
             $result = MemberModel::where(
                 'group_invite',$data['out_trade_no']
             )->find();
+            file_put_contents('./Result.txt',json_encode($result,320));
             if($result){return '';}
 
             // 提交事务
