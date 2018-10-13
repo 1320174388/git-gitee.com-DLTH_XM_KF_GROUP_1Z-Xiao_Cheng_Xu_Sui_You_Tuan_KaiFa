@@ -20,4 +20,8 @@ return [
     'SGY_Group_list'     => 'data_group_list',
     // 用户信息表
     'SGY_Users_Lists'    => 'data_users_list',
+    // 景区奖品数据表
+    'SGY_Data_Prize_list'=> 'data_prize_list',
+    // 个人卡包表
+    'SGY_Data_Userbag'   => 'data_user_bag',
 ];

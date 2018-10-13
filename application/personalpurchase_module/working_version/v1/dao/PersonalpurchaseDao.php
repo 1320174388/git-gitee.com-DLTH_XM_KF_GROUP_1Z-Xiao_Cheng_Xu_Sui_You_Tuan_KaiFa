@@ -12,6 +12,7 @@ use app\wx_payment_module\working_version\v1\library\WxPayLibrary;
 use app\personalpurchase_module\working_version\v1\model\UserModel;
 use app\personalpurchase_module\working_version\v1\model\ScenicModel;
 use app\personalpurchase_module\working_version\v1\model\CouponModel;
+use app\personalpurchase_module\working_version\v1\model\MemberModel;
 
 class PersonalpurchaseDao implements PersonalpurchaseInterface
 {
@@ -20,24 +21,44 @@ class PersonalpurchaseDao implements PersonalpurchaseInterface
      * 功  能 : 个人购票数据处理
      * 变  量 : --------------------------------------
      * 输  入 : $post['scenic_id']    => '景区ID';
+     * 输  入 : $post['group_type']   => '购票类型:1=个人,2=发起团购,3=加入团购,4=发起预约,5=加入预约';
      * 输  入 : $post['token']        => '用户token';
      * 输  入 : $post['coupon_id']    => '优惠券ID不使用发0';
+     * 输  入 : $post['invitation']   => '邀请状态标识:yes/no';
+     * 输  入 : $post['invitanumber'] => '邀请码或加入订单号';
      * 输  出 : ['msg'=>'success','data'=>'提示信息']
      * 创  建 : 2018/10/12 14:29
      */
     public function personalpurchaseCreate($post)
     {
+        // TODO :  判断用户是否已经在本次要加入的团购中
+        if(
+            ($post['invitation']!='yes')&&
+            ($post['group_type']!='3')&&
+            ($post['group_type']!='5')
+        ){
+            $result = MemberModel::where(
+                'group_invite',$post['invitanumber']
+            )->where(
+                'user_token',$post['token']
+            )->find();
+            if($result){
+                return returnData('error','您已经在本团购中');
+            }
+        }
         // TODO :  实例化景区表 ScenicModel 模型 获取景区数据
         $scenicData = ScenicModel::get($post['scenic_id']);
         if(!$scenicData){
             return returnData('error','景区不存在');
         }
+
         // TODO :  实例化景区表 ScenicModel 模型 获取景区数据
         $couponData = CouponModel::get($post['coupon_id']);
         if(!$couponData){
             $couponData = [];
             $couponData['coupon_money'] = 0;
         }
+
         // TODO :  处理数据
         $money = math_sub($scenicData['scenic_ticket'], $couponData['coupon_money']);
         if($money<=0){
@@ -53,6 +74,7 @@ class PersonalpurchaseDao implements PersonalpurchaseInterface
             'total_fee'    => $money,
             'out_trade_no' => time().mt_rand(1000,9999).$user['user_id'],
         ];
+
         // 发起预支付订单
         $res = (new WxPayLibrary)->wxUnifiedApy(
             "https://{$_SERVER['HTTP_HOST']}/v1/personalpurchase_module/personalnotify_route"
