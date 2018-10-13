@@ -49,7 +49,7 @@ Route::post(
 Route::post(
     'v1/application_module/modifyScenic',
     'application_module/v1.controller.ScenicController/modifyScenic'
-);
+)->middleware('Right_v1_IsAdmin');
 
 
 /**
