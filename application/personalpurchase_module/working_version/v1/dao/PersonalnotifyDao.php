@@ -82,32 +82,36 @@ class PersonalnotifyDao implements PersonalnotifyInterface
 
             // 如果用户是通过邀请码进入团购的，
             // 邀请码订单号发起人随机获取一个景区的奖品到个人仓库
-            $prizeArr = PrizeModel::where(
-                'scenic_id',$dataArr['scenic_id']
-            )->where(
-                'prize_status',1
-            )->select()->toArray();
-            // 随机获取一个奖品
-            $prizeData = $prizeArr[mt_rand(0,count($prizeArr)-1)];
-
-            // 给邀请人添加奖品
-            $result = MemberModel::where(
-                'group_invite',$post['invitanumber']
-            )->find();
-            // 获取邀请人Token值
-            $userToken = $result['user_token'];
-
-            // 给用户添加奖品
-            $bag = new BagModel();
-            // 处理数据
-            $bag->user_token = $userToken;
-            $bag->index_id   = $prizeData['prize_id'];
-            $bag->bag_type   = 'prize';
-            $bag->bag_status = 0;
-            $bag->bag_time   = time();
-            // 保存数据
-            $bag->save();
-
+            if($dataArr['invitation']=='yes'){
+                // 获取奖品数据
+                $prizeArr = PrizeModel::where(
+                    'scenic_id',$dataArr['scenic_id']
+                )->where(
+                    'prize_status',1
+                )->select()->toArray();
+                // 随机获取一个奖品
+                if(count($prizeArr)<=1){
+                    $prizeData = $prizeArr[0];
+                }else{
+                    $prizeData = $prizeArr[mt_rand(0,count($prizeArr))];
+                }
+                // 给邀请人添加奖品
+                $result = MemberModel::where(
+                    'group_invite',$post['invitanumber']
+                )->find();
+                // 获取邀请人Token值
+                $userToken = $result['user_token'];
+                // 给用户添加奖品
+                $bag = new BagModel();
+                // 处理数据
+                $bag->user_token = $userToken;
+                $bag->index_id   = $prizeData['prize_id'];
+                $bag->bag_type   = 'prize';
+                $bag->bag_status = 0;
+                $bag->bag_time   = time();
+                // 保存数据
+                $bag->save();
+            }
             // 如果已经处理订单，将不再处理
             $result = MemberModel::where(
                 'group_invite',$dataArr['invitanumber']
@@ -120,7 +124,6 @@ class PersonalnotifyDao implements PersonalnotifyInterface
             // 回滚事务
             \think\Db::rollback();
             file_put_contents('./Exception.txt',$e);
-            file_put_contents('./prizeArr.txt',json_encode($prizeArr,320));
         }
     }
 }
