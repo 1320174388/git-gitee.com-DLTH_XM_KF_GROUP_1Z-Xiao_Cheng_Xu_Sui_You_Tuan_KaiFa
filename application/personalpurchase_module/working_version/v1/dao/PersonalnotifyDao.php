@@ -30,23 +30,18 @@ class PersonalnotifyDao implements PersonalnotifyInterface
         $data = (new WxPayLibrary)->wxPayNotify();
         file_put_contents('./data.txt',json_encode($data,320));
 
-        // 定义状态
-        $depictArr = [
-            1 => '个人购票订单',
-            2 => '团购购票订单',
-            3 => '团购购票订单',
-            4 => '预约团购订单',
-            5 => '预约团购订单',
-        ];
-        $dataArr = json_decode($data['attach'],true);
-        // 如果已经处理订单，将不再处理
-        $result = MemberModel::where(
-            'group_invite',$dataArr['invitanumber']
-        )->find();
-        if($result){return;}
         // TODO : 启动事务
         \think\Db::startTrans();
         try {
+            // 定义状态
+            $depictArr = [
+                1 => '个人购票订单',
+                2 => '团购购票订单',
+                3 => '团购购票订单',
+                4 => '预约团购订单',
+                5 => '预约团购订单',
+            ];
+            $dataArr = json_decode($data['attach'],true);
             // 判断购票状态
             if(
                 ($dataArr['group_type']!='3')&&
@@ -112,6 +107,13 @@ class PersonalnotifyDao implements PersonalnotifyInterface
             $bag->bag_time   = time();
             // 保存数据
             $bag->save();
+
+            // 如果已经处理订单，将不再处理
+            $result = MemberModel::where(
+                'group_invite',$dataArr['invitanumber']
+            )->find();
+            if($result){return '';}
+            
             // 提交事务
             \think\Db::commit();
         } catch (\Exception $e) {
