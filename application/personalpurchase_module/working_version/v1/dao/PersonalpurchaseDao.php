@@ -33,9 +33,9 @@ class PersonalpurchaseDao implements PersonalpurchaseInterface
     {
         // TODO :  判断用户是否已经在本次要加入的团购中
         if(
-            ($post['invitation']!='yes')&&
-            ($post['group_type']!='3')&&
-            ($post['group_type']!='5')
+            ($post['group_type']=='3')||
+            ($post['group_type']=='5')||
+            ($post['invitation']=='yes')
         ){
             $result = MemberModel::where(
                 'group_invite',$post['invitanumber']

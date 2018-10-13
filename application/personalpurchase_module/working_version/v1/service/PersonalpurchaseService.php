@@ -55,9 +55,9 @@ class PersonalpurchaseService
 
         // 判断订单号是否发送
         if(
-            ($post['invitation']!='yes')&&
-            ($post['group_type']!='3')&&
-            ($post['group_type']!='5')
+            ($post['group_type']=='3')||
+            ($post['group_type']=='5')||
+            ($post['invitation']=='yes')
         ){
             if(empty($post['invitanumber'])){
                 return returnData('error','请发送邀请码或加入订单号');
