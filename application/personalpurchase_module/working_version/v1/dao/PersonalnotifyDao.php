@@ -113,13 +113,13 @@ class PersonalnotifyDao implements PersonalnotifyInterface
                 'group_invite',$dataArr['invitanumber']
             )->find();
             if($result){return '';}
-            
+
             // 提交事务
             \think\Db::commit();
         } catch (\Exception $e) {
             // 回滚事务
             \think\Db::rollback();
-            file_put_contents('./Exception.txt',json_encode($e,320));
+            file_put_contents('./Exception.txt',$e);
         }
     }
 }
