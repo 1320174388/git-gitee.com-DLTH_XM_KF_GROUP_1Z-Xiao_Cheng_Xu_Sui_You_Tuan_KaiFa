@@ -306,7 +306,7 @@ class ScenicController extends Controller
      * 名  称 : integralUpt()
      * 功  能 : 修改管理积分接口
      * 变  量 : --------------------------------------
-     * 输  入 : '$post['integral_id    ']  => '积分获得主键';
+     * 输  入 : '$post['integral_id']  => '积分获得主键';
      * 输  入 : '$post['integral_transaction']  => '交易积分';
      * 输  入 : '$post['integral_spread  ']  => '推广积分';
      * 输  出 : {"errNum":0,"retMsg":"提示信息","retData":true}
@@ -324,7 +324,7 @@ class ScenicController extends Controller
         $res = $ScenicService->integralUpt($post);
 
         // 处理函数返回值
-        return \RSD::wxReponse($res, 'S', '请求成功');
+        return \RSD::wxReponse($res, 'S', '修改成功');
     }
 
     /**
