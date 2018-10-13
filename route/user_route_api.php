@@ -133,3 +133,12 @@ Route::post(
     ':v/user_module/cancelGroupPost',
     'user_module/:v.controller.UserInfoController/cancelGroupPost'
 );
+/**
+ * 传值方式：POST
+ * 传值参数：
+ * 路由功能：发起团购接口
+ */
+Route::post(
+    ':v/user_module/sponsorGroupPost',
+    'user_module/:v.controller.UserInfoController/sponsorGroupPost'
+);

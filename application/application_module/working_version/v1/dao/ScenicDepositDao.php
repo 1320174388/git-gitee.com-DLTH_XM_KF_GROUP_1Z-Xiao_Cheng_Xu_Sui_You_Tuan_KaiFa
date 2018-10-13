@@ -101,7 +101,7 @@ class ScenicDepositDao
        }else{
            //事务回滚
            \think\Db::rollback();
-           return returnData('error',$extractRes['data']);
+           return returnData('error',$extractRes['data']['err_code_des']);
        }
     }
     /**
@@ -223,7 +223,7 @@ class ScenicDepositDao
         }else{
             //事务回滚
             \think\Db::rollback();
-            return returnData('error',$extractRes['data']);
+            return returnData('error',$extractRes['data']['err_code_des']);
         }
 
     }

@@ -35,6 +35,6 @@ return [
     'groupInfo'         => 'data_group_Info',
     // 取消团购比例表
     'adminBespeak'      => 'data_admin_bespeak',
-
-
+    // 用户登录表
+    'homeUsers'         => 'data_home_users',
 ];

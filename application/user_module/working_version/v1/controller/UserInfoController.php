@@ -131,5 +131,31 @@ class UserInfoController extends Controller
         // 处理函数返回值
         return \RSD::wxReponse($res,'S');
     }
+    /**
+     * 作  者 : Feng Tianshui
+     * 名  称 : sponsorGroupPost()
+     * 功  能 : 发起团购接口
+     * 变  量 : --------------------------------------
+     * 输  入 : '$post['user_token']  => '用户token';'
+     * 输  入 : '$post['scenic_id']  => '景区id';'
+     * 输  入 : '$post['group_num']  => '团购人数';'
+     * 输  入 : '$post['group_type']  => '团购类型';'
+     * 输  入 : '$post['group_money']  => '价格';'
+     * 输  出 : {"errNum":0,"retMsg":"请求成功","retData":"请求数据"}
+     * 创  建 : 2018/10/06 10:23
+     */
+    public function sponsorGroupPost(\think\Request $request)
+    {
+        // 实例化Service层逻辑类
+        $searchScenicService = new UserInfoService();
 
+        // 获取传入参数
+        $post = $request->post();
+
+        // 执行Service逻辑
+        $res = $searchScenicService->sponsorGroupService($post);
+
+        // 处理函数返回值
+        return \RSD::wxReponse($res,'S');
+    }
 }

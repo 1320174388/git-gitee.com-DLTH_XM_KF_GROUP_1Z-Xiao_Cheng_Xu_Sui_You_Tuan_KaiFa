@@ -446,6 +446,15 @@ Route::get(
     'v1/application_module/scenicBalanceGet',
     'application_module/v1.controller.ScenicDepositController/scenicBalanceGet'
 )->middleware('Right_v1_IsAdmin');
+/**
+ * 传值方式：GET
+ * 传值参数：
+ * 路由功能：获取景区收益信息列表
+ */
+Route::get(
+    'v1/application_module/profitListGet',
+    'application_module/v1.controller.ScenicDepositController/scenicProfitGet'
+)->middleware('Right_v1_IsAdmin');
 
 
 /**

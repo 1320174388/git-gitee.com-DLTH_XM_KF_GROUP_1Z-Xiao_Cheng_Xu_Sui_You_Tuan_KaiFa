@@ -18,9 +18,20 @@ class GroupInfoModel extends Model
     // 设置当前模型对应数据表的主键
     protected $pk = 'group_number';
 
+    //设置时间字段名称
+    protected $createTime = 'group_time';
+
+    //开启自动写入时间戳
+    protected $autoWriteTimestamp = true;
+
     // 加载配置数据表名
     protected function initialize()
     {
         $this->table = config('v1_tableName.groupInfo');
+    }
+    // 关联团购成员表
+    public function GroupMember()
+    {
+        return $this->hasOne('GroupMemberModel','group_number');
     }
 }

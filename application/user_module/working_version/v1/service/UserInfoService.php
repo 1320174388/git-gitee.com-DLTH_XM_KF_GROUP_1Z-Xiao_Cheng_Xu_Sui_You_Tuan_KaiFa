@@ -200,4 +200,45 @@ class UserInfoService
 
         return returnData('error',$refundData['data']);
     }
+    /**
+     * 作  者 : Feng Tianshui
+     * 名  称 : sponsorGroupService()
+     * 功  能 : 发起团购接口
+     * 变  量 : --------------------------------------
+     * 输  入 : '$post['user_token']  => '用户token';'
+     * 输  入 : '$post['scenic_id']  => '景区id';'
+     * 输  入 : '$post['group_num']  => '团购人数';'
+     * 输  入 : '$post['group_type']  => '团购类型';'
+     * 输  入 : '$post['group_money']  => '价格';'
+     * 输  出 : ['msg'=>'success','data'=>'返回数据']
+     * 创  建 : 2018/10/06 10:23
+     */
+    public function sponsorGroupService($post)
+    {
+        // 验证数据
+        $validate = new \think\Validate([
+            'user_token'      => 'require',
+            'scenic_id'       => 'require',
+            'group_num'       => 'require',
+            'group_type'      => 'require',
+            'group_money'     => 'require',
+        ],[
+            'user_token.require'        => '缺少user_token参数',
+            'scenic_id.require'         => '缺少scenic_id参数',
+            'group_num.require'         => '缺少group_num参数',
+            'group_type.require'        => '缺少group_type参数',
+            'group_money.require'       => '缺少group_money参数',
+        ]);
+        if (!$validate->check($post)) {
+            return returnData('error',$validate->getError());
+        }
+        // 实例化Dao层数据类
+        $searchScenicDao = new UserInfoDao();
+
+        // 执行Dao层逻辑
+        $res = $searchScenicDao->sponsorGroupDao($post);
+
+        // 处理函数返回值
+        return \RSD::wxReponse($res,'D');
+    }
 }

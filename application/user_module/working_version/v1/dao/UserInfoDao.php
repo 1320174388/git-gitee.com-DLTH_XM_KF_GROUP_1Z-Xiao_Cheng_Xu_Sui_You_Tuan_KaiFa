@@ -10,6 +10,7 @@
 namespace app\user_module\working_version\v1\dao;
 use app\user_module\working_version\v1\model\AdminBespeakModel;
 use app\user_module\working_version\v1\model\GroupMemberModel;
+use app\user_module\working_version\v1\model\HomeUsersModel;
 use app\user_module\working_version\v1\model\UsersListModel;
 use app\user_module\working_version\v1\model\UserMemberModel;
 use app\user_module\working_version\v1\model\MemberListModel;
@@ -198,6 +199,77 @@ class UserInfoDao
         $res = AdminBespeakModel::get(1);
         // 返回结果
         return \RSD::wxReponse($res,'M',$res,'么有数据');
+    }
+    /**
+     * 作  者 : Feng Tianshui
+     * 名  称 : sponsorGroupDao()
+     * 功  能 : 发起团购接口
+     * 变  量 : --------------------------------------
+     * 输  入 : '$post['user_token']  => '用户token';'
+     * 输  入 : '$post['scenic_id']  => '景区id';'
+     * 输  入 : '$post['group_num']  => '团购人数';'
+     * 输  入 : '$post['group_type']  => '团购类型';'
+     * 输  入 : '$post['group_money']  => '价格';'
+     * 输  出 : ['msg'=>'success','data'=>'返回数据']
+     * 创  建 : 2018/10/06 10:23
+     */
+    public function sponsorGroupDao($post)
+    {
+        // 查询用户id
+        $userId = HomeUsersModel::where('user_token',$post['user_token'])
+                        ->field('user_id')
+                        ->find();
+        // 生成订单号
+        $orderNum = ''.time().''.randomInt(4).$userId['user_id'];
+        switch ($post['group_type']){
+            case 1 :
+                $depict = '个人订单';
+                break;
+            case 2 :
+                $depict = '普通团购';
+                break;
+            case 3 :
+                $depict = '预约团购';
+                break;
+        }
+        // 开启事务
+        \think\Db::startTrans();
+        // 创建模型
+        $opject = new GroupInfoModel();
+
+        $opject->group_number = $orderNum;
+        $opject->scenic_id    = $post['scenic_id'];
+        $opject->group_num    = $post['group_num'];
+        $opject->group_type   = $post['group_type'];
+        $opject->group_money  = $post['group_money'];
+        // 完成状态
+        $opject->group_status  = 0;
+        // 已有人数
+        $opject->man_num  = 1;
+        // 订单说明
+        $opject->order_depict  = $depict;
+
+        $GroupInfo = $opject->save();
+
+        // 创建团购成员模型
+        $member = new GroupMemberModel();
+        $member->group_number = $orderNum;
+        $member->user_token = $post['user_token'];
+        $member->group_invite = $orderNum;
+        $member->member_status = 1;
+        $member->comment_status = 0;
+        $member->group_status = 0;
+        $res = $member->save();
+        if ($GroupInfo && $res){
+            // 提交事务
+            \think\Db::commit();
+            return \RSD::wxReponse($res,'M','发起成功','发起失败');
+        }else{
+            // 事务回滚
+            \think\Db::rollback();
+            return returnData('error','发起失败');
+        }
+
     }
 
 }
