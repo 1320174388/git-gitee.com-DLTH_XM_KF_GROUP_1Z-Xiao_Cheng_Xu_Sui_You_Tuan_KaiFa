@@ -1195,7 +1195,7 @@ class ScenicDao
      */
     public function scenicPoints($post)
     {
-        $DepositModel = new DepositdeductModel();
+        $DepositModel = new DepositModel();
         // 查找
         $list = $DepositModel->where('scenic_id',$post['scenic_id'])->find();
         if(!$list){
@@ -1235,17 +1235,32 @@ class ScenicDao
             config('v1_tableName.Insider'),
             config('v1_tableName.Insider').'.member_id = ' .
             config('v1_tableName.Users').'.member_id'
-        )->where(
-            config('v1_tableName.choolUserSel').'.user_phone',
-            $post['user_phone']
         );
+        if(!empty($post['user_phone'])){
+            $res = $res->where(
+                config('v1_tableName.Users').'.user_phone',
+                $post['user_phone']
+            );
+        }
+        if(!empty($post['user_nickName'])){
+            $res = $res->where(
+                config('v1_tableName.Users').'.user_nickName',
+                $post['user_nickName']
+            );
+        }
+        if(!empty($post['member_id'])){
+            $res = $res->where(
+                config('v1_tableName.Member').'.user_nickName',
+                $post['member_id']
+            );
+        }
         if(!empty($post['user_time'])){
             // 处理上时间戳
             $time = strtotime($post['user_time']);
             $res = $res->where(
-                config('v1_tableName.Users').'.user_time','>=' ,$time
+                config('v1_tableName.Users').'.user_time','<=' ,$time
             )->where(
-                config('v1_tableName.Users').'.user_time','<' ,
+                config('v1_tableName.Users').'.user_time','>' ,
                 (($time)+(60*60*24))
             );
         }

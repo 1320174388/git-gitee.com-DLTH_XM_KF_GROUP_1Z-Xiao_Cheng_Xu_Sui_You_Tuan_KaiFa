@@ -188,7 +188,7 @@ Route::post(
 Route::post(
     'v1/application_module/scenicPoints',
     'application_module/v1.controller.ScenicController/scenicPoints'
-);
+)->middleware('Right_v1_IsAdmin');
 
 
 /**
