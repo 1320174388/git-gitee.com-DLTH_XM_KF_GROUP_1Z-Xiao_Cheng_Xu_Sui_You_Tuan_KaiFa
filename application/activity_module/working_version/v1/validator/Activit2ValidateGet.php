@@ -15,11 +15,13 @@ class Activit2ValidateGet extends Validate
     /**
      * 名  称 : $rule
      * 功  能 : 验证规则
+     * 输  入 : ( Int )  $get['ActivityType']   => '活动类型';
      * 输  入 : ( Int )  $get['ActivityClass']  => '活动分组';
      * 输  入 : ( Int )  $get['ActivityLimit']  => '活动数量';
      * 创  建 : 2018/10/05 12:08
      */
     protected $rule =   [
+        'ActivityType'   => 'require|number',
         'ActivityClass'  => 'require|number',
         'ActivityLimit'  => 'require|number',
     ];
@@ -30,6 +32,8 @@ class Activit2ValidateGet extends Validate
      * 创  建 : 2018/10/05 12:08
      */
     protected $message  =   [
+        'ActivityType.require'   => '请正确发送活动类型标识',
+        'ActivityType.number'    => '请正确发送活动类型标识',
         'ActivityClass.require'  => '请正确发送活动分组标识',
         'ActivityClass.number'   => '请正确发送活动分组标识',
         'ActivityLimit.require'  => '请正确发送活动数量',

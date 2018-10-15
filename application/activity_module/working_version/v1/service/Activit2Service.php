@@ -21,6 +21,7 @@ class Activit2Service
      * 名  称 : activit2Show()
      * 功  能 : 二次获取活动列表逻辑
      * 变  量 : --------------------------------------
+     * 输  入 : ( Int )  $get['ActivityType']   => '活动类型';
      * 输  入 : ( Int )  $get['ActivityClass']  => '活动分组';
      * 输  入 : ( Int )  $get['ActivityLimit']  => '活动数量';
      * 输  出 : ['msg'=>'success','data'=>'返回数据']
