@@ -143,10 +143,7 @@ class PersonalpurchaseDao implements PersonalpurchaseInterface
             'user_token',$post['token']
         )->find();
         if($result){
-            echo json_encode(
-                returnData('error','您已经在本团购中'),
-                320
-            );
+            echo returnResponse(1,'您已经在本团购中');
             exit;
         }
     }
