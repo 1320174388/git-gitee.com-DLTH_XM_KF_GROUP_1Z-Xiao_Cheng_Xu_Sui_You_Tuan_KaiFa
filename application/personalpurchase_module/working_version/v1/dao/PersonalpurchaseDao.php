@@ -49,18 +49,18 @@ class PersonalpurchaseDao implements PersonalpurchaseInterface
             return returnData('error','景区不存在');
         }
 
-
         // TODO :  实例化优惠券表 CouponModel 模型 获取优惠券数据
-        $bagData = BagModel::get($post['coupon_id']);
-        if($bagData){
-            if($bagData['bag_type']=='prize'){
-                return returnData('error','这是奖品ID兄弟');
-            }
-            if($bagData['bag_status']==1){
-                return returnData('error','优惠券已失效');
-            }
-            $couponData = CouponModel::get($bagData['index_id']);
-            if(!$couponData){
+        if(!empty($post['coupon_id'])){
+            $bagData = BagModel::get($post['coupon_id']);
+            if($bagData){
+                if($bagData['bag_type']=='prize'){
+                    return returnData('error','这是奖品ID兄弟');
+                }
+                if($bagData['bag_status']=='1'){
+                    return returnData('error','优惠券已失效');
+                }
+                $couponData = CouponModel::get($bagData['index_id']);
+            }elseif(empty($couponData)){
                 $couponData = [];
                 $couponData['coupon_money'] = 0;
             }
@@ -143,7 +143,10 @@ class PersonalpurchaseDao implements PersonalpurchaseInterface
             'user_token',$post['token']
         )->find();
         if($result){
-            returnData('error','您已经在本团购中');
+            echo json_encode(
+                returnData('error','您已经在本团购中'),
+                320
+            );
             exit;
         }
     }
