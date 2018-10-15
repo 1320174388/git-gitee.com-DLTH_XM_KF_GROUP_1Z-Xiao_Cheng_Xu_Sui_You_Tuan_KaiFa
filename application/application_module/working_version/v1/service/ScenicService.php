@@ -846,10 +846,10 @@ class ScenicService
      * 输  出 : {"errNum":0,"retMsg":"提示信息","retData":true}
      * 创  建 : 2018/09/24 19:11
      */
-    public function scenicPoints($useridentity)
+    public function scenicPoints($post)
     {
         // ScenicDao
-        $res=(new ScenicDao())->scenicPoints($useridentity);
+        $res=(new ScenicDao())->scenicPoints($post);
         if($res['msg']=='error') return returnData('error','查询失败');
         // 返回数据
         return returnData('success',$res['data']);

@@ -1195,7 +1195,7 @@ class ScenicDao
      */
     public function scenicPoints($post)
     {
-        $DepositModel = new DepositModel();
+        $DepositModel = new DepositdeductModel();
         // 查找
         $list = $DepositModel->where('scenic_id',$post['scenic_id'])->find();
         if(!$list){
