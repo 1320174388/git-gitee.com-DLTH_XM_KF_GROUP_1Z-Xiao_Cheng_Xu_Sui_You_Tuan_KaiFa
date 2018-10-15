@@ -56,8 +56,8 @@ class ActivitcontDao implements ActivitcontInterface
         if(!$find){
             return returnData('error','要删除信息不存在');
         }
-        if(file_exists('.'.$find['activity_img'])){
-            unlink('.'.$find['activity_img']);
+        if(file_exists('.'.$find['content_content'])){
+            unlink('.'.$find['content_content']);
         }
         // 执行删除代码
         $res = $find->delete();
