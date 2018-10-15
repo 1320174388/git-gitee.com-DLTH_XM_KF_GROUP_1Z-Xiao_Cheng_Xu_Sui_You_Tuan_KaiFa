@@ -91,12 +91,20 @@ class PersonalpurchaseDao implements PersonalpurchaseInterface
         $user = UserModel::where(
             'user_token',$post['token']
         )->find();
+
+        $out_trade_no = time().mt_rand(1000,9999).$user['user_id'];
+
+        file_put_contents(
+            './upload/payment_order_information/'.$out_trade_no.'.txt',
+            json_encode($post,320)
+        );
+
         $_POST = [
             'token'        => $post['token'],
-            'attach'       => json_encode($post,320),
+            'attach'       => $out_trade_no,
             'body'         => $scenicData['scenic_name'].'-景区门票',
             'total_fee'    => $money,
-            'out_trade_no' => time().mt_rand(1000,9999).$user['user_id'],
+            'out_trade_no' => $out_trade_no,
         ];
 
         // 发起预支付订单
