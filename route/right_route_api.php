@@ -105,10 +105,10 @@ Route::delete(
 // ----- 权限管理路由 -----
 
 /**
- * 传值方式 : ROLE
+ * 传值方式 : RULE
  * 路由功能 : 获取所有权限信息
  */
-Route::role(
+Route::rule(
     ':v/right_module/return_json',
     function(){
         return returnResponse(1,'请发送管理标识',false);
@@ -116,10 +116,10 @@ Route::role(
 );
 
 /**
- * 传值方式 : ROLE
+ * 传值方式 : RULE
  * 路由功能 : 获取所有权限信息
  */
-Route::role(
+Route::rule(
     ':v/right_module/return_right',
     function(){
         return returnResponse(1,'权限不足',false);
