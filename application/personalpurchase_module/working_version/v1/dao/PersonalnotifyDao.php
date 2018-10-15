@@ -156,7 +156,9 @@ class PersonalnotifyDao implements PersonalnotifyInterface
                             'ticket_sratus'=> 0,
                             'group_money'  => $dataArr['group_money'],
                         ];
-                        $this->userTicketData($data,$memberResult);
+                        $this->userTicketData(
+                            $data,$memberResult,$group['group_money'],$dataArr['scenic_name']
+                        );
                     }
                 }
             }
@@ -235,17 +237,19 @@ class PersonalnotifyDao implements PersonalnotifyInterface
     /**
      * 给用户添加门票
      */
-    private function userTicketData($data=[],$memberResult=false)
+    private function userTicketData($data=[],$memberResult=false,$group_money,$scenic_name)
     {
         $ticket =  new TicketModel();
         if($memberResult){
             $list = [];
             $user_token_str = '';
+            $Arr = [];
             foreach($memberResult as $v){
                 $data['user_token']   = $v['user_token'];
                 $data['order_number'] = $v['group_invite'];
                 $list[] = $data;
                 $user_token_str.= $v['user_token'].',';
+                $Arr[$v['user_token']] = $v;
             }
             $user_token_str = rtrim($user_token_str,',');
 
@@ -256,6 +260,31 @@ class PersonalnotifyDao implements PersonalnotifyInterface
                 './project_access_token/'
             );
 
+            // TODO :  获取openid
+            $userArr = UserModel::field('user_openid')->where(
+                'user_token','in',$user_token_str
+            )->select()->toArray();
+
+            foreach($userArr as $v){
+                // 发送模板消息
+                TemplateMessagePushLibrary::sendTemplate(
+                    $accessTokenArr['data']['access_token'],
+                    [
+                        'touser'      => $v['user_openid'],
+                        'template_id' => config('v1_config.Wx_Code_ShenHe'),
+                        'page'        => config('v1_config.Wx_Code_Url'),
+                        'form_id'     => $Arr[$userArr['user_token']]['form_id'],
+                        'data'        => [
+                            'keyword1' => ['value'=>$Arr[
+                                $userArr['user_token']
+                            ]['group_invite']],
+                            'keyword2' => ['value'=>$group_money],
+                            'keyword3' => ['value'=>1],
+                            'keyword4' => ['value'=>$scenic_name],
+                        ],
+                    ]
+                );
+            }
         }else{
             $list = [];
             $list[] = $data;
