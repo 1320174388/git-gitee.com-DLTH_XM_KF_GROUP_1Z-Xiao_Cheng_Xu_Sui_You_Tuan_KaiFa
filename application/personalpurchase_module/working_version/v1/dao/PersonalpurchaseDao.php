@@ -39,14 +39,8 @@ class PersonalpurchaseDao implements PersonalpurchaseInterface
             ($post['group_type']=='5')||
             ($post['invitation']=='yes')
         ){
-            $result = MemberModel::where(
-                'group_invite',$post['invitanumber']
-            )->where(
-                'user_token',$post['token']
-            )->find();
-            if($result){
-                return returnData('error','您已经在本团购中');
-            }
+            // 判断用户是否已经加入当前团购
+            $this->userIsOrderNumberExists($post);
         }
         // TODO :  实例化景区表 ScenicModel 模型 获取景区数据
         $scenicData = ScenicModel::get($post['scenic_id']);
@@ -124,5 +118,21 @@ class PersonalpurchaseDao implements PersonalpurchaseInterface
         return \RSD::wxReponse(
             $res,'M', json_decode($res['data']),json_decode($res['data'])
         );
+    }
+
+    /**
+     * 判断用户是否已经加入团购订单
+     */
+    private function userIsOrderNumberExists($post)
+    {
+        $result = MemberModel::where(
+            'group_number',$post['invitanumber']
+        )->where(
+            'user_token',$post['token']
+        )->find();
+        if($result){
+            returnData('error','您已经在本团购中');
+            exit;
+        }
     }
 }

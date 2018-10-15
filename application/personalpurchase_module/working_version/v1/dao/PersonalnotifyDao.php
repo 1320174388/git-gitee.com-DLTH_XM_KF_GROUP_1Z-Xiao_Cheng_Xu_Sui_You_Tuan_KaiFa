@@ -105,7 +105,6 @@ class PersonalnotifyDao implements PersonalnotifyInterface
             }else{
                 // 获取已存在订单数据
                 $group = GroupModel::get($dataArr['invitanumber']);
-                file_put_contents('./GGGroup.txt',json_encode($group,320));
                 // 处理数据
                 $group->man_num      = math_add($group['man_num'],'1',0);
                 if($group['group_num']==$group['man_num']){
@@ -126,6 +125,7 @@ class PersonalnotifyDao implements PersonalnotifyInterface
                 $member->member_status  = '1';
                 $member->comment_status = '0';
                 if($group['group_num']==$group['man_num']){
+                    file_put_contents('./GGGroup.txt',json_encode($group,320));
                     $member->group_status = '1';
                 }
                 $member->comment_status = '1';
