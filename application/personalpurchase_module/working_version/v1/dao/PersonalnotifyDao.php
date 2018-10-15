@@ -126,6 +126,8 @@ class PersonalnotifyDao implements PersonalnotifyInterface
                 $member->comment_status = '0';
                 if($group['group_num']==$group['man_num']){
                     $member->group_status = '1';
+                }else{
+                    $member->group_status = '0';
                 }
                 $member->comment_status = '1';
                 $member->member_time    = time();
