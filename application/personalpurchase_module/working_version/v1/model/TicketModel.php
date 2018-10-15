@@ -21,6 +21,6 @@ class TicketModel extends Model
     // 加载配置数据表名
     protected function initialize()
     {
-        $this->table = config('v1_tableName.SGY_Data_Ticket');
+        $this->table = config('wx_sgy_config.SGY_Data_Ticket');
     }
 }

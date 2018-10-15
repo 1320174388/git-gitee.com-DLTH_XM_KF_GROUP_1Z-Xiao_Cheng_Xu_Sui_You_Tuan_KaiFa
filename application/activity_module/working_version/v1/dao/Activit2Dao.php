@@ -16,6 +16,7 @@ class Activit2Dao implements Activit2Interface
      * 名  称 : activit2Select()
      * 功  能 : 二次获取活动列表数据处理
      * 变  量 : --------------------------------------
+     * 输  入 : ( Int )  $get['ActivityType']   => '活动类型';
      * 输  入 : ( Int )  $get['ActivityClass']  => '活动分组';
      * 输  入 : ( Int )  $get['ActivityLimit']  => '活动数量';
      * 输  出 : ['msg'=>'success','data'=>'返回数据']
@@ -28,6 +29,8 @@ class Activit2Dao implements Activit2Interface
             'activity_class',$get['ActivityClass']
         )->where(
             'activity_class',$get['ActivityClass']
+        )->where(
+            'activity_type',$get['ActivityType']
         )->where(
             'end_time','<',time()
         )->order(
