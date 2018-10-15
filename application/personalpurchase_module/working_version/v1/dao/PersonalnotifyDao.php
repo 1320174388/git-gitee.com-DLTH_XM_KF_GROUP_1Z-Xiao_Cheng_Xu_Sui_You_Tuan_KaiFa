@@ -82,7 +82,7 @@ class PersonalnotifyDao implements PersonalnotifyInterface
                 $member->group_number   = $out_trade_no;
                 $member->user_token     = $dataArr['token'];
                 $member->group_invite   = $data['out_trade_no'];
-                $member->member_status  = '1';
+                $member->member_status  = '0';
                 $member->comment_status = '0';
                 $member->group_status   = $statusArr[$dataArr['group_type']];
                 $member->comment_status = '1';
@@ -122,7 +122,7 @@ class PersonalnotifyDao implements PersonalnotifyInterface
                 $member->group_number   = $out_trade_no;
                 $member->user_token     = $dataArr['token'];
                 $member->group_invite   = $data['out_trade_no'];
-                $member->member_status  = '1';
+                $member->member_status  = '0';
                 $member->comment_status = '0';
                 if($group['group_num']==$group['man_num']){
                     $member->group_status = '1';
@@ -139,7 +139,7 @@ class PersonalnotifyDao implements PersonalnotifyInterface
                     // 修改所有团购人员状态
                     $memberResult = $this->updataGroupStatus($out_trade_no);
                     if(
-                        ($dataArr['group_type']!='4')||
+                        ($dataArr['group_type']!='4')&&
                         ($dataArr['group_type']!='5')
                     ){
                         // 团购购票
