@@ -63,6 +63,7 @@ class ActivityDao implements ActivityInterface
      * 名  称 : activitySelect()
      * 功  能 : 获取活动广告列表数据处理
      * 变  量 : --------------------------------------
+     * 输  入 : ( Int )  $get['ActivityType']   => '活动类型';
      * 输  入 : ( Int )  $get['ActivityClass']  => '活动分组';
      * 输  出 : ['msg'=>'success','data'=>'返回数据']
      * 创  建 : 2018/10/05 11:09
@@ -74,6 +75,8 @@ class ActivityDao implements ActivityInterface
         'activity_class',$get['ActivityClass']
         )->where(
             'activity_class',$get['ActivityClass']
+        )->where(
+            'activity_type',$get['ActivityType']
         )->where(
             'start_time','>',time()
         )->where(
@@ -87,6 +90,8 @@ class ActivityDao implements ActivityInterface
         )->where(
             'activity_class',$get['ActivityClass']
         )->where(
+            'activity_type',$get['ActivityType']
+        )->where(
             'start_time','<',time()
         )->where(
             'end_time','>',time()
@@ -98,6 +103,8 @@ class ActivityDao implements ActivityInterface
             'activity_class',$get['ActivityClass']
         )->where(
             'activity_class',$get['ActivityClass']
+        )->where(
+            'activity_type',$get['ActivityType']
         )->where(
             'end_time','<',time()
         )->order(
