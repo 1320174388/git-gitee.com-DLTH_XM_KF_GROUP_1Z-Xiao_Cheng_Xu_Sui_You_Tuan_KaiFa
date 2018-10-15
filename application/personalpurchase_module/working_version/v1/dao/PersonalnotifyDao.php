@@ -144,7 +144,9 @@ class PersonalnotifyDao implements PersonalnotifyInterface
                     'ticket_sratus'=> 0,
                     'group_money'  => $dataArr['group_money'],
                 ];
-                $this->userTicketData($data,$memberResult);
+                if($group['group_num']==$group['man_num']){
+                    $this->userTicketData($data,$memberResult);
+                }
             }
 
             // 如果用户是通过邀请码进入团购的，
