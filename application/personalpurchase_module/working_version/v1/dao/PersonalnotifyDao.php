@@ -153,8 +153,19 @@ class PersonalnotifyDao implements PersonalnotifyInterface
                         ];
                         $this->userTicketData($data,$memberResult);
                     }
-
                 }
+            }
+
+            if(
+                ($dataArr['group_type']!='4')&&
+                ($dataArr['group_type']!='5')&&
+                (!empty($dataArr['coupon_id']))
+            ){
+                // TODO :  实例化优惠券表 CouponModel 模型 获取优惠券数据
+                $bagData = BagModel::get($dataArr['coupon_id']);
+                $bagData->bag_status = 1;
+                $bagData->save();
+
             }
 
             // 如果用户是通过邀请码进入团购的，
