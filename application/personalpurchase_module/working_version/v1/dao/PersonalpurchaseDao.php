@@ -53,16 +53,16 @@ class PersonalpurchaseDao implements PersonalpurchaseInterface
         // TODO :  实例化优惠券表 CouponModel 模型 获取优惠券数据
         $bagData = BagModel::get($post['coupon_id']);
         if($bagData){
-            $couponData = CouponModel::get($bagData['index_id']);
-            if(!$couponData){
-                $couponData = [];
-                $couponData['coupon_money'] = 0;
-            }
             if($bagData['bag_type']=='prize'){
                 return returnData('error','这是奖品ID兄弟');
             }
             if($bagData['bag_status']==1){
                 return returnData('error','优惠券已失效');
+            }
+            $couponData = CouponModel::get($bagData['index_id']);
+            if(!$couponData){
+                $couponData = [];
+                $couponData['coupon_money'] = 0;
             }
         }
 
