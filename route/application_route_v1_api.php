@@ -92,7 +92,7 @@ Route::post(
 Route::post(
     'v1/application_module/singleScenic',
     'application_module/v1.controller.ScenicController/singleScenic'
-);
+)->middleware('Right_v1_IsAdmin');
 
 
 /**
@@ -188,7 +188,7 @@ Route::post(
 Route::post(
     'v1/application_module/scenicPoints',
     'application_module/v1.controller.ScenicController/scenicPoints'
-)->middleware('Right_v1_IsAdmin');
+);
 
 
 /**
@@ -243,7 +243,7 @@ Route::post(
 Route::post(
     'v1/application_module/groupUpt',
     'application_module/v1.controller.ScenicController/groupUpt'
-)->middleware('Right_v1_IsAdmin');
+);
 
 
 /**
@@ -496,4 +496,15 @@ Route::post(
 Route::post(
     'v1/application_module/personalCustomers',
     'application_module/v1.controller.ScenicController/personalCustomers'
+);
+
+
+/**
+ * 传值方式：POST
+ * 传值参数：
+ * 路由功能：获取用户列表信息
+ */
+Route::post(
+    'v1/application_module/userList',
+    'application_module/v1.controller.ScenicController/userList'
 );

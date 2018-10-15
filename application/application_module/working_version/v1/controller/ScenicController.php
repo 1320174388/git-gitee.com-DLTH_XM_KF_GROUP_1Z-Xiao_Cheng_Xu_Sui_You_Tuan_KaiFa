@@ -481,7 +481,7 @@ class ScenicController extends Controller
         $res = $ScenicService->groupUpt($post);
 
         // 处理函数返回值
-        return \RSD::wxReponse($res, 'S', '请求成功');
+        return \RSD::wxReponse($res, 'S', '修改成功');
     }
 
     /**
@@ -994,6 +994,33 @@ class ScenicController extends Controller
         // 引入Service逻辑层代码
         $res = (new ScenicService())->scenicPoints($schoolid);
         if ($res['msg'] == 'error') return returnResponse(2, $res['data']);
+        // 处理函数返回值
+        return \RSD::wxReponse($res, 'S', '请求成功');
+    }
+
+
+    /**
+     * 名  称 : userList()
+     * 功  能 : 获取用户列表信息
+     * 变  量 : '$post['user_time']  => '日期';
+     * 变  量 : '$post['user_nickName']  => '姓名';
+     * 变  量 : '$post['user_phone']  => '联系电话';
+     * 变  量 : '$post['member_name']  => '会员等级';
+     * 输  入 : --------------------------------------
+     * 输  出 : {"errNum":0,"retMsg":"提示信息","retData":true}
+     * 创  建 : 2018/09/24 19:11
+     */
+    public function userList(\think\Request $request)
+    {
+        // 实例化Service层逻辑类
+        $ScenicService = new ScenicService();
+
+        // 获取传入参数
+        $post = $request->post();
+
+        // 执行Service逻辑
+        $res = $ScenicService->userList($post);
+
         // 处理函数返回值
         return \RSD::wxReponse($res, 'S', '请求成功');
     }

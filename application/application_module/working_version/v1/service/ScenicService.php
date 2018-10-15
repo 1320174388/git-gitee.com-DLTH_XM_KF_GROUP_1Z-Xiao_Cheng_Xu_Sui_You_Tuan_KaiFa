@@ -857,4 +857,26 @@ class ScenicService
 
 
 
+    /**
+     * 名  称 : userList()
+     * 功  能 : 获取用户列表信息
+     * 变  量 : '$post['user_time']  => '日期';
+     * 变  量 : '$post['user_nickName']  => '姓名';
+     * 变  量 : '$post['user_phone']  => '联系电话';
+     * 变  量 : '$post['member_name']  => '会员等级';
+     * 输  入 : --------------------------------------
+     * 输  出 : {"errNum":0,"retMsg":"提示信息","retData":true}
+     * 创  建 : 2018/09/24 19:11
+     */
+    public function userList($post)
+    {
+        // ScenicDao
+        $res=(new ScenicDao())->userList($post);
+        if($res['msg']=='error') return returnData('error','查询失败');
+        // 处理函数返回值
+        return \RSD::wxReponse($res,'D');
+    }
+
+
+
 }

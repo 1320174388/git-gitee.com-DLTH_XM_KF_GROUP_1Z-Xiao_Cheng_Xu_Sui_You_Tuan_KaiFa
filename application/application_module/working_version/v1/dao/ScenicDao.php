@@ -330,30 +330,22 @@ class ScenicDao
      */
     public function modifyAdmin($post)
     {
-        // 启动事务
-        Db::startTrans();
-        try {
-            $ScenicModel= new ScenicModel();
-            // 进行修改
-            $res = $ScenicModel->save([
-                $ScenicModel->user_token    = $post['user_token']
-            ],['scenic_id'=>$post['scenic_id']]);
-            // 进行修改
-            $DepositModel= new DepositModel();
-            $res = $DepositModel->save([
-                $DepositModel->user_token  = $post['user_token']
-            ],['scenic_id'=>$post['scenic_id']]);
-            // 验证数据
-            if(!$res) return returnData('error');
-            Db::commit();
-            // 返回数据格式
-            return returnData('success',true);
-        } catch (\Exception $e) {
-            // 回滚事务
-            Db::rollback();
-            // 验证数据
-            return returnData('error',$res);
+        $ScenicModel= new ScenicModel();
+        // 进行修改
+        $res = $ScenicModel->save([
+            $ScenicModel->user_token    = $post['user_token']
+        ],['scenic_id'=>$post['scenic_id']]);
+        // 进行修改
+        $DepositModel= new DepositModel();
+        $res = $DepositModel->save([
+            $DepositModel->user_token  = $post['user_token']
+        ],['scenic_id'=>$post['scenic_id']]);
+        // 验证数据
+        if(!$res){
+            return returnData('error','修改失败,用户已经是该景区管理员');
         }
+        //返回结果
+        return returnData('error','修改成功');
     }
 
 
@@ -596,14 +588,14 @@ class ScenicDao
      */
     public function groupUpt($post)
     {
-        $MemberModel = new MemberModel();
+        $AdminbespeakModel = new AdminbespeakModel();
         // 进行修改
-        $res = $MemberModel->save([
-            $MemberModel->deductions    = $post['deductions']
+        $res = $AdminbespeakModel->save([
+            $AdminbespeakModel->deductions    = $post['deductions']
         ],['bespeak_id'=>$post['bespeak_id']]);
         // 验证
         if(!$res){
-            return returnData('error',false);
+            return returnData('error','修改失败,比例与原比例相等');
         }
         // 返回数据
         return returnData('success',$res);
@@ -1187,6 +1179,7 @@ class ScenicDao
             config('v1_tableName.Groupmember').'.group_number',
             $post['group_number']
         );
+        $res = $res->select()->toArray();
         // 返回数据
         return returnData('success',$res);
     }
@@ -1210,6 +1203,55 @@ class ScenicDao
         }
         // 返回数据
         return returnData('success',$list);
+    }
+
+
+    /**
+     * 名  称 : userList()
+     * 功  能 : 获取用户列表信息
+     * 变  量 : '$post['user_time']  => '日期';
+     * 变  量 : '$post['user_nickName']  => '姓名';
+     * 变  量 : '$post['user_phone']  => '联系电话';
+     * 变  量 : '$post['member_id']  => '会员等级';
+     * 输  入 : --------------------------------------
+     * 输  出 : {"errNum":0,"retMsg":"提示信息","retData":true}
+     * 创  建 : 2018/09/24 19:11
+     */
+    public function userList($post)
+    {
+        $res = UserModel::field(
+            config('v1_tableName.Users').'.user_nickName,'.
+            config('v1_tableName.Users').'.user_gender,'.
+            config('v1_tableName.Users').'.user_name,'.
+            config('v1_tableName.Users').'.user_status,'.
+            config('v1_tableName.Insider').'.member_name,'.
+            config('v1_tableName.Users').'.user_phone,'.
+            config('v1_tableName.Users').'.user_time,'
+        )->leftJoin(
+            config('v1_tableName.Insider'),
+            config('v1_tableName.Insider').'.user_token = ' .
+            config('v1_tableName.Users').'.user_token'
+        )->leftJoin(
+            config('v1_tableName.Insider'),
+            config('v1_tableName.Insider').'.member_id = ' .
+            config('v1_tableName.Users').'.member_id'
+        )->where(
+            config('v1_tableName.choolUserSel').'.user_phone',
+            $post['user_phone']
+        );
+        if(!empty($post['user_time'])){
+            // 处理上时间戳
+            $time = strtotime($post['user_time']);
+            $res = $res->where(
+                config('v1_tableName.Users').'.user_time','>=' ,$time
+            )->where(
+                config('v1_tableName.Users').'.user_time','<' ,
+                (($time)+(60*60*24))
+            );
+        }
+        $res = $res->select()->toArray();
+        // 返回数据
+        return returnData('success',$res);
     }
 
 }
