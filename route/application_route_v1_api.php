@@ -312,16 +312,6 @@ Route::post(
 )->middleware('Right_v1_IsAdmin');
 
 
-/**
- * 传值方式：POST
- * 传值参数：
- * 路由功能：获取景区押金接口
- */
-Route::post(
-    'v1/application_module/scenicDeposit',
-    'application_module/v1.controller.ScenicController/scenicDeposit'
-)->middleware('Right_v1_IsAdmin');
-
 
 /**
  * 传值方式：POST
