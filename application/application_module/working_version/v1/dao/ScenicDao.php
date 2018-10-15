@@ -255,15 +255,15 @@ class ScenicDao
         $UserModel = new UserModel();
 
         $list =  md5($useridentity);
-
-        $list = $UserModel->where('user_identity',$list)
+        $list = $UserModel->field('user_token')->where('user_identity',$list)
             ->find()->toArray();
+        $arr = ScenicModel::where('user_token',$list['user_token'])->find()->toArray();
 
-        if(!$list){
+        if(!$arr){
             return returnData('error',false);
         }
         // 返回数据
-        return returnData('success',$list);
+        return returnData('success',$arr);
     }
 
     /**
