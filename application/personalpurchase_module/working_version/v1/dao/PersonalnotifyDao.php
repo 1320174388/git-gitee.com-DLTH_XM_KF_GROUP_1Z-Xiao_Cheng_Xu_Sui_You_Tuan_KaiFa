@@ -104,11 +104,9 @@ class PersonalnotifyDao implements PersonalnotifyInterface
                 }
             }else{
                 // 获取已存在订单数据
-                $group = GroupModel::where(
-                    'group_number',$data['out_trade_no']
-                )->find();
+                $group = GroupModel::get($data['out_trade_no']);
                 // 处理数据
-                $group->man_num      = math_add($group['man_num'],1);
+                $group->man_num      = math_add($group['man_num'],'1');
                 if($group['group_num']==$group['man_num']){
                     $group->group_status = '1';
                 }
