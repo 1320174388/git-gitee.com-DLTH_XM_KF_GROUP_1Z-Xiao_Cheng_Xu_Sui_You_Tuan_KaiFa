@@ -8,7 +8,14 @@
  *  历史记录 :  -----------------------
  */
 return [
-    'wx_AppID'     => 'wx6516385261fa963a',
-    'wx_AppSecret' => 'dc9823245780a506e679a121bb535e0b',
-    'wx_LoginUrl'  => 'https://api.weixin.qq.com/sns/jscode2session'
+    // TODO：小程序 wx_AppID
+    'wx_AppID'      => 'wx6516385261fa963a',
+    // TODO：小程序 wx_AppSecret
+    'wx_AppSecret'  => 'dc9823245780a506e679a121bb535e0b',
+    // TODO：小程序用户登录地址
+    'wx_LoginUrl'   => 'https://api.weixin.qq.com/sns/jscode2session',
+    // 购票成功信息模板ID
+    'wx_Ticket_Push'=> 'r0epkzh7hEvDLH9TVfIinSkWFSOA0LPopHRx6irOQZs',
+    // 购票成功信息回调地址
+    'wx_Ticket_URL' => 'pages/index/....',
 ];

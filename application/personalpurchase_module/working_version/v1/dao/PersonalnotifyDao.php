@@ -9,10 +9,13 @@
  */
 namespace app\personalpurchase_module\working_version\v1\dao;
 use app\wx_payment_module\working_version\v1\library\WxPayLibrary;
+use app\personalpurchase_module\working_version\v1\library\AccessTokenRequest;
+use app\personalpurchase_module\working_version\v1\library\TemplateMessagePushLibrary;
 use app\personalpurchase_module\working_version\v1\model\GroupModel;
 use app\personalpurchase_module\working_version\v1\model\MemberModel;
 use app\personalpurchase_module\working_version\v1\model\PrizeModel;
 use app\personalpurchase_module\working_version\v1\model\BagModel;
+use app\personalpurchase_module\working_version\v1\model\UserModel;
 use app\personalpurchase_module\working_version\v1\model\TicketModel;
 
 class PersonalnotifyDao implements PersonalnotifyInterface
@@ -85,6 +88,7 @@ class PersonalnotifyDao implements PersonalnotifyInterface
                 $member->member_status  = '0';
                 $member->comment_status = '0';
                 $member->group_status   = $statusArr[$dataArr['group_type']];
+                $member->form_id        = $dataArr['form_id'];
                 $member->comment_status = '1';
                 $member->member_time    = time();
                 $member->group_money    = math_div($data['total_fee'],100);
@@ -122,6 +126,7 @@ class PersonalnotifyDao implements PersonalnotifyInterface
                 $member->group_number   = $out_trade_no;
                 $member->user_token     = $dataArr['token'];
                 $member->group_invite   = $data['out_trade_no'];
+                $member->form_id        = $dataArr['form_id'];
                 $member->member_status  = '0';
                 $member->comment_status = '0';
                 if($group['group_num']==$group['man_num']){
@@ -235,11 +240,22 @@ class PersonalnotifyDao implements PersonalnotifyInterface
         $ticket =  new TicketModel();
         if($memberResult){
             $list = [];
+            $user_token_str = '';
             foreach($memberResult as $v){
                 $data['user_token']   = $v['user_token'];
                 $data['order_number'] = $v['group_invite'];
                 $list[] = $data;
+                $user_token_str.= $v['user_token'].',';
             }
+            $user_token_str = rtrim($user_token_str,',');
+
+            // TODO :  获取success_token
+            $accessTokenArr = AccessTokenRequest::wxRequest(
+                config('v1_config.wx_AppID'),
+                config('v1_config.wx_AppSecret'),
+                './project_access_token/'
+            );
+
         }else{
             $list = [];
             $list[] = $data;

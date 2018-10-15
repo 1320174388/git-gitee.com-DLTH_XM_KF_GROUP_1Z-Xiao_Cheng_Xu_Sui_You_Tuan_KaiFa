@@ -23,6 +23,7 @@ class PersonalpurchaseDao implements PersonalpurchaseInterface
      * 功  能 : 个人购票数据处理
      * 变  量 : --------------------------------------
      * 输  入 : $post['scenic_id']    => '景区ID';
+     * 输  入 : $post['form_id']      => '购票表单ID';
      * 输  入 : $post['group_id']     => '团购ID';
      * 输  入 : $post['group_type']   => '购票类型:1=个人,2=发起团购,3=加入团购,4=发起预约,5=加入预约';
      * 输  入 : $post['token']        => '用户token';
@@ -113,10 +114,18 @@ class PersonalpurchaseDao implements PersonalpurchaseInterface
             json_encode($post,320)
         );
 
+        // 定义状态
+        $depictArr = [
+            1 => '个人购买门票', 2 => '发起团购购票', 3 => '加入团购购票',
+            4 => '发起预约团购', 5 => '加入预约团购',
+        ];
+
         $_POST = [
             'token'        => $post['token'],
             'attach'       => $out_trade_no,
-            'body'         => $scenicData['scenic_name'].'-景区门票',
+            'body'         => $scenicData['scenic_name']
+                .'-景区门票-'.
+                $depictArr[$post['group_type']],
             'total_fee'    => $money,
             'out_trade_no' => $out_trade_no,
         ];

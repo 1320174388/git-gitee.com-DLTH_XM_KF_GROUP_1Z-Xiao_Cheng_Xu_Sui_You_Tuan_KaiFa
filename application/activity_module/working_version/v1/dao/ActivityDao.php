@@ -148,6 +148,7 @@ class ActivityDao implements ActivityInterface
         if(($activity)&&($activity['activity_id']!=$put['ActivityId'])) {
             return returnData('error','标题已存在');
         }
+        $activity = ActivityModel::get($put['ActivityId']);
         // TODO :  处理数据
         if($put['ActivityFile'] != 'false'){
             if(file_exists('.'.$activity['activity_img'])){
