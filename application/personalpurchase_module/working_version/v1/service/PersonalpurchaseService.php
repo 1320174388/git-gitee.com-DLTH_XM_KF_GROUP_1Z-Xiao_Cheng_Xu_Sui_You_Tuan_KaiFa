@@ -48,8 +48,8 @@ class PersonalpurchaseService
 
         // 团购标识是否发送
         if(
-            ($post['group_type']!='1')&&
-            (empty($post['group_id']))&&
+            ($post['group_type']!='1')||
+            (empty($post['group_id']))||
             (!is_numeric($post['group_id']))
         ){
             return ['msg'=>'error','data'=>'请正确发送团购ID'];
