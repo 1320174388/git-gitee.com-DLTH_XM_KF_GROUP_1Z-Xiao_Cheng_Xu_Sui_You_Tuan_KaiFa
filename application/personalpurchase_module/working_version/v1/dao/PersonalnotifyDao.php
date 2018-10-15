@@ -104,7 +104,7 @@ class PersonalnotifyDao implements PersonalnotifyInterface
                 }
             }else{
                 // 获取已存在订单数据
-                $group = GroupModel::get($out_trade_no);
+                $group = GroupModel::get($dataArr['invitanumber']);
                 file_put_contents('./GGGroup.txt',json_encode($group,320));
                 // 处理数据
                 $group->man_num      = math_add($group['man_num'],'1',0);
