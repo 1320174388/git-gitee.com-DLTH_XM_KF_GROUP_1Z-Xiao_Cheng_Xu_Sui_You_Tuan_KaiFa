@@ -185,7 +185,7 @@ class PersonalnotifyDao implements PersonalnotifyInterface
                 }
                 // 给邀请人添加奖品
                 $result = MemberModel::where(
-                    'group_invite',$post['invitanumber']
+                    'group_invite',$dataArr['invitanumber']
                 )->find();
                 // 获取邀请人Token值
                 $userToken = $result['user_token'];
