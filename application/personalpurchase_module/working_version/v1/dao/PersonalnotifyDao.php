@@ -184,7 +184,7 @@ class PersonalnotifyDao implements PersonalnotifyInterface
             // 回滚事务
             \think\Db::rollback();
             file_put_contents('./Exception.txt',$e);
-            file_put_contents('./GGGGGGroup.txt',$group);
+            file_put_contents('./GGGGGGroup.txt',json_encode($group,320));
         }
     }
 
