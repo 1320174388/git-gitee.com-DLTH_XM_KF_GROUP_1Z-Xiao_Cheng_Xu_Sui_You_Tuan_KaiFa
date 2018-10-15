@@ -9,6 +9,7 @@
  */
 namespace app\personalpurchase_module\working_version\v1\dao;
 use app\wx_payment_module\working_version\v1\library\WxPayLibrary;
+use app\personalpurchase_module\working_version\v1\model\BagModel;
 use app\personalpurchase_module\working_version\v1\model\UserModel;
 use app\personalpurchase_module\working_version\v1\model\ScenicModel;
 use app\personalpurchase_module\working_version\v1\model\CouponModel;
@@ -48,12 +49,23 @@ class PersonalpurchaseDao implements PersonalpurchaseInterface
             return returnData('error','景区不存在');
         }
 
+
         // TODO :  实例化优惠券表 CouponModel 模型 获取优惠券数据
-        $couponData = CouponModel::get($post['coupon_id']);
-        if(!$couponData){
-            $couponData = [];
-            $couponData['coupon_money'] = 0;
+        $bagData = BagModel::get($post['coupon_id']);
+        if($bagData){
+            $couponData = CouponModel::get($bagData['index_id']);
+            if(!$couponData){
+                $couponData = [];
+                $couponData['coupon_money'] = 0;
+            }
+            if($bagData['bag_type']=='prize'){
+                return returnData('error','这是奖品ID兄弟');
+            }
+            if($bagData['bag_status']==1){
+                return returnData('error','优惠券已失效');
+            }
         }
+
         if($post['group_type']!='1'){
             // TODO : 获取团购数据
             $groupType = GroupTypeModel::where(

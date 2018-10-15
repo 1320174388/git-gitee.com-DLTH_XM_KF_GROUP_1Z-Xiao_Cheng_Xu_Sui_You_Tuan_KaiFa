@@ -34,6 +34,9 @@ class PurchaseDao implements PurchaseInterface
         if(!$scenic){
             return returnData('error','景区不存在');
         }
+        if($post['group_num']<=1){
+            return returnData('error','团购人数不可以小于1');
+        }
         $find = PurchaseModel::where(
             'scenic_id',$post['scenic_id']
         )->where(
