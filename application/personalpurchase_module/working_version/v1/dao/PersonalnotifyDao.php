@@ -132,21 +132,26 @@ class PersonalnotifyDao implements PersonalnotifyInterface
                 $member->group_money    = math_div($data['total_fee'],100);
                 // 保存数据
                 $member->save();
-                // 修改所有团购人员状态
-                $memberResult = $this->updataGroupStatus($out_trade_no);
 
-                // 团购购票
                 if($group['group_num']==$group['man_num']){
-                    file_put_contents('./GGGroup.txt',json_encode($group,320));
-                    $data = [
-                        'scenic_id'    => $dataArr['scenic_id'],
-                        'user_token'   => '',
-                        'order_number' => '',
-                        'ticket_type'  => $dataArr['group_type'],
-                        'ticket_sratus'=> 0,
-                        'group_money'  => $dataArr['group_money'],
-                    ];
-                    $this->userTicketData($data,$memberResult);
+                    // 修改所有团购人员状态
+                    $memberResult = $this->updataGroupStatus($out_trade_no);
+                    if(
+                        ($dataArr['group_type']!='4')||
+                        ($dataArr['group_type']!='5')
+                    ){
+                        // 团购购票
+                        $data = [
+                            'scenic_id'    => $dataArr['scenic_id'],
+                            'user_token'   => '',
+                            'order_number' => '',
+                            'ticket_type'  => $dataArr['group_type'],
+                            'ticket_sratus'=> 0,
+                            'group_money'  => $dataArr['group_money'],
+                        ];
+                        $this->userTicketData($data,$memberResult);
+                    }
+
                 }
             }
 
