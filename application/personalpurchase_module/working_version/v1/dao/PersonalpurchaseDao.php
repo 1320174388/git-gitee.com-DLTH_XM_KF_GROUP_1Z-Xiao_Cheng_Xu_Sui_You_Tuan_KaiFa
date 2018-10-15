@@ -78,9 +78,17 @@ class PersonalpurchaseDao implements PersonalpurchaseInterface
             $money = math_sub($scenicData['scenic_ticket'], $couponData['coupon_money']);
             $post['group_num'] = 1;
             $post['group_money'] = $scenicData['scenic_ticket'];
-        }else{
+        }elseif(
+            ($post['group_type']=='2')||
+            ($post['group_type']=='3')
+        ){
             // TODO :  处理数据
             $money = math_sub($groupType['group_money'], $couponData['coupon_money']);
+            $post['group_num'] = $groupType['group_num'];
+            $post['group_money'] = $groupType['group_money'];
+        }else{
+            // TODO :  处理数据
+            $money = $groupType['group_money'];
             $post['group_num'] = $groupType['group_num'];
             $post['group_money'] = $groupType['group_money'];
         }
