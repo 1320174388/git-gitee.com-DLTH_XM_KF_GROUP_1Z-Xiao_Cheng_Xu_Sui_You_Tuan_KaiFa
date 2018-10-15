@@ -55,9 +55,8 @@ class PersonalnotifyDao implements PersonalnotifyInterface
                 5 => 0,
             ];
             $dataArr = json_decode(
-                file_put_contents(
-                    './upload/payment_order_information/'.$data['out_trade_no'].'.txt',
-                    json_encode($post,320)
+                file_get_contents(
+                    './upload/payment_order_information/'.$data['out_trade_no'].'.txt'
                 ),true
             );
             // 判断购票状态
