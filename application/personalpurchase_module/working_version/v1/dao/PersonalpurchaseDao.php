@@ -106,7 +106,7 @@ class PersonalpurchaseDao implements PersonalpurchaseInterface
         $user = UserModel::where(
             'user_token',$post['token']
         )->find();
-
+        $post['scenic_name'] = $scenicData['scenic_name'];
         $out_trade_no = time().mt_rand(1000,9999).$user['user_id'];
 
         file_put_contents(
