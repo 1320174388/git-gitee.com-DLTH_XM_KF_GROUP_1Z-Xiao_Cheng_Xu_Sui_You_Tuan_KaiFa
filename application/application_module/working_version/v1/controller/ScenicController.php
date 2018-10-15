@@ -989,11 +989,15 @@ class ScenicController extends Controller
      */
     public function scenicPoints(\think\Request $request)
     {
-        // 获取传值
-        $schoolid = $request->post();
-        // 引入Service逻辑层代码
-        $res = (new ScenicService())->scenicPoints($schoolid);
-        if ($res['msg'] == 'error') return returnResponse(2, $res['data']);
+        // 实例化Service层逻辑类
+        $ScenicService = new ScenicService();
+
+        // 获取传入参数
+        $post = $request->post();
+
+        // 执行Service逻辑
+        $res = $ScenicService->scenicPoints($post);
+
         // 处理函数返回值
         return \RSD::wxReponse($res, 'S', '请求成功');
     }
