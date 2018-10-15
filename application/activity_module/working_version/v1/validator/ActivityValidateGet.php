@@ -15,10 +15,12 @@ class ActivityValidateGet extends Validate
     /**
      * 名  称 : $rule
      * 功  能 : 验证规则
+     * 输  入 : ( Int )  $get['ActivityType']   => '活动类型';
      * 输  入 : ( Int )  $get['ActivityClass']  => '活动分组';
      * 创  建 : 2018/10/05 11:09
      */
     protected $rule =   [
+        'ActivityType'   => 'require|number',
         'ActivityClass'  => 'require|number',
     ];
 
@@ -28,6 +30,8 @@ class ActivityValidateGet extends Validate
      * 创  建 : 2018/10/05 11:09
      */
     protected $message  =   [
+        'ActivityType.require'   => '请正确发送活动类型标识',
+        'ActivityType.number'    => '请正确发送活动类型标识',
         'ActivityClass.require'  => '请正确发送活动分组标识',
         'ActivityClass.number'   => '请正确发送活动分组标识',
     ];
