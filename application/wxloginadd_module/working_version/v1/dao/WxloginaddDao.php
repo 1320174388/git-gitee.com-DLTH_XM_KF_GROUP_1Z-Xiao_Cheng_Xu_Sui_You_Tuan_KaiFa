@@ -42,6 +42,7 @@ class WxloginaddDao implements WxloginaddInterface
                 $wxlogin->user_avatarUrl = $post['avatarUrl'];
                 $wxlogin->user_nickName  = $post['nickName'];
                 $wxlogin->user_gender    = $post['gender'];
+                $wxlogin->user_time      = time();
                 // 保存数据
                 $wxlogin->save();
             }else{
