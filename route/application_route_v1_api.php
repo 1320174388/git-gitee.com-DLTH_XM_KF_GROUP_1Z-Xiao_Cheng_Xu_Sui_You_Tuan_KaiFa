@@ -92,7 +92,7 @@ Route::post(
 Route::post(
     'v1/application_module/singleScenic',
     'application_module/v1.controller.ScenicController/singleScenic'
-);
+)->middleware('Right_v1_IsAdmin');
 
 
 /**

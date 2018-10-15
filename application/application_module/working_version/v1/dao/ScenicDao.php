@@ -330,30 +330,22 @@ class ScenicDao
      */
     public function modifyAdmin($post)
     {
-        // 启动事务
-        Db::startTrans();
-        try {
-            $ScenicModel= new ScenicModel();
-            // 进行修改
-            $res = $ScenicModel->save([
-                $ScenicModel->user_token    = $post['user_token']
-            ],['scenic_id'=>$post['scenic_id']]);
-            // 进行修改
-            $DepositModel= new DepositModel();
-            $res = $DepositModel->save([
-                $DepositModel->user_token  = $post['user_token']
-            ],['scenic_id'=>$post['scenic_id']]);
-            // 验证数据
-            if(!$res) return returnData('error');
-            Db::commit();
-            // 返回数据格式
-            return returnData('success',true);
-        } catch (\Exception $e) {
-            // 回滚事务
-            Db::rollback();
-            // 验证数据
-            return returnData('error',$res);
+        $ScenicModel= new ScenicModel();
+        // 进行修改
+        $res = $ScenicModel->save([
+            $ScenicModel->user_token    = $post['user_token']
+        ],['scenic_id'=>$post['scenic_id']]);
+        // 进行修改
+        $DepositModel= new DepositModel();
+        $res = $DepositModel->save([
+            $DepositModel->user_token  = $post['user_token']
+        ],['scenic_id'=>$post['scenic_id']]);
+        // 验证数据
+        if(!$res){
+            return returnData('error','修改失败,用户已经是该景区管理员');
         }
+        //返回结果
+        return returnData('error','修改成功');
     }
 
 
@@ -1187,6 +1179,7 @@ class ScenicDao
             config('v1_tableName.Groupmember').'.group_number',
             $post['group_number']
         );
+        $res = $res->select()->toArray();
         // 返回数据
         return returnData('success',$res);
     }
