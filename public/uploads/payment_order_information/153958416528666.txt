@@ -1,0 +1,1 @@
+{"scenic_id":"2","token":"b578ffb77bff852c13de442f5ff84819","coupon_id":"7","group_type":"1","invitation":"no","group_num":1,"group_money":0.01}

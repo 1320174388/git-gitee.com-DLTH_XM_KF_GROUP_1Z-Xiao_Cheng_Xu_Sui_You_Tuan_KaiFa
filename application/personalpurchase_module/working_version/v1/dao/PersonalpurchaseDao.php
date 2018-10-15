@@ -95,7 +95,7 @@ class PersonalpurchaseDao implements PersonalpurchaseInterface
         $out_trade_no = time().mt_rand(1000,9999).$user['user_id'];
 
         file_put_contents(
-            './upload/payment_order_information/'.$out_trade_no.'.txt',
+            './uploads/payment_order_information/'.$out_trade_no.'.txt',
             json_encode($post,320)
         );
 
