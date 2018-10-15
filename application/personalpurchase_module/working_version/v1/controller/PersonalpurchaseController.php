@@ -18,6 +18,7 @@ class PersonalpurchaseController extends Controller
      * 功  能 : 个人购票接口
      * 变  量 : --------------------------------------
      * 输  入 : $post['scenic_id']    => '景区ID';
+     * 输  入 : $post['form_id']      => '购票表单ID';
      * 输  入 : $post['group_id']     => '团购ID';
      * 输  入 : $post['group_type']   => '购票类型:1=个人,2=发起团购,3=加入团购,4=发起预约,5=加入预约';
      * 输  入 : $post['token']        => '用户token';
