@@ -41,24 +41,19 @@ class PersonalnotifyDao implements PersonalnotifyInterface
             if($result){return '';}
             // 定义状态
             $depictArr = [
-                1 => '个人购票订单',
-                2 => '团购购票订单',
-                3 => '团购购票订单',
-                4 => '预约团购订单',
+                1 => '个人购票订单', 2 => '团购购票订单',
+                3 => '团购购票订单', 4 => '预约团购订单',
                 5 => '预约团购订单',
             ];
-            $statusArr = [
-                1 => 1,
-                2 => 0,
-                3 => 0,
-                4 => 0,
-                5 => 0,
-            ];
+            $statusArr = [ 1 => 1, 2 => 0, 3 => 0, 4 => 0, 5 => 0, ];
             $dataArr = json_decode(
                 file_get_contents(
                     './upload/payment_order_information/'.$data['out_trade_no'].'.txt'
                 ),true
             );
+            if(file_exists('./upload/payment_order_information/'.$data['out_trade_no'].'.txt')){
+                unlink('./upload/payment_order_information/'.$data['out_trade_no'].'.txt');
+            }
             // 判断购票状态
             if(
                 ($dataArr['group_type']!='3')&&
