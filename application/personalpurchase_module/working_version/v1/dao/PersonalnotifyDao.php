@@ -163,7 +163,8 @@ class PersonalnotifyDao implements PersonalnotifyInterface
                         $this->userTicketData(
                             $data,$memberResult,
                             $group['group_money'],
-                            $dataArr['scenic_name']
+                            $dataArr['scenic_name'],
+                            true
                         );
                     }
                 }
@@ -243,10 +244,10 @@ class PersonalnotifyDao implements PersonalnotifyInterface
     /**
      * 给用户添加门票
      */
-    private function userTicketData($data=[],$memberResult=false,$group_money,$scenic_name)
+    private function userTicketData($data=[],$memberResult=false,$group_money,$scenic_name,$type = false)
     {
         $ticket =  new TicketModel();
-        if($memberResult){
+        if($type){
             $list = [];
             $user_token_str = '';
             $Arr = [];
