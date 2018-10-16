@@ -121,6 +121,7 @@ class PersonalnotifyDao implements PersonalnotifyInterface
                         'refund_fee'     => $data['total_fee'],
                         'refund_desc'    => '团购人数已满加入失败'
                     ]);
+                    file_put_contents('./WxRefund.txt',json_encode($WxRefund,320));
                     // 回滚事务
                     \think\Db::rollback();
                     return '';
@@ -132,6 +133,7 @@ class PersonalnotifyDao implements PersonalnotifyInterface
                         'refund_fee'     => $data['total_fee'],
                         'refund_desc'    => '团购已结束加入失败'
                     ]);
+                    file_put_contents('./WxRefund.txt',json_encode($WxRefund,320));
                     // 回滚事务
                     \think\Db::rollback();
                     return '';
@@ -242,7 +244,6 @@ class PersonalnotifyDao implements PersonalnotifyInterface
             // 回滚事务
             \think\Db::rollback();
             file_put_contents('./Exception1.txt',$e);
-            file_put_contents('./WxRefund.txt',json_encode($WxRefund,320));
         }
     }
 
