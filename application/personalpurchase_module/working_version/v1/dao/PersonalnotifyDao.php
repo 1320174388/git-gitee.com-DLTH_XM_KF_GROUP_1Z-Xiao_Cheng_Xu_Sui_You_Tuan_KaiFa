@@ -220,7 +220,6 @@ class PersonalnotifyDao implements PersonalnotifyInterface
         } catch (\Exception $e) {
             // 回滚事务
             \think\Db::rollback();
-            file_put_contents('./Exception.txt',$e);
         }
     }
 
@@ -260,7 +259,7 @@ class PersonalnotifyDao implements PersonalnotifyInterface
                 $Arr[$v['user_token']] = $v;
             }
             $user_token_str = rtrim($user_token_str,',');
-
+            file_put_contents('./user_token_str.txt',$user_token_str);
             // TODO :  获取success_token
             $accessTokenArr = AccessTokenRequest::wxRequest(
                 config('v1_config.wx_AppID'),
@@ -272,6 +271,7 @@ class PersonalnotifyDao implements PersonalnotifyInterface
             $userArr = UserModel::field('user_token,user_openid')->where(
                 'user_token','in',$user_token_str
             )->select()->toArray();
+            file_put_contents('./user_token_str.txt',json_encode($userArr,320));
 
             foreach($userArr as $v){
                 // 发送模板消息
@@ -284,7 +284,7 @@ class PersonalnotifyDao implements PersonalnotifyInterface
                         'form_id'     => $Arr[$userArr['user_token']]['form_id'],
                         'data'        => [
                             'keyword1' => ['value'=>$Arr[
-                                $userArr['user_token']
+                            $userArr['user_token']
                             ]['group_invite']],
                             'keyword2' => ['value'=>$group_money],
                             'keyword3' => ['value'=>1],
