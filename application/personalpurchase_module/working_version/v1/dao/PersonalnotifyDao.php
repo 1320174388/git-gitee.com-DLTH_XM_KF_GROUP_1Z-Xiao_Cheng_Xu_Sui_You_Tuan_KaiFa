@@ -217,7 +217,8 @@ class PersonalnotifyDao implements PersonalnotifyInterface
             \think\Db::commit();
         } catch (\Exception $e) {
             // 回滚事务
-            \think\Db::rollback();file_put_contents('./Exception1.txt',$e);
+            \think\Db::rollback();
+            file_put_contents('./Exception1.txt',$e);
         }
     }
 
@@ -268,6 +269,8 @@ class PersonalnotifyDao implements PersonalnotifyInterface
             $userArr = UserModel::field('user_token,user_openid')->where(
                 'user_token','in',$user_token_str
             )->select()->toArray();
+
+            file_put_contents('./ARR.txt',json_encode($Arr,320));
 
             foreach($userArr as $v){
                 // 发送模板消息
