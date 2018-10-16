@@ -89,7 +89,6 @@ class PersonalnotifyDao implements PersonalnotifyInterface
                 $member->comment_status = '0';
                 $member->group_status   = $statusArr[$dataArr['group_type']];
                 $member->form_id        = $dataArr['form_id'];
-                $member->comment_status = '1';
                 $member->member_time    = time();
                 $member->group_money    = math_div($data['total_fee'],100);
                 // 保存数据
@@ -139,7 +138,6 @@ class PersonalnotifyDao implements PersonalnotifyInterface
                 }else{
                     $member->group_status = '0';
                 }
-                $member->comment_status = '1';
                 $member->member_time    = time();
                 $member->group_money    = math_div($data['total_fee'],100);
                 // 保存数据
@@ -219,7 +217,7 @@ class PersonalnotifyDao implements PersonalnotifyInterface
             \think\Db::commit();
         } catch (\Exception $e) {
             // 回滚事务
-            \think\Db::rollback();
+            \think\Db::rollback();file_put_contents('./Exception1.txt',$e);
         }
     }
 
@@ -248,7 +246,6 @@ class PersonalnotifyDao implements PersonalnotifyInterface
     {
         $ticket =  new TicketModel();
         if($type){
-            file_put_contents('./memberResult.txt',json_encode($memberResult,320));
             $list = [];
             $user_token_str = '';
             $Arr = [];
@@ -260,7 +257,6 @@ class PersonalnotifyDao implements PersonalnotifyInterface
                 $Arr[$v['user_token']] = $v;
             }
             $user_token_str = rtrim($user_token_str,',');
-            file_put_contents('./user_token_str.txt',$user_token_str);
             // TODO :  获取success_token
             $accessTokenArr = AccessTokenRequest::wxRequest(
                 config('v1_config.wx_AppID'),
@@ -272,7 +268,6 @@ class PersonalnotifyDao implements PersonalnotifyInterface
             $userArr = UserModel::field('user_token,user_openid')->where(
                 'user_token','in',$user_token_str
             )->select()->toArray();
-            file_put_contents('./user_token_str.txt',json_encode($userArr,320));
 
             foreach($userArr as $v){
                 // 发送模板消息
@@ -293,7 +288,6 @@ class PersonalnotifyDao implements PersonalnotifyInterface
                         ],
                     ]
                 );
-                file_put_contents('./Exception1.txt',json_encode($res,320));
             }
         }else{
             $list = [];
@@ -326,7 +320,6 @@ class PersonalnotifyDao implements PersonalnotifyInterface
                     ],
                 ]
             );
-            file_put_contents('./Exception2.txt',json_encode($res,320));
         }
         $ticket->saveAll($list);
     }
