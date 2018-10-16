@@ -148,6 +148,7 @@ class PersonalnotifyDao implements PersonalnotifyInterface
                 if($group['group_num']==$group['man_num']){
                     // 修改所有团购人员状态
                     $memberResult = $this->updataGroupStatus($out_trade_no);
+                    file_put_contents('./memberResult1.txt',json_encode($memberResult,320));
                     if(
                         ($dataArr['group_type']!='4')&&
                         ($dataArr['group_type']!='5')
