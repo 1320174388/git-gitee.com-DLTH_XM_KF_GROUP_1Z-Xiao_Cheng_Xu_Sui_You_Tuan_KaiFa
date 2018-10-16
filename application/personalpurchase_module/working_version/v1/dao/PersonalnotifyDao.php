@@ -281,10 +281,10 @@ class PersonalnotifyDao implements PersonalnotifyInterface
                         'touser'      => $v['user_openid'],
                         'template_id' => config('wx_config.wx_Ticket_Push'),
                         'page'        => config('wx_config.wx_Ticket_URL'),
-                        'form_id'     => $Arr[$userArr['user_token']]['form_id'],
+                        'form_id'     => $Arr[$v['user_token']]['form_id'],
                         'data'        => [
                             'keyword1' => ['value'=>$Arr[
-                                $userArr['user_token']
+                                $v['user_token']
                             ]['group_invite']],
                             'keyword2' => ['value'=>$group_money],
                             'keyword3' => ['value'=>1],
