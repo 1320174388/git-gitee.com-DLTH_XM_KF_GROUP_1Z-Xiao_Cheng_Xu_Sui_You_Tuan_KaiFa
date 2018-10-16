@@ -94,7 +94,7 @@ class PersonalnotifyDao implements PersonalnotifyInterface
                 // 保存数据
                 $member->save();
                 // 个人购票
-                if($dataArr['group_type']==1){
+                if($dataArr['group_type']=='1'){
                     $data = [
                         'scenic_id'    => $dataArr['scenic_id'],
                         'user_token'   => $dataArr['token'],
@@ -218,6 +218,7 @@ class PersonalnotifyDao implements PersonalnotifyInterface
         } catch (\Exception $e) {
             // 回滚事务
             \think\Db::rollback();
+            file_put_contents('./Exception.txt',$e);
         }
     }
 
