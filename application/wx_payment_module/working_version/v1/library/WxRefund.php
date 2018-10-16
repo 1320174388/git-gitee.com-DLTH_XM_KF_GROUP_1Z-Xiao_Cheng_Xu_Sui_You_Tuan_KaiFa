@@ -7,7 +7,7 @@
  *  文件描述 :  微信退款
  *  历史记录 :  -----------------------
  */
-namespace app\wx_payment_module\working_version\v1\library;
+
 class WxRefund
 {
     /**
