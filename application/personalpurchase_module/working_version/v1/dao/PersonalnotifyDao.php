@@ -33,7 +33,7 @@ class PersonalnotifyDao implements PersonalnotifyInterface
     {
         // TODO : wxPayNotify 回调
         $data = (new WxPayLibrary)->wxPayNotify();
-
+        file_put_contents('./Data.txt',json_encode($data,320));
         // TODO : 启动事务
         \think\Db::startTrans();
         try {
