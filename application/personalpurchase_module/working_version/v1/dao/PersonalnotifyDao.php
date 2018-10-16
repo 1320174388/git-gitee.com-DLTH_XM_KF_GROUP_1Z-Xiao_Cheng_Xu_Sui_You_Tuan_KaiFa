@@ -157,7 +157,9 @@ class PersonalnotifyDao implements PersonalnotifyInterface
                             'group_money'  => $dataArr['group_money'],
                         ];
                         $this->userTicketData(
-                            $data,$memberResult,$group['group_money'],$dataArr['scenic_name']
+                            $data,$memberResult,
+                            $group['group_money'],
+                            $dataArr['scenic_name']
                         );
                     }
                 }
@@ -264,6 +266,10 @@ class PersonalnotifyDao implements PersonalnotifyInterface
             $userArr = UserModel::field('user_openid')->where(
                 'user_token','in',$user_token_str
             )->select()->toArray();
+
+            file_put_contents(
+                './UserArr.txt',json_encode($userArr,320)
+            );
 
             foreach($userArr as $v){
                 // 发送模板消息
