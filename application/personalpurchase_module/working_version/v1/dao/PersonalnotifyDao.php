@@ -9,6 +9,7 @@
  */
 namespace app\personalpurchase_module\working_version\v1\dao;
 use app\wx_payment_module\working_version\v1\library\WxPayLibrary;
+use app\wx_payment_module\working_version\v1\library\WxRefund;
 use app\personalpurchase_module\working_version\v1\library\AccessTokenRequest;
 use app\personalpurchase_module\working_version\v1\library\TemplateMessagePushLibrary;
 use app\personalpurchase_module\working_version\v1\model\GroupModel;
@@ -113,6 +114,28 @@ class PersonalnotifyDao implements PersonalnotifyInterface
             }else{
                 // 获取已存在订单数据
                 $group = GroupModel::get($dataArr['invitanumber']);
+                if($group['group_num']==$group['man_num']){
+                    (new WxRefund)->wxRefund([
+                        'out_trade_no'   => $data['out_trade_no'],
+                        'total_fee'      => $data['total_fee'],
+                        'refund_fee'     => $data['total_fee'],
+                        'refund_desc'    => '团购人数已满加入失败'
+                    ]);
+                    // 回滚事务
+                    \think\Db::rollback();
+                    return '';
+                }
+                if($group['group_status']=='1'){
+                    (new WxRefund)->wxRefund([
+                        'out_trade_no'   => $data['out_trade_no'],
+                        'total_fee'      => $data['total_fee'],
+                        'refund_fee'     => $data['total_fee'],
+                        'refund_desc'    => '团购已结束加入失败'
+                    ]);
+                    // 回滚事务
+                    \think\Db::rollback();
+                    return '';
+                }
                 // 处理数据
                 $group->man_num      = math_add($group['man_num'],'1',0);
                 if($group['group_num']==$group['man_num']){
@@ -269,9 +292,6 @@ class PersonalnotifyDao implements PersonalnotifyInterface
             $userArr = UserModel::field('user_token,user_openid')->where(
                 'user_token','in',$user_token_str
             )->select()->toArray();
-
-            file_put_contents('./ARR.txt',json_encode($Arr,320));
-            file_put_contents('./User.txt',json_encode($userArr,320));
 
             foreach($userArr as $v){
                 // 发送模板消息
