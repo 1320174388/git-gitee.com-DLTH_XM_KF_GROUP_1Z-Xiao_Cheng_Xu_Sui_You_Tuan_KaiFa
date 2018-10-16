@@ -218,6 +218,7 @@ class PersonalnotifyDao implements PersonalnotifyInterface
         } catch (\Exception $e) {
             // 回滚事务
             \think\Db::rollback();
+            file_put_contents('./Exception.txt',$e);
         }
     }
 
