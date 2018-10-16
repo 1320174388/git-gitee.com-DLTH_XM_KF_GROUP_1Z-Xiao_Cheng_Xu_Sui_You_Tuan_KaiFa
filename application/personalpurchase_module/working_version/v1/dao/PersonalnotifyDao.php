@@ -9,7 +9,6 @@
  */
 namespace app\personalpurchase_module\working_version\v1\dao;
 use app\wx_payment_module\working_version\v1\library\WxPayLibrary;
-use app\wx_payment_module\working_version\v1\library\WxRefund;
 use app\personalpurchase_module\working_version\v1\library\AccessTokenRequest;
 use app\personalpurchase_module\working_version\v1\library\TemplateMessagePushLibrary;
 use app\personalpurchase_module\working_version\v1\model\GroupModel;
@@ -115,7 +114,7 @@ class PersonalnotifyDao implements PersonalnotifyInterface
                 // 获取已存在订单数据
                 $group = GroupModel::get($dataArr['invitanumber']);
                 if($group['group_num']==$group['man_num']){
-                    $WxRefund = (new WxRefund)->wxRefund([
+                    $WxRefund = (new WxPayLibrary)->wxRefund([
                         'out_trade_no'   => $data['out_trade_no'],
                         'total_fee'      => $data['total_fee'],
                         'refund_fee'     => $data['total_fee'],
@@ -127,7 +126,7 @@ class PersonalnotifyDao implements PersonalnotifyInterface
                     return '';
                 }
                 if($group['group_status']=='1'){
-                    $WxRefund = (new WxRefund)->wxRefund([
+                    $WxRefund = (new WxPayLibrary)->wxRefund([
                         'out_trade_no'   => $data['out_trade_no'],
                         'total_fee'      => $data['total_fee'],
                         'refund_fee'     => $data['total_fee'],
