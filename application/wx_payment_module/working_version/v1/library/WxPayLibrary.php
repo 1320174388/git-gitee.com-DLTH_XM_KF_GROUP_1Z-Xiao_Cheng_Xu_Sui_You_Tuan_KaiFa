@@ -9,14 +9,12 @@
  */
 namespace app\wx_payment_module\working_version\v1\library;
 use App;
-//use app\wx_payment_module\working_version\v1\library\WxSdkConfig;
-use think\Controller;
 use app\wx_payment_module\working_version\v1\service\WxSdkService;
 use app\wx_payment_module\working_version\v1\service\WxNotify;
-use think\exception\ErrorException;
+
 use think\Validate;
 
-class WxPayLibrary
+class WxPayLibrary extends WxRefund
 {
     /**
      * 名  称 : wxUnifiedApy()
@@ -105,30 +103,30 @@ class WxPayLibrary
      * 输  出 : {"errNum":0,"retMsg":"提示信息","retData":{}
      * 输  出 : {"errNum":1,"retMsg":"提示信息","retData":false
      */
-    public function wxRefund()
-    {
-        $out_trade_no   = isset($_REQUEST['out_trade_no']) ? $_REQUEST['out_trade_no'] : false;
-        $total_fee      = isset($_REQUEST['total_fee']) ? $_REQUEST['total_fee'] : false;
-        $refund_fee     = isset($_REQUEST['refund_fee']) ? $_REQUEST['refund_fee'] : false;
-        //验证商品订单号
-        VerificationData($out_trade_no,'缺少商品订单号`out_trade_no`数据');
-        //验证支付总金额
-        VerificationData($total_fee,'缺少支付总金额`total_fee`数据');
-        //验证退款金额
-        VerificationData($refund_fee,'缺少退款金额`refund_fee`数据');
-        $info = new WxSdkService();
-        //商户订单号
-        $info->Out_trade_no = $out_trade_no;
-        //支付总金额
-        $info->Total_fee    = $total_fee;
-        //退款金额
-        $info->Refund_fee   = $refund_fee;
-        //退款单号
-        $info->Out_refund_no= 'T'.time().''.randomInt(5);
-        //返回退款状态信息
-        $refundData = $info->refund();
-        return returnResponse(0,'获取成功',$refundData['data']);
-    }
+//    public function wxRefund()
+//    {
+//        $out_trade_no   = isset($_REQUEST['out_trade_no']) ? $_REQUEST['out_trade_no'] : false;
+//        $total_fee      = isset($_REQUEST['total_fee']) ? $_REQUEST['total_fee'] : false;
+//        $refund_fee     = isset($_REQUEST['refund_fee']) ? $_REQUEST['refund_fee'] : false;
+//        //验证商品订单号
+//        VerificationData($out_trade_no,'缺少商品订单号`out_trade_no`数据');
+//        //验证支付总金额
+//        VerificationData($total_fee,'缺少支付总金额`total_fee`数据');
+//        //验证退款金额
+//        VerificationData($refund_fee,'缺少退款金额`refund_fee`数据');
+//        $info = new WxSdkService();
+//        //商户订单号
+//        $info->Out_trade_no = $out_trade_no;
+//        //支付总金额
+//        $info->Total_fee    = $total_fee;
+//        //退款金额
+//        $info->Refund_fee   = $refund_fee;
+//        //退款单号
+//        $info->Out_refund_no= 'T'.time().''.randomInt(5);
+//        //返回退款状态信息
+//        $refundData = $info->refund();
+//        return returnResponse(0,'获取成功',$refundData['data']);
+//    }
     /**
      * 名  称 : wxRefundQuery()
      * 创  建 : 2018/07/25 19:40
