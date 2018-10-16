@@ -114,6 +114,17 @@ class PersonalnotifyDao implements PersonalnotifyInterface
             }else{
                 // 获取已存在订单数据
                 $group = GroupModel::get($dataArr['invitanumber']);
+                if($group['group_num']==$group['man_num']){
+                    (new WxRefund)->wxRefund([
+                        'out_trade_no'   => $data['out_trade_no'],
+                        'total_fee'      => $data['total_fee'],
+                        'refund_fee'     => $data['total_fee'],
+                        'refund_desc'    => '团购人数已满加入失败'
+                    ]);
+                    // 回滚事务
+                    \think\Db::rollback();
+                    return '';
+                }
                 if($group['group_status']=='1'){
                     (new WxRefund)->wxRefund([
                         'out_trade_no'   => $data['out_trade_no'],
