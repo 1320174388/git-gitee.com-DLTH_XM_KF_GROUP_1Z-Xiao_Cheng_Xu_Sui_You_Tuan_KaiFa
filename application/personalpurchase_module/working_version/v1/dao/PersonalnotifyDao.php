@@ -285,7 +285,7 @@ class PersonalnotifyDao implements PersonalnotifyInterface
                             'keyword1' => ['value'=>$Arr[
                                 $userArr['user_token']
                             ]['group_invite']],
-                            'keyword2' => ['value'=>$group_money],
+                            'keyword2' => ['value'=>printf("%f", $group_money)],
                             'keyword3' => ['value'=>1],
                             'keyword4' => ['value'=>$scenic_name],
                         ],
@@ -318,7 +318,7 @@ class PersonalnotifyDao implements PersonalnotifyInterface
                     'form_id'     => $memberResult['form_id'],
                     'data'        => [
                         'keyword1' => ['value'=>$memberResult['group_invite']],
-                        'keyword2' => ['value'=>$group_money],
+                        'keyword2' => ['value'=>printf("%f", $group_money)],
                         'keyword3' => ['value'=>1],
                         'keyword4' => ['value'=>$scenic_name],
                     ],
