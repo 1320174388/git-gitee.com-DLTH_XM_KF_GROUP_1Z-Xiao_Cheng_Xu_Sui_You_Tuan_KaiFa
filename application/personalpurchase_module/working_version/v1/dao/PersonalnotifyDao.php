@@ -32,7 +32,6 @@ class PersonalnotifyDao implements PersonalnotifyInterface
     {
         // TODO : wxPayNotify 回调
         $data = (new WxPayLibrary)->wxPayNotify();
-        file_put_contents('./data.txt',json_encode($data,320));
 
         // TODO : 启动事务
         \think\Db::startTrans();
@@ -214,7 +213,6 @@ class PersonalnotifyDao implements PersonalnotifyInterface
         } catch (\Exception $e) {
             // 回滚事务
             \think\Db::rollback();
-            file_put_contents('./Exception.txt',$e);
         }
     }
 
@@ -241,6 +239,7 @@ class PersonalnotifyDao implements PersonalnotifyInterface
      */
     private function userTicketData($data=[],$memberResult=false,$group_money,$scenic_name)
     {
+        try{
         $ticket =  new TicketModel();
         if($memberResult){
             $list = [];
@@ -296,5 +295,8 @@ class PersonalnotifyDao implements PersonalnotifyInterface
             $list[] = $data;
         }
         $ticket->saveAll($list);
+        } catch (\Exception $e) {
+            file_put_contents('./Exception.txt',$e);
+        }
     }
 }
