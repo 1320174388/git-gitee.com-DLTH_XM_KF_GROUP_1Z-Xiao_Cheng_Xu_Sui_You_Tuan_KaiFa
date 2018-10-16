@@ -47,6 +47,7 @@ class PersonalnotifyDao implements PersonalnotifyInterface
                 3 => '团购购票订单', 4 => '预约团购订单',
                 5 => '预约团购订单',
             ];
+            $typeArr   = [ 1 => 1, 2 => 2, 3 => 2, 4 => 3, 5 => 3, ];
             $statusArr = [ 1 => 1, 2 => 0, 3 => 0, 4 => 0, 5 => 0, ];
             $dataArr = json_decode(
                 file_get_contents(
@@ -68,7 +69,7 @@ class PersonalnotifyDao implements PersonalnotifyInterface
                 $group->scenic_id    = $dataArr['scenic_id'];
                 $group->group_num    = $dataArr['group_num'];
                 $group->man_num      = '1';
-                $group->group_type   = '1';
+                $group->group_type   = $typeArr[$dataArr['group_type']];
                 $group->order_depict = $depictArr[$dataArr['group_type']];
                 $group->group_status = $statusArr[$dataArr['group_type']];;
                 $group->group_time   = time();

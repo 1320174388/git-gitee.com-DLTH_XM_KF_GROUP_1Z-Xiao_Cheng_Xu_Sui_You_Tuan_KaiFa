@@ -11,6 +11,7 @@ namespace app\personalpurchase_module\working_version\v1\dao;
 use app\wx_payment_module\working_version\v1\library\WxPayLibrary;
 use app\personalpurchase_module\working_version\v1\model\BagModel;
 use app\personalpurchase_module\working_version\v1\model\UserModel;
+use app\personalpurchase_module\working_version\v1\model\GroupModel;
 use app\personalpurchase_module\working_version\v1\model\ScenicModel;
 use app\personalpurchase_module\working_version\v1\model\CouponModel;
 use app\personalpurchase_module\working_version\v1\model\MemberModel;
@@ -154,6 +155,19 @@ class PersonalpurchaseDao implements PersonalpurchaseInterface
         if($result){
             echo returnResponse(1,'您已经在本团购中');
             exit;
+        }
+        $res = GroupModel::get($post['invitanumber']);
+        if($post['group_type'] == '3'){
+            if($res['group_type']!='2'){
+                echo returnResponse(1,'加入团购类型不匹配');
+                exit;
+            }
+        }
+        if($post['group_type'] == '5'){
+            if($res['group_type']!='3'){
+                echo returnResponse(1,'加入团购类型不匹配');
+                exit;
+            }
         }
     }
 }
