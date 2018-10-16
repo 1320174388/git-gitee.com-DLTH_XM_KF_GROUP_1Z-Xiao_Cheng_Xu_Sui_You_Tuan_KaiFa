@@ -106,7 +106,7 @@ class PersonalnotifyDao implements PersonalnotifyInterface
                     $this->userTicketData(
                         $data,
                         $member,
-                        $group['group_money'],
+                        $dataArr['group_money'],
                         $dataArr['scenic_name']
                     );
                 }
@@ -278,8 +278,8 @@ class PersonalnotifyDao implements PersonalnotifyInterface
                     $accessTokenArr['data']['access_token'],
                     [
                         'touser'      => $v['user_openid'],
-                        'template_id' => config('v1_config.Wx_Code_ShenHe'),
-                        'page'        => config('v1_config.Wx_Code_Url'),
+                        'template_id' => config('wx_config.wx_Ticket_Push'),
+                        'page'        => config('wx_config.wx_Ticket_URL'),
                         'form_id'     => $Arr[$userArr['user_token']]['form_id'],
                         'data'        => [
                             'keyword1' => ['value'=>$Arr[
@@ -313,8 +313,8 @@ class PersonalnotifyDao implements PersonalnotifyInterface
                 $accessTokenArr['data']['access_token'],
                 [
                     'touser'      => $userArr['user_openid'],
-                    'template_id' => config('v1_config.Wx_Code_ShenHe'),
-                    'page'        => config('v1_config.Wx_Code_Url'),
+                    'template_id' => config('wx_config.wx_Ticket_Push'),
+                    'page'        => config('wx_config.wx_Ticket_URL'),
                     'form_id'     => $memberResult['form_id'],
                     'data'        => [
                         'keyword1' => ['value'=>$memberResult['group_invite']],
