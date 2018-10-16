@@ -271,10 +271,11 @@ class PersonalnotifyDao implements PersonalnotifyInterface
             )->select()->toArray();
 
             file_put_contents('./ARR.txt',json_encode($Arr,320));
+            file_put_contents('./User.txt',json_encode($userArr,320));
 
             foreach($userArr as $v){
                 // 发送模板消息
-                $res = TemplateMessagePushLibrary::sendTemplate(
+                TemplateMessagePushLibrary::sendTemplate(
                     $accessTokenArr['data']['access_token'],
                     [
                         'touser'      => $v['user_openid'],
@@ -283,7 +284,7 @@ class PersonalnotifyDao implements PersonalnotifyInterface
                         'form_id'     => $Arr[$userArr['user_token']]['form_id'],
                         'data'        => [
                             'keyword1' => ['value'=>$Arr[
-                            $userArr['user_token']
+                                $userArr['user_token']
                             ]['group_invite']],
                             'keyword2' => ['value'=>$group_money],
                             'keyword3' => ['value'=>1],
@@ -308,7 +309,7 @@ class PersonalnotifyDao implements PersonalnotifyInterface
             )->find();
 
             // 发送模板消息
-            $res = TemplateMessagePushLibrary::sendTemplate(
+            TemplateMessagePushLibrary::sendTemplate(
                 $accessTokenArr['data']['access_token'],
                 [
                     'touser'      => $userArr['user_openid'],
