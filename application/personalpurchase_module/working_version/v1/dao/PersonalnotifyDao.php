@@ -244,7 +244,6 @@ class PersonalnotifyDao implements PersonalnotifyInterface
      */
     private function userTicketData($data=[],$memberResult=false,$group_money,$scenic_name)
     {
-        try{
         $ticket =  new TicketModel();
         if($memberResult){
             $list = [];
@@ -273,7 +272,7 @@ class PersonalnotifyDao implements PersonalnotifyInterface
 
             foreach($userArr as $v){
                 // 发送模板消息
-                TemplateMessagePushLibrary::sendTemplate(
+                $res = TemplateMessagePushLibrary::sendTemplate(
                     $accessTokenArr['data']['access_token'],
                     [
                         'touser'      => $v['user_openid'],
@@ -290,6 +289,7 @@ class PersonalnotifyDao implements PersonalnotifyInterface
                         ],
                     ]
                 );
+                file_put_contents('./Exception1.txt',json_encode($res,320));
             }
         }else{
             $list = [];
@@ -307,7 +307,7 @@ class PersonalnotifyDao implements PersonalnotifyInterface
             )->find();
 
             // 发送模板消息
-            TemplateMessagePushLibrary::sendTemplate(
+            $res = TemplateMessagePushLibrary::sendTemplate(
                 $accessTokenArr['data']['access_token'],
                 [
                     'touser'      => $userArr['user_openid'],
@@ -322,10 +322,8 @@ class PersonalnotifyDao implements PersonalnotifyInterface
                     ],
                 ]
             );
+            file_put_contents('./Exception1.txt',json_encode($res,320));
         }
         $ticket->saveAll($list);
-        } catch (\Exception $e) {
-            file_put_contents('./Exception.txt',$e);
-        }
     }
 }
