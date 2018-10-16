@@ -173,5 +173,9 @@ class PersonalpurchaseDao implements PersonalpurchaseInterface
             echo returnResponse(1,'团购人数已满不可加入');
             exit;
         }
+        if($res['group_status']=='1'){
+            echo returnResponse(1,'团购已结束不可加入');
+            exit;
+        }
     }
 }

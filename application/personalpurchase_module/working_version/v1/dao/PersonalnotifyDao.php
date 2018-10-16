@@ -248,6 +248,7 @@ class PersonalnotifyDao implements PersonalnotifyInterface
     {
         $ticket =  new TicketModel();
         if($type){
+            file_put_contents('./memberResult.txt',json_encode($memberResult,320));
             $list = [];
             $user_token_str = '';
             $Arr = [];
