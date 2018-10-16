@@ -103,7 +103,12 @@ class PersonalnotifyDao implements PersonalnotifyInterface
                         'ticket_sratus'=> 0,
                         'group_money'  => $dataArr['group_money'],
                     ];
-                    $this->userTicketData($data);
+                    $this->userTicketData(
+                        $data,
+                        $member,
+                        $group['group_money'],
+                        $dataArr['scenic_name']
+                    );
                 }
             }else{
                 // 获取已存在订单数据
@@ -266,10 +271,6 @@ class PersonalnotifyDao implements PersonalnotifyInterface
                 'user_token','in',$user_token_str
             )->select()->toArray();
 
-            file_put_contents(
-                './UserArr.txt',json_encode($userArr,320)
-            );
-
             foreach($userArr as $v){
                 // 发送模板消息
                 TemplateMessagePushLibrary::sendTemplate(
@@ -293,6 +294,34 @@ class PersonalnotifyDao implements PersonalnotifyInterface
         }else{
             $list = [];
             $list[] = $data;
+            // TODO :  获取success_token
+            $accessTokenArr = AccessTokenRequest::wxRequest(
+                config('v1_config.wx_AppID'),
+                config('v1_config.wx_AppSecret'),
+                './project_access_token/'
+            );
+
+            // TODO :  获取openid
+            $userArr = UserModel::field('user_openid')->where(
+                'user_token',$data['user_token']
+            )->find();
+
+            // 发送模板消息
+            TemplateMessagePushLibrary::sendTemplate(
+                $accessTokenArr['data']['access_token'],
+                [
+                    'touser'      => $userArr['user_openid'],
+                    'template_id' => config('v1_config.Wx_Code_ShenHe'),
+                    'page'        => config('v1_config.Wx_Code_Url'),
+                    'form_id'     => $memberResult['form_id'],
+                    'data'        => [
+                        'keyword1' => ['value'=>$memberResult['group_invite']],
+                        'keyword2' => ['value'=>$group_money],
+                        'keyword3' => ['value'=>1],
+                        'keyword4' => ['value'=>$scenic_name],
+                    ],
+                ]
+            );
         }
         $ticket->saveAll($list);
         } catch (\Exception $e) {
