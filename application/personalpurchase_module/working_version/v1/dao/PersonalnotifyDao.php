@@ -269,7 +269,7 @@ class PersonalnotifyDao implements PersonalnotifyInterface
             );
 
             // TODO :  获取openid
-            $userArr = UserModel::field('user_openid')->where(
+            $userArr = UserModel::field('user_token,user_openid')->where(
                 'user_token','in',$user_token_str
             )->select()->toArray();
 
