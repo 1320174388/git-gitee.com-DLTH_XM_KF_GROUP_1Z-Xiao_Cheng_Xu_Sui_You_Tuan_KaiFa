@@ -115,7 +115,7 @@ class PersonalnotifyDao implements PersonalnotifyInterface
                 // 获取已存在订单数据
                 $group = GroupModel::get($dataArr['invitanumber']);
                 if($group['group_num']==$group['man_num']){
-                    (new WxRefund)->wxRefund([
+                    $WxRefund = (new WxRefund)->wxRefund([
                         'out_trade_no'   => $data['out_trade_no'],
                         'total_fee'      => $data['total_fee'],
                         'refund_fee'     => $data['total_fee'],
@@ -126,7 +126,7 @@ class PersonalnotifyDao implements PersonalnotifyInterface
                     return '';
                 }
                 if($group['group_status']=='1'){
-                    (new WxRefund)->wxRefund([
+                    $WxRefund = (new WxRefund)->wxRefund([
                         'out_trade_no'   => $data['out_trade_no'],
                         'total_fee'      => $data['total_fee'],
                         'refund_fee'     => $data['total_fee'],
@@ -242,6 +242,7 @@ class PersonalnotifyDao implements PersonalnotifyInterface
             // 回滚事务
             \think\Db::rollback();
             file_put_contents('./Exception1.txt',$e);
+            file_put_contents('./WxRefund.txt',json_encode($WxRefund,320));
         }
     }
 
