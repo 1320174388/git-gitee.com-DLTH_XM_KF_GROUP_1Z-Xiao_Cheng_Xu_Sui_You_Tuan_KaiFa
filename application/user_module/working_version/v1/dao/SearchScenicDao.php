@@ -18,6 +18,57 @@ class SearchScenicDao
 {
     /**
      * 作  者 : Feng Tianshui
+     * 名  称 : searchScreenListSelect()
+     * 功  能 : 筛选景区接口
+     * 变  量 : --------------------------------------
+     * 输  入 : '$get['x']  => 'x轴坐标';'
+     * 输  入 : '$get['y']  => 'y轴坐标';'
+     * 输  入 : '$get['Price']  => '价格';'
+     * 输  入 : '$get['heat']  => '热度';'
+     * 输  入 : '$get['range']  => '距离';'
+     * 输  入 : '$get['num']  => '分页数量';'
+     * 输  出 : ['msg'=>'success','data'=>'返回数据']
+     * 创  建 : 2018/10/05 10:23
+     */
+    public function searchScreenListSelect($get)
+    {
+        // 创建景区表模型
+        $opject = new ScenicModel();
+//        $data = [];
+//        for($i = 0 ;$i<500;$i++){
+//            $data[] = [
+//                'user_token' => 'ndaddamkd'.$i,
+//                'scenic_name' => 'ndaddamkd'.$i,
+//                'scenic_img' => 'ndaddamkd'.$i,
+//                'scenic_address' => 'ndaddamkd'.$i,
+//                'scenic_man' => 'ndaddamkd'.$i,
+//                'scenic_phone' => 'ndaddamkd'.$i,
+//                'scenic_license' => 'ndaddamkd'.$i,
+//                'scenic_ticket' => '1'.$i,
+//                'scenic_x' => 116+$i.'.219146',
+//                'scenic_y' => 39+$i.'.928216',
+//
+//
+//            ];
+//        }
+//        $res=  $opject->insertAll($data);
+        $lat = (float)$get['x'];
+        $lng = (float)$get['y'];
+       $res = $opject->query(
+            "select scenic_id from data_scenic_list order by ACOS(SIN(('.$lat.' * 3.1415) / 180 ) *SIN((scenic_x * 3.1415) / 180 ) +COS(('.$lat.' * 3.1415) / 180 ) * COS((scenic_x * 3.1415) / 180 ) *COS(('.$lng.' * 3.1415) / 180 - (scenic_y * 3.1415) / 180 ) ) * 6380  asc  limit 30"
+        );
+//        $result = $opject->field('scenic_x,scenic_y')->cursor();
+//        $res = [];
+//        foreach ($result as $v)
+//        {
+//            $res[] =  getdistance($get['x'],$get['y'],$v['scenic_x'],$v['scenic_y'])/1000;
+//        }
+
+//        $res  = getdistance($get['x'],$get['y'],116.553747,39.922018);
+        return returnData('error',$res);
+    }
+    /**
+     * 作  者 : Feng Tianshui
      * 名  称 : searchScenicSelect()
      * 功  能 : 模糊搜索景区数据处理
      * 变  量 : --------------------------------------

@@ -16,6 +16,35 @@ class SearchScenicController extends Controller
     /**
      * 作  者 : Feng Tianshui
      * 名  称 : searchScenicGet()
+     * 功  能 : 筛选景区接口
+     * 变  量 : --------------------------------------
+     * 输  入 : '$get['x']  => 'x轴坐标';'
+     * 输  入 : '$get['y']  => 'y轴坐标';'
+     * 输  入 : '$get['Price']  => '价格';'
+     * 输  入 : '$get['heat']  => '热度';'
+     * 输  入 : '$get['range']  => '距离';'
+     * 输  入 : '$get['num']  => '分页数量';'
+     * 输  出 : {"errNum":0,"retMsg":"请求成功","retData":"请求数据"}
+     * 创  建 : 2018/10/05 10:23
+     */
+    public function searchScreenListGet(\think\Request $request)
+    {
+        // 实例化Service层逻辑类
+        $searchScenicService = new SearchScenicService();
+
+        // 获取传入参数
+        $get = $request->get();
+
+        // 执行Service逻辑
+        $res = $searchScenicService->searchScreenListShow($get);
+
+        // 处理函数返回值
+        return \RSD::wxReponse($res,'S','请求成功');
+    }
+
+    /**
+     * 作  者 : Feng Tianshui
+     * 名  称 : searchScenicGet()
      * 功  能 : 模糊搜索景区接口
      * 变  量 : --------------------------------------
      * 输  入 : '$get['scenic_name']  => '景区名称';'

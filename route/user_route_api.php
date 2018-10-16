@@ -9,6 +9,15 @@
  */
 
 /**
+ * 传值方式：GET
+ * 传值参数：
+ * 路由功能：筛选景区
+ */
+Route::get(
+    ':v/user_module/searchScreenListGet',
+    'user_module/:v.controller.SearchScenicController/searchScreenListGet'
+);
+/**
  * 传值方式 : GET
  * 路由功能 : 模糊查询景区
  */
@@ -142,3 +151,4 @@ Route::post(
     ':v/user_module/sponsorGroupPost',
     'user_module/:v.controller.UserInfoController/sponsorGroupPost'
 );
+
