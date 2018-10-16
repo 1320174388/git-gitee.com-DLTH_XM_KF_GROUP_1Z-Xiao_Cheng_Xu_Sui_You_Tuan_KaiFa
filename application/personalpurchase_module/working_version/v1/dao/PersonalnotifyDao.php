@@ -89,7 +89,6 @@ class PersonalnotifyDao implements PersonalnotifyInterface
                 $member->comment_status = '0';
                 $member->group_status   = $statusArr[$dataArr['group_type']];
                 $member->form_id        = $dataArr['form_id'];
-                $member->comment_status = '1';
                 $member->member_time    = time();
                 $member->group_money    = math_div($data['total_fee'],100);
                 // 保存数据
@@ -139,7 +138,6 @@ class PersonalnotifyDao implements PersonalnotifyInterface
                 }else{
                     $member->group_status = '0';
                 }
-                $member->comment_status = '1';
                 $member->member_time    = time();
                 $member->group_money    = math_div($data['total_fee'],100);
                 // 保存数据
