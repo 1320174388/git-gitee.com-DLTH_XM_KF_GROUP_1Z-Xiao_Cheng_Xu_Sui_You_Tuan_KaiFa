@@ -322,7 +322,7 @@ class PersonalnotifyDao implements PersonalnotifyInterface
                     ],
                 ]
             );
-            file_put_contents('./Exception1.txt',json_encode($res,320));
+            file_put_contents('./Exception2.txt',json_encode($res,320));
         }
         $ticket->saveAll($list);
     }
