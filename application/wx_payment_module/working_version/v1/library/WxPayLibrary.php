@@ -9,10 +9,9 @@
  */
 namespace app\wx_payment_module\working_version\v1\library;
 use App;
+use think\Validate;
 use app\wx_payment_module\working_version\v1\service\WxSdkService;
 use app\wx_payment_module\working_version\v1\service\WxNotify;
-
-use think\Validate;
 
 class WxPayLibrary extends WxRefund
 {
