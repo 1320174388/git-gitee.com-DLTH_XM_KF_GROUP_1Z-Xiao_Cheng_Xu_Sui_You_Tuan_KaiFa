@@ -16,3 +16,12 @@ Route::post(
     ':v/qrcode_module/qrcode_route',
     'qrcode_module/:v.controller.QrcodeController/qrcodePost'
 );
+
+/**
+ * 传值方式 : PUT
+ * 路由功能 : 生成小程序码
+ */
+Route::put(
+    ':v/qrcode_module/qrcode_route',
+    'qrcode_module/:v.controller.QrcodeController/qrcodePut'
+);

@@ -46,4 +46,36 @@ class QrcodeService
         // 处理函数返回值
         return \RSD::wxReponse($res,'D');
     }
+
+    /**
+     * 名  称 : qrcodeEdit()
+     * 功  能 : 生成小程序码逻辑
+     * 变  量 : --------------------------------------
+     * 输  入 : $put['token']      => '用户Token值';
+     * 输  入 : $put['scene']      => '发送携带的参数';
+     * 输  入 : $put['page']       => '页面地址';
+     * 输  入 : $put['width']      => '二维码尺寸';
+     * 输  入 : $put['line_color'] => '{"r":0,"g":0,"b":0}';
+     * 输  出 : ['msg'=>'success','data'=>'提示信息']
+     * 创  建 : 2018/10/18 22:28
+     */
+    public function qrcodeEdit($put)
+    {
+        // 实例化验证器代码
+        $validate  = new QrcodeValidatePut();
+        
+        // 验证数据
+        if (!$validate->scene('edit')->check($put)) {
+            return ['msg'=>'error','data'=>$validate->getError()];
+        }
+        
+        // 实例化Dao层数据类
+        $qrcodeDao = new QrcodeDao();
+        
+        // 执行Dao层逻辑
+        $res = $qrcodeDao->qrcodeUpdate($put);
+        
+        // 处理函数返回值
+        return \RSD::wxReponse($res,'D');
+    }
 }

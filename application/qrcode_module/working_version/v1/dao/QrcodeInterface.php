@@ -22,4 +22,18 @@ interface QrcodeInterface
      * 创  建 : 2018/10/10 21:27
      */
     public function qrcodeCreate($post);
+
+    /**
+     * 名  称 : qrcodeUpdate()
+     * 功  能 : 声明:生成小程序码数据处理
+     * 变  量 : --------------------------------------
+     * 输  入 : $put['token']      => '用户Token值';
+     * 输  入 : $put['scene']      => '发送携带的参数';
+     * 输  入 : $put['page']       => '页面地址';
+     * 输  入 : $put['width']      => '二维码尺寸';
+     * 输  入 : $put['line_color'] => '{"r":0,"g":0,"b":0}';
+     * 输  出 : ['msg'=>'success','data'=>'提示信息']
+     * 创  建 : 2018/10/18 22:28
+     */
+    public function qrcodeUpdate($put);
 }

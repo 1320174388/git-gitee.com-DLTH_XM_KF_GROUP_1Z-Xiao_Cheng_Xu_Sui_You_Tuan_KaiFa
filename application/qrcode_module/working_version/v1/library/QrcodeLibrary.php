@@ -26,4 +26,24 @@ class QrcodeLibrary
         // TODO : 返回函数输出数据
         return ['msg'=>'success','data'=>'返回数据'];
     }
+
+    /**
+     * 名  称 : qrcodeLibPut()
+     * 功  能 : 生成小程序码函数类
+     * 变  量 : --------------------------------------
+     * 输  入 : $put['token']      => '用户Token值';
+     * 输  入 : $put['scene']      => '发送携带的参数';
+     * 输  入 : $put['page']       => '页面地址';
+     * 输  入 : $put['width']      => '二维码尺寸';
+     * 输  入 : $put['line_color'] => '{"r":0,"g":0,"b":0}';
+     * 输  出 : ['msg'=>'success','data'=>'提示信息']
+     * 创  建 : 2018/10/18 22:28
+     */
+    public function qrcodeLibPut($put)
+    {
+        // TODO : 执行函数处理逻辑
+        
+        // TODO : 返回函数输出数据
+        return ['msg'=>'success','data'=>'返回数据'];
+    }
 }

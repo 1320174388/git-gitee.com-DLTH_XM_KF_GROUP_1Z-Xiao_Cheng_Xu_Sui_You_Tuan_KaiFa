@@ -11,15 +11,19 @@ include('./library/Function_Create_Library.php');
 
 Function_Create_Library::execCreateFunction([
     // 传值类型 : (GET/POST/PUT/DELETE)
-    'dataType' => 'POST',
+    'dataType' => 'PUT',
     // 函数名称 : 默认 __function
     'name'     => 'qrcode',
     // 函数说明 : 默认 新创建函数
-    'explain'  => '生成二维码',
+    'explain'  => '生成小程序码',
     // 函数输入 : 示例 [
     //  '$get['goodLimit']  => '商品页码';',
     //]
     'input'    => [
-        '\'$post[\'StringData\']  => \'字符串数据\';\'',
+        '$put[\'token\']      => \'用户Token值\';',
+        '$put[\'scene\']      => \'发送携带的参数\';',
+        '$put[\'page\']       => \'页面地址\';',
+        '$put[\'width\']      => \'二维码尺寸\';',
+        '$put[\'line_color\'] => \'{"r":0,"g":0,"b":0}\';',
     ],
 ]);

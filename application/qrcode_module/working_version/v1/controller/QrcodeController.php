@@ -37,4 +37,31 @@ class QrcodeController extends Controller
         // 处理函数返回值
         return \RSD::wxReponse($res,'S','请求成功');
     }
+
+    /**
+     * 名  称 : qrcodePut()
+     * 功  能 : 生成小程序码接口
+     * 变  量 : --------------------------------------
+     * 输  入 : $put['token']      => '用户Token值';
+     * 输  入 : $put['scene']      => '发送携带的参数';
+     * 输  入 : $put['page']       => '页面地址';
+     * 输  入 : $put['width']      => '二维码尺寸';
+     * 输  入 : $put['line_color'] => '{"r":0,"g":0,"b":0}';
+     * 输  出 : {"errNum":0,"retMsg":"提示信息","retData":true}
+     * 创  建 : 2018/10/18 22:28
+     */
+    public function qrcodePut(\think\Request $request)
+    {
+        // 实例化Service层逻辑类
+        $qrcodeService = new QrcodeService();
+        
+        // 获取传入参数
+        $put = $request->put();
+        
+        // 执行Service逻辑
+        $res = $qrcodeService->qrcodeEdit($put);
+        
+        // 处理函数返回值
+        return \RSD::wxReponse($res,'S','');
+    }
 }
